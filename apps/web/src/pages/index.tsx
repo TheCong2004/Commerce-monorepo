@@ -26,8 +26,7 @@ import i18nConfig from '../../next-i18next.config';
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
-      // Temporarily disabled for debugging
-      // ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   };
 };

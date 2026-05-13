@@ -1,6 +1,6 @@
 name = "printerval"
 main = ".open-next/worker.js" 
-compatibility_date = "2026-01-04"
+compatibility_date = "2024-12-30"
 compatibility_flags = ["nodejs_compat"]
 
 [assets]
@@ -9,17 +9,8 @@ binding = "ASSETS"
 
 [vars]
 NEXTJS_ENV = "production"
+# Trỏ về Backend Merchant của bạn
+NEXT_PUBLIC_MEDUSA_BACKEND_URL = "https://merchant.thecong2610.workers.dev"
 
 [observability]
 enabled = true
-
-[build]
-command = "npm run build:cf"
-
-[build.upload]
-format = "modules"
-
-# wrangler.toml
-compatibility_flags = ["nodejs_compat"]
-# Thêm dòng này để xử lý module tốt hơn nếu build vẫn lỗi
-node_compat = true

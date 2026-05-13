@@ -1,15 +1,8 @@
-import type { ReactElement, ReactNode } from 'react';
-import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { appWithTranslation } from 'next-i18next';
+import type { NextPage } from 'next';
+import type { ReactElement, ReactNode } from 'react';
 import { api } from '@/utils/api';
-import { Inter } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/react';
-import NextNProgress from 'nextjs-progressbar';
-import i18nConfig from '../../next-i18next.config';
 import '@/styles/globals.css';
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -20,24 +13,15 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page);
+  // Ưu tiên render trực tiếp Component nếu có thể để tránh lỗi Hook lồng nhau
+  const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   return (
-    <main className={`${inter.variable} font-sans`}>
-      {getLayout(
-        <>
-          <NextNProgress
-            color="#8b5cf6"
-            height={3}
-            options={{ showSpinner: false }}
-          />
-          <Component {...pageProps} />
-        </>
-      )}
-      <Analytics />
-    </main>
+    <div id="app-root">
+      {getLayout(<Component {...pageProps} />)}
+    </div>
   );
 }
 
-// Bọc cả tRPC và Đa ngôn ngữ (có truyền config)
-export default api.withTRPC(appWithTranslation(MyApp, i18nConfig));
+// Tạm thời bỏ appWithTranslation, chỉ giữ lại tRPC (vì tRPC là bắt buộc để build)
+export default api.withTRPC(MyApp);

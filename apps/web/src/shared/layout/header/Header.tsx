@@ -84,10 +84,10 @@ export const Header = () => {
   return (
     <>
       {/* ✅ Sidebar nằm NGOÀI <header> để không bị z-index hay transform của header ảnh hưởng */}
-      <Sidebar open={sidebar} onClose={() => setSidebar(false)} />
+      {/* <Sidebar open={sidebar} onClose={() => setSidebar(false)} /> */}
 
       <header className={`sticky top-0 z-40 w-full transition-transform duration-300 ease-in-out ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-        <TopBar blogs={campaign} />
+        {/* <TopBar blogs={campaign} /> */}
 
         {/* KHỐI HEADER CHÍNH */}
         <div className="relative w-full border-b border-black/5 z-30 shadow-sm "

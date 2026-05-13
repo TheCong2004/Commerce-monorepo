@@ -1,0 +1,57 @@
+name: Triển khai Tự động Cloudflare (CI/CD)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-main-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build & Deploy lên Cloudflare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Cài đặt Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cài đặt pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Cài đặt các gói phụ thuộc (Dependencies)
+        run: pnpm install --frozen-lockfile
+
+      - name: Triển khai Core Backend API (Merchant)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: pnpm --filter merchant run deploy
+
+      - name: Triển khai Giao diện Web (OpenNext Cloudflare)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pnpm --filter web run build
+          pnpm --filter web run build:cf
+          pnpm --filter web run deploy
+
+      - name: Triển khai các trạm phân tán (Durable Objects)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pnpm --filter chatroom-do run deploy:prod || true
+          pnpm --filter ping-do run deploy:prod || true

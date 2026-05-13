@@ -20,8 +20,8 @@ export const PrimaryLayout = ({ seo, children }: PrimaryLayoutProps) => {
       <NextSeo noindex={true} nofollow={true} {...seo} />
       {/* <Header /> */}
       {children}
-      <Toaster />
-      <Footer />
+      {/* <Toaster /> */}
+      {/* <Footer /> */}
     </>
   );
 };

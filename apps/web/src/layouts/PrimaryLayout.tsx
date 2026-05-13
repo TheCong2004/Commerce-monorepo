@@ -1,14 +1,12 @@
 import React from 'react';
 import { NextSeo, type NextSeoProps } from 'next-seo';
-// import { SidebarProvider, SidebarTrigger } from "@/shared/ui/sidebar"
-// import { AppSidebar } from '@/shared/ui/app-sidebar';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Toaster } from 'sonner';
-// import { Header } from '@/shared/layout/header/Header';
 
+// Tạm thời dùng Header đơn giản để tránh lỗi 500
 const Header = () => (
-  <header style={{ padding: '20px', background: '#fce4ec', textAlign: 'center' }}>
-    <h1>Header Nội Bộ (Local)</h1>
+  <header style={{ padding: '20px', background: '#fce4ec', textAlign: 'center', borderBottom: '1px solid #ddd' }}>
+    <h1 style={{ fontWeight: 'bold' }}>Header (Đang kiểm tra lỗi)</h1>
   </header>
 );
 
@@ -17,11 +15,9 @@ interface PrimaryLayoutProps extends React.PropsWithChildren {
 }
 
 export const PrimaryLayout = ({ seo, children }: PrimaryLayoutProps) => {
-  const data = undefined;
-
   return (
     <>
-      <NextSeo noindex={true} nofollow={true} {...seo} />
+      <NextSeo {...seo} />
       <Header />
       {children}
       <Toaster />

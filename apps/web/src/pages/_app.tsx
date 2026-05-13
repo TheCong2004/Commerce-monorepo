@@ -20,6 +20,7 @@ export type NextPageWithLayout<P = unknown> = NextPage<P> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+import i18nConfig from '../../next-i18next.config';
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? (page => page);
@@ -42,4 +43,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default api.withTRPC(appWithTranslation(MyApp));
+export default api.withTRPC(appWithTranslation(MyApp, i18nConfig));

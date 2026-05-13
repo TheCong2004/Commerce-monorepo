@@ -18,9 +18,9 @@ export const PrimaryLayout = ({ seo, children }: PrimaryLayoutProps) => {
   return (
     <>
       <NextSeo noindex={true} nofollow={true} {...seo} />
-      {/* <Header /> */}
+      <Header />
       {children}
-      {/* <Toaster /> */}
+      <Toaster />
       <Footer />
     </>
   );

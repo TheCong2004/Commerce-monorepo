@@ -24,24 +24,24 @@ export const Header = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [cartCount, setCartCount] = useState(0);
 
-  let cartId: string = "";
-  let wishlist: number = 0;
-  if (typeof window !== "undefined") {
-    cartId = localStorage.getItem("cart_id") || "";
-    const wishlistString = localStorage.getItem("wishlist");
-    const wishlistArray = wishlistString ? JSON.parse(wishlistString) : [];
-    wishlist = wishlistArray.length;
-  }
-
-  const getToken = () => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("authToken") ?? localStorage.getItem("authToken") ?? undefined;
-    }
-    return undefined;
-  };
-
-  const accessToken = getToken();
+  const [cartId, setCartId] = useState("");
+  const [wishlist, setWishlist] = useState(0);
+  const [accessToken, setAccessToken] = useState<string | undefined>();
   const user = { name: 'Mock User', email: 'mock@example.com' };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedCartId = localStorage.getItem("cart_id") || "";
+      setCartId(savedCartId);
+
+      const wishlistString = localStorage.getItem("wishlist");
+      const wishlistArray = wishlistString ? JSON.parse(wishlistString) : [];
+      setWishlist(wishlistArray.length);
+
+      const token = sessionStorage.getItem("authToken") ?? localStorage.getItem("authToken") ?? undefined;
+      setAccessToken(token);
+    }
+  }, []);
 
   const handleShowMenu = (navLink: NavLink) => setHoveredNavLink(navLink);
   const handleCloseMenu = () => setHoveredNavLink(null);

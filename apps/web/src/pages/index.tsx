@@ -9,9 +9,11 @@ import { SaleProduct } from '@/shared/features/page/HomePage/components/Promotio
 import { TopPick } from '@/shared/features/page/HomePage/components/TopPick';
 import { Trending } from '@/shared/features/page/HomePage/components/Trending';
 import { AdsSpace } from '@/shared/features/page/HomePage/components/SpaceAds';
+import { Fandom } from '@/shared/features/page/HomePage/components/Fandom';
 
 // Components from HomePage features (DEFAULT EXPORTS)
 import CreateYourOwn from '@/shared/features/page/HomePage/components/CreateYourOwn';
+import Blog from '@/shared/features/page/HomePage/components/Blog';
 
 // Other shared components (NAMED EXPORTS)
 import { QuickGiftFinder } from '@/shared/layout/header/QuickGiftFinder';
@@ -43,6 +45,8 @@ const Home = ({ productSalesData, productTopPickData, priceList }: any) => {
           <InStory />
           <CreateYourOwn />
           <Trending />
+          <Fandom />
+          <Blog />
         </div>
       </div>
       <div className='px-[30px]'>

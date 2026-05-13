@@ -87,6 +87,27 @@ export const Header = () => {
                 </Link>
               </div>
 
+              {/* Categories Dropdown - Desktop */}
+              <div className='hidden xl:block flex-shrink-0'>
+                <DropdownMenu open={open} onOpenChange={setOpen}>
+                  <DropdownMenuTrigger className="flex items-center gap-2 font-Inter font-semibold text-[#111111] hover:text-gray-600 text-base transition-colors focus:outline-none">
+                    {open ? <FiX size={30} /> : <FiAlignJustify size={17} />}
+                    <span className="hidden sm:inline">Categories</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="rounded-xl overflow-hidden p-0 shadow-lg bg-white w-40 max-h-[500px] border border-gray-100">
+                    <div className="overflow-y-auto">
+                      {categories?.map((item, index) => (
+                        <DropdownMenuItem key={index} className="p-0 focus:bg-gray-50">
+                          <Link href={`/collection/${item.handle}`} className="block rounded-lg px-3 py-2 font-Inter w-full text-sm text-[#111111] hover:bg-gray-50">
+                            {item.name}
+                          </Link>
+                        </DropdownMenuItem>
+                      ))}
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+
               {mounted && (
                 <>
                   <div className='flex-grow max-w-2xl hidden md:block z-[100]'>

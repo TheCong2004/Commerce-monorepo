@@ -26,7 +26,7 @@ import i18nConfig from '../../next-i18next.config';
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      // ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   };
 };
@@ -59,24 +59,19 @@ const Home: NextPageWithLayout = () => {
       <Hero />
       <QuickGiftFinder />
       <div >
-
         <SaleProduct TopSale={productSalesData as any} title={priceList?.price_lists?.[0]?.title as string} />
         <div className='px-[30px]'>
-
-
-          <RecentlyViewedNew />
+          {/* Tạm ẩn để tìm lỗi */}
+          {/* <RecentlyViewedNew />
           <BasedOnWhatYouLove
             currentProductId="p1"
             category="t-shirt"
             limit={5}
           />
-
-          {/* <Fandom /> */}
           <TopPick product={productTopPickData as any} title={priceList?.price_lists?.[1]?.title as string} />
           <InStory />
           <CreateYourOwn />
-          <Trending />
-
+          <Trending /> */}
         </div>
       </div>
       <div className='px-[30px]'>

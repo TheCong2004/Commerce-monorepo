@@ -43,4 +43,5 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-export default api.withTRPC(appWithTranslation(MyApp, i18nConfig));
+// export default api.withTRPC(appWithTranslation(MyApp, i18nConfig));
+export default api.withTRPC(MyApp);

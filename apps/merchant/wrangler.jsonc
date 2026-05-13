@@ -7,7 +7,7 @@
     {
       "binding": "DB",
       "database_name": "commerce-d1",
-      "database_id": "xxxx-xxxx-xxxx-xxxx"
+      "database_id": "fab45967-74ec-4491-bc9f-279110b35a9f"
     }
   ],
 
@@ -29,7 +29,8 @@
 
   "r2_buckets": [
     {
-      "binding": "IMAGES"
+      "binding": "IMAGES",
+      "bucket_name": "merchant-images"
     }
   ],
 

@@ -73,5 +73,43 @@ pnpm run agents:link
 
 ---
 
-## 📄 Bản quyền (License)
-Dự án được phân phối dưới giấy phép **MIT**. Sẵn sàng tinh chỉnh và mở rộng cho mọi quy mô doanh nghiệp!
+
+
+Để tận mắt nhìn thấy, tương tác và điều khiển toàn bộ "tảng băng chìm" Backend ngay trên máy tính của bạn, hãy thực hiện các bước cực kỳ thú vị sau:
+
+🌐 1. Mở Bảng Điều Khiển Swagger UI (Giao diện Tương tác API)
+Khi lệnh pnpm run dev đang chạy, hãy mở trình duyệt và truy cập vào đường dẫn: 👉 http://localhost:8787/docs
+nơi chứa các api cho web và các ứng dụng vệ tinh
+
+
+http://127.0.0.1:8787/
+{
+  "name": "merchant",
+  "version": "0.1.0",
+  "ok": true
+}
+
+TIP
+
+Tại đây, hệ thống Hono + Zod OpenAPI tự động dựng lên một bảng điều khiển tuyệt đẹp. Bạn có thể xem toàn bộ các luồng dữ liệu ngầm (Products, Carts, Webhooks, Orders), nhấn nút "Try it out" và gửi dữ liệu thử nghiệm trực tiếp đến Worker nội bộ mà không cần cài đặt ứng dụng Postman!
+
+💾 2. Khởi tạo và Bơm Dữ liệu mẫu vào CSDL Ngầm (Cloudflare D1)
+Mặc định CSDL D1 cục bộ của bạn ban đầu là một tệp SQLite trống. Để xây dựng dữ liệu cho tảng băng, hãy mở một tab Terminal mới (giữ nguyên tab dev đang chạy) và gõ hai lệnh sau:
+
+Tạo các bảng CSDL chuẩn mực:
+bash
+pnpm --filter merchant run db:init
+Bơm dữ liệu sản phẩm, danh mục mẫu vào hệ thống:
+bash
+pnpm --filter merchant run db:seed
+Lập tức, dữ liệu lõi sẽ được nạp đầy vào bộ đệm của Cloudflare D1.
+
+⏰ 3. Tự tay Kích hoạt Luồng Lập trình Tự động (Cron Triggers)
+Hệ thống ngầm được thiết kế để tự động quét và dọn dẹp các giỏ hàng rác/hết hạn sau mỗi 15 phút. Trong môi trường dev cục bộ, bạn có thể ép luồng ngầm này chạy ngay lập tức bằng lệnh:
+
+bash
+curl "http://127.0.0.1:8787/cdn-cgi/handler/scheduled"
+Quay lại tab Terminal chạy lệnh dev, bạn sẽ thấy dòng log ngầm xuất hiện: Cron: cleaned ... expired carts
+
+🔍 4. Xem Luồng Bắt Lỗi Xuyên Nền Tảng (Cross-package Types)
+Hãy thử mở tệp nguồn chân lý chung: 📁 packages/shared-types/src/index.ts Thử đổi tên một trường dữ liệu (ví dụ: đổi price thành unitPrice trong ProductSchema). Ngay lập tức, bạn sẽ thấy các file code bên trong cả Backend merchant lẫn Giao diện web hiện gạch chân đỏ báo lỗi. Đó chính là sự kết nối ngầm mạnh mẽ nhất của kiến trúc Monorepo!

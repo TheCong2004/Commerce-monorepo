@@ -28,8 +28,11 @@ jobs:
       - name: Cài đặt Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: '22'
           cache: 'pnpm'
+
+      - name: Cấu hình môi trường Node.js cho pnpm
+        run: pnpm env use --global 22
 
       - name: Kiểm tra phiên bản Node.js và pnpm
         run: |

@@ -4,8 +4,9 @@
   "description": "Open-source commerce backend. Bring Stripe key, start selling.",
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
+    "dev": "wrangler dev --config wrangler.jsonc",
+    "build": "tsc --noEmit",
+    "deploy": "wrangler deploy --config wrangler.jsonc",
     "db:init": "wrangler d1 execute DB --file=schema-d1.sql --local",
     "db:seed": "npx tsx scripts/seed.ts"
   },

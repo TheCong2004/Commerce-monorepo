@@ -1,19 +1,20 @@
 import React from 'react';
+import { NextSeo, type NextSeoProps } from 'next-seo';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Header } from '@/shared/layout/header/Header';
-import { Toaster } from 'sonner';
 
 interface PrimaryLayoutProps extends React.PropsWithChildren {
-  seo: any;
+  seo: NextSeoProps;
 }
 
-export const PrimaryLayout = ({ children }: PrimaryLayoutProps) => {
+export const PrimaryLayout = ({ seo, children }: PrimaryLayoutProps) => {
   return (
     <>
+      <NextSeo {...seo} />
       <Header />
       <main>{children}</main>
-      <Toaster />
       <Footer />
+      {/* Toaster sẽ được bật lại sau khi hệ thống ổn định */}
     </>
   );
 };

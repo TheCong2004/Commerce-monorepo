@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import type { NextPage } from 'next';
 import type { ReactElement, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@/utils/api';
 import '@/styles/globals.css';
 
@@ -13,9 +14,16 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  // Ưu tiên render trực tiếp Component nếu có thể để tránh lỗi Hook lồng nhau
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
+  // Nếu chưa mounted (đang SSR), chúng ta vẫn render để SEO, 
+  // nhưng nếu lỗi useState xảy ra, việc bọc kỹ này sẽ giúp cô lập lỗi.
   return (
     <div id="app-root">
       {getLayout(<Component {...pageProps} />)}
@@ -23,5 +31,4 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-// Tạm thời bỏ appWithTranslation, chỉ giữ lại tRPC (vì tRPC là bắt buộc để build)
 export default api.withTRPC(MyApp);

@@ -2,16 +2,27 @@ import { ReactElement } from 'react';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { PrimaryLayout } from '@/layouts/PrimaryLayout';
-import { Hero } from '@/shared/components/Hero';
-import { QuickGiftFinder } from '@/shared/components/QuickGiftFinder';
-import { SaleProduct } from '@/shared/components/SaleProduct';
-import { RecentlyViewedNew } from '@/shared/components/RecentlyViewedNew';
-import { BasedOnWhatYouLove } from '@/shared/components/BasedOnWhatYouLove';
-import { TopPick } from '@/shared/components/TopPick';
-import { InStory } from '@/shared/components/InStory';
-import { CreateYourOwn } from '@/shared/components/CreateYourOwn';
-import { Trending } from '@/shared/components/Trending';
-import { AdsSpace } from '@/shared/components/AdsSpace';
+
+// Components from HomePage features (NAMED EXPORTS)
+import { Hero } from '@/shared/features/page/HomePage/components/Hero';
+import { SaleProduct } from '@/shared/features/page/HomePage/components/Promotions';
+import { TopPick } from '@/shared/features/page/HomePage/components/TopPick';
+import { Trending } from '@/shared/features/page/HomePage/components/Trending';
+import { AdsSpace } from '@/shared/features/page/HomePage/components/SpaceAds';
+
+// Components from HomePage features (DEFAULT EXPORTS)
+import CreateYourOwn from '@/shared/features/page/HomePage/components/CreateYourOwn';
+
+// Other shared components (NAMED EXPORTS)
+import { QuickGiftFinder } from '@/shared/layout/header/QuickGiftFinder';
+
+// Package-based components (DEFAULT EXPORTS)
+import RecentlyViewedNew from '@/packages/browsing-history/components/RecentlyViewedNew';
+import BasedOnWhatYouLove from '@/packages/BasedOnWhatYouLove/components/BasedOnWhatYouLove';
+
+// Package-based components (NAMED EXPORTS)
+import { InStory } from '@/packages/in-story';
+
 import i18nConfig from '../../next-i18next.config';
 
 const Home = ({ productSalesData, productTopPickData, priceList }: any) => {
@@ -42,12 +53,10 @@ const Home = ({ productSalesData, productTopPickData, priceList }: any) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
-  // Chúng ta vẫn có thể dùng serverSideTranslations để lấy dữ liệu dịch, 
-  // dù tạm thời chưa dùng appWithTranslation ở _app.tsx
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
-      productSalesData: [], // Mock data hoặc lấy từ API
+      productSalesData: [],
       productTopPickData: [],
       priceList: { price_lists: [{ title: 'Hot Sale' }, { title: 'Top Picks' }] }
     },

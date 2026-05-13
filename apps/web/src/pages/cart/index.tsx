@@ -9,10 +9,12 @@ import CartStep from "@/shared/features/page/cart/cart";
 import CheckoutForm from "@/shared/features/page/cart/form";
 import { useState, useEffect } from "react";
 
+import i18nConfig from '../../../next-i18next.config';
+
 export const getStaticProps: GetStaticProps = async context => {
     return {
         props: {
-            ...(await serverSideTranslations(context.locale || "en")),
+            ...(await serverSideTranslations(context.locale || "en", ["common"], i18nConfig)),
         },
     };
 };

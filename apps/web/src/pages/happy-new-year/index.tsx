@@ -13,10 +13,12 @@ import CollectStore from "@/shared/components/CollectionStore";
 import CreateYourOwn from "@/shared/features/page/HomePage/components/CreateYourOwn";
 import Reviews from "@/packages/reviews/Reviews";
 import SaleCodeComponent from "@/shared/components/SaleCode";
+import i18nConfig from '../../../next-i18next.config';
+
 export const getStaticProps: GetStaticProps = async context => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale || "en")),
+      ...(await serverSideTranslations(context.locale || "en", ["common"], i18nConfig)),
     },
   };
 };

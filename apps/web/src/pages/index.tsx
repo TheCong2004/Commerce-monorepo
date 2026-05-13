@@ -21,10 +21,12 @@ import { QuickGiftFinder } from '@/shared/layout/header/QuickGiftFinder';
 import RecentlyViewedNew from '@/packages/browsing-history/components/RecentlyViewedNew';
 import BasedOnWhatYouLove from '@/packages/BasedOnWhatYouLove/components/BasedOnWhatYouLove';
 
+import i18nConfig from '../../next-i18next.config';
+
 export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale)),
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
     },
   };
 };

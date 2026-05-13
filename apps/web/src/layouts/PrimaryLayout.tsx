@@ -21,7 +21,7 @@ export const PrimaryLayout = ({ seo, children }: PrimaryLayoutProps) => {
       {/* <Header /> */}
       {children}
       {/* <Toaster /> */}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

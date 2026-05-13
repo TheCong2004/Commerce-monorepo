@@ -1,59 +1,20 @@
-import type { GetStaticProps } from 'next';
-import { type ReactElement } from 'react';
-import type { NextPageWithLayout } from './_app';
+import { ReactElement } from 'react';
+import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { PrimaryLayout } from '@/layouts';
-import FadeIn from '@/shared/components/FadeIn';
-import { Hero } from '@/shared/features/page/HomePage/components/Hero';
-import { SaleProduct } from '@/shared/features/page/HomePage/components/Promotions';
-import Collection, { TopPick } from '@/shared/features/page/HomePage/components/TopPick';
-import { Trending } from '@/shared/features/page/HomePage/components/Trending';
-import { AdsSpace } from '@/shared/features/page/HomePage/components/SpaceAds';
-import CreateYourOwn from '@/shared/features/page/HomePage/components/CreateYourOwn';
-
-// 1. IMPORT mảng mockProducts (có chữ s) TỪ FILE LIB
-import { mockProducts } from "@/lib/mockProduct";
-
-// 2. IMPORT INSTORY
-import { InStory } from '@/packages/in-story';
-import { Fandom } from '@/shared/features/page/HomePage/components/Fandom';
-import { QuickGiftFinder } from '@/shared/layout/header/QuickGiftFinder';
-import RecentlyViewedNew from '@/packages/browsing-history/components/RecentlyViewedNew';
-import BasedOnWhatYouLove from '@/packages/BasedOnWhatYouLove/components/BasedOnWhatYouLove';
-
+import { PrimaryLayout } from '@/layouts/PrimaryLayout';
+import { Hero } from '@/shared/components/Hero';
+import { QuickGiftFinder } from '@/shared/components/QuickGiftFinder';
+import { SaleProduct } from '@/shared/components/SaleProduct';
+import { RecentlyViewedNew } from '@/shared/components/RecentlyViewedNew';
+import { BasedOnWhatYouLove } from '@/shared/components/BasedOnWhatYouLove';
+import { TopPick } from '@/shared/components/TopPick';
+import { InStory } from '@/shared/components/InStory';
+import { CreateYourOwn } from '@/shared/components/CreateYourOwn';
+import { Trending } from '@/shared/components/Trending';
+import { AdsSpace } from '@/shared/components/AdsSpace';
 import i18nConfig from '../../next-i18next.config';
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
-  return {
-    props: {
-      // ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
-    },
-  };
-};
-
-type VideoProps = {
-  productVideo: object[]
-}
-
-const Home: NextPageWithLayout = () => {
-  // MOCK DATA FE ONLY
-  // const regionID = typeof window !== 'undefined' ? localStorage.getItem("selected_region") : "";
-  // const { data: products } = api.medusa.getProducts.useQuery(regionID ? { regionID } : {});
-  // const { data: collection } = api.medusa.listCampaigns.useQuery();
-  // const { data: priceList } = api.medusa.getPriceList.useQuery();
-  // const { data: video } = api.medusa.getVideo.useQuery<VideoProps>();
-
-  // Mock các biến cần thiết cho UI
-  const products = mockProducts;
-  const collection = [{ id: 'c1', title: 'Mock Campaign' }];
-  const priceList = { price_lists: [{ id: 'pl1', title: 'Sale' }, { id: 'pl2', title: 'Top Picks For You' }] };
-  const video = { productVideo: [] };
-
-  const productSales = products;
-  const productTopPick = products;
-  const productSalesData = productSales;
-  const productTopPickData = productTopPick;
-
+const Home = ({ productSalesData, productTopPickData, priceList }: any) => {
   return (
     <>
       <Hero />
@@ -61,8 +22,7 @@ const Home: NextPageWithLayout = () => {
       <div >
         <SaleProduct TopSale={productSalesData as any} title={priceList?.price_lists?.[0]?.title as string} />
         <div className='px-[30px]'>
-          {/* Tạm ẩn để tìm lỗi */}
-          {/* <RecentlyViewedNew />
+          <RecentlyViewedNew />
           <BasedOnWhatYouLove
             currentProductId="p1"
             category="t-shirt"
@@ -71,21 +31,32 @@ const Home: NextPageWithLayout = () => {
           <TopPick product={productTopPickData as any} title={priceList?.price_lists?.[1]?.title as string} />
           <InStory />
           <CreateYourOwn />
-          <Trending /> */}
+          <Trending />
         </div>
       </div>
       <div className='px-[30px]'>
         <AdsSpace />
       </div>
-
-      {/*<Blog /> */}
     </>
   );
 };
 
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+  // Chúng ta vẫn có thể dùng serverSideTranslations để lấy dữ liệu dịch, 
+  // dù tạm thời chưa dùng appWithTranslation ở _app.tsx
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
+      productSalesData: [], // Mock data hoặc lấy từ API
+      productTopPickData: [],
+      priceList: { price_lists: [{ title: 'Hot Sale' }, { title: 'Top Picks' }] }
+    },
+  };
+};
+
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
-    <PrimaryLayout seo={{ title: 'Home', canonical: '/' }}>
+    <PrimaryLayout seo={{ title: 'Home | Commerce Monorepo', canonical: '/' }}>
       {page}
     </PrimaryLayout>
   );

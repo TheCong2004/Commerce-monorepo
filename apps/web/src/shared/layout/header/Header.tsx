@@ -7,11 +7,12 @@ import { FiHeart, FiShoppingBag, FiAlignJustify, FiX } from 'react-icons/fi';
 import { SearchBar } from '@/packages/search/components/SearchBar';
 import { TopBar } from './TopBar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/dropdown-menu';
-import { User, UserCircle } from 'lucide-react';
+import { User, UserCircle, Package, MapIcon, HeartHandshakeIcon } from 'lucide-react';
 import { GiFountainPen, GiPaintBrush } from 'react-icons/gi';
 import { Badge } from '../../ui/badge';
 import Sidebar from './SideBar';
-import { navLinks, campaign, categories, NavLink } from './data';
+import { navLinks, campaign, categories, blog, NavLink } from './data';
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from '@/shared/ui/navigation-menu';
 
 export const Header = () => {
   const [mounted, setMounted] = useState(false);
@@ -20,14 +21,12 @@ export const Header = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   
-  const [cartId, setCartId] = useState("");
+  const [cartCount, setCartCount] = useState(0);
   const [wishlist, setWishlist] = useState(0);
   const [accessToken, setAccessToken] = useState<string | undefined>();
 
   useEffect(() => {
     setMounted(true);
-    const savedCartId = localStorage.getItem("cart_id") || "";
-    setCartId(savedCartId);
     const wishlistString = localStorage.getItem("wishlist");
     const wishlistArray = wishlistString ? JSON.parse(wishlistString) : [];
     setWishlist(wishlistArray.length);
@@ -66,39 +65,66 @@ export const Header = () => {
         <TopBar blogs={campaign} />
 
         <div className="relative w-full border-b border-black/5 z-30 shadow-sm bg-[#fce4ec] min-h-[100px]">
+          {/* Con thỏ bên trái */}
+          <div className="absolute left-0 bottom-0 h-full w-auto select-none pointer-events-none z-10 hidden min-[1400px]:block">
+            <img src="https://res.cloudinary.com/dm1wqczhm/image/upload/v1774869889/tho1_pszhws.png" alt="rabbit-left" className="h-full object-contain object-left" />
+          </div>
+
+          {/* Con thỏ bên phải */}
+          <div className="absolute right-0 bottom-0 h-full w-auto select-none pointer-events-none z-10 hidden min-[1400px]:block">
+            <img src="https://res.cloudinary.com/dm1wqczhm/image/upload/v1774869517/tho22_qeespt.png" alt="rabbit-right" className="h-full object-contain object-right" />
+          </div>
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-4 h-[100px]">
               
-              {/* Logo - Luôn hiện cho SEO */}
               <div className="flex items-center gap-4">
-                <button onClick={() => setSidebar(true)} className="xl:hidden p-1">
+                <button onClick={() => setSidebar(true)} className="xl:hidden p-1 transition-opacity hover:opacity-60">
                   <FiAlignJustify color="#111111" size={36} />
                 </button>
-                <Link href="/">
-                  <Image src="/FPT_Telecom_logo.svg" alt="Logo" width={100} height={30} priority />
+                <Link href="/" className="transition-opacity hover:opacity-80">
+                  <Image src="/FPT_Telecom_logo.svg" alt="Logo" width={100} height={30} priority className="h-20 w-auto" />
                 </Link>
               </div>
 
-              {/* Những phần dùng Hook/UI phức tạp - Chỉ hiện khi đã Mounted */}
               {mounted && (
                 <>
-                  <div className='flex-grow max-w-2xl hidden md:block'>
+                  <div className='flex-grow max-w-2xl hidden md:block z-[100]'>
                     <SearchBar />
                   </div>
 
                   <div className="flex items-center gap-5">
+                    <Link href="/wishlist" className='relative'>
+                      <FiHeart size={22} className="hover:text-orange-400 transition-colors" />
+                      {wishlist > 0 && <Badge className="absolute -top-1.5 -right-2 bg-[#F67273] rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px]">{wishlist}</Badge>}
+                    </Link>
                     <Link href="/cart" className='relative'>
-                      <FiShoppingBag size={22} />
-                      {wishlist > 0 && <Badge className="absolute -top-1.5 -right-2 bg-[#F67273]">{wishlist}</Badge>}
+                      <FiShoppingBag size={22} className="hover:text-orange-400 transition-colors" />
                     </Link>
                     <Link href="/signin">
-                      <User size={22} />
+                      <User size={22} className="hover:text-orange-400 transition-colors" />
                     </Link>
                   </div>
                 </>
               )}
             </div>
           </div>
+
+          {/* Desktop Navigation */}
+          {mounted && (
+            <div className="hidden lg:block max-w-7xl mx-auto pb-2">
+              <ul className="flex items-center justify-center gap-6">
+                {navLinks.map((item, index) => (
+                  <li key={index} className="transition-transform hover:scale-105">
+                    <Link href={item.href} className={`font-Inter text-[16px] font-semibold transition-all ${getSolidStyle(item.name)}`}>
+                      {item.name === 'Create Your Own' && <GiPaintBrush size={18} className="inline mr-1" />}
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </header>
     </>

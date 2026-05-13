@@ -1,7 +1,7 @@
 import React from 'react';
 import { NextSeo, type NextSeoProps } from 'next-seo';
-import { SidebarProvider, SidebarTrigger } from "@/shared/ui/sidebar"
-import { AppSidebar } from '@/shared/ui/app-sidebar';
+// import { SidebarProvider, SidebarTrigger } from "@/shared/ui/sidebar"
+// import { AppSidebar } from '@/shared/ui/app-sidebar';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Toaster } from 'sonner';
 // import { Header } from '@/shared/layout/header/Header';

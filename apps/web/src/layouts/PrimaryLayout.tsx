@@ -4,9 +4,13 @@ import { SidebarProvider, SidebarTrigger } from "@/shared/ui/sidebar"
 import { AppSidebar } from '@/shared/ui/app-sidebar';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Toaster } from 'sonner';
-import { Header } from '@/shared/layout/header/Header';
+// import { Header } from '@/shared/layout/header/Header';
 
-
+const Header = () => (
+  <header style={{ padding: '20px', background: '#fce4ec', textAlign: 'center' }}>
+    <h1>Header Nội Bộ (Local)</h1>
+  </header>
+);
 
 interface PrimaryLayoutProps extends React.PropsWithChildren {
   seo: NextSeoProps;

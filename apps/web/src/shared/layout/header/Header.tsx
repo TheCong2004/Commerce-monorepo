@@ -159,7 +159,7 @@ export const Header = () => {
 
               {/* 3. Search Bar */}
               <div className='flex-grow max-w-2xl relative z-[100] hidden md:block'>
-                <SearchBar />
+                {/* <SearchBar /> */}
               </div>
 
               {/* 4. Right Icons (User, Wishlist, Cart) */}

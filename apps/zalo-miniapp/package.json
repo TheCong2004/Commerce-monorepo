@@ -1,0 +1,12 @@
+{
+  "name": "zalo-miniapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "zmp dev",
+    "build": "zmp build"
+  },
+  "dependencies": {
+    "@commerce/shared-types": "workspace:*"
+  }
+}

@@ -1,0 +1,51 @@
+{
+	"$schema": "../../node_modules/turbo/schema.json",
+	"extends": ["//"],
+	"tasks": {
+		"typegen": {
+			"dependsOn": ["^typegen"],
+			"inputs": ["alchemy.run.ts", "package.json", "tsconfig.json"],
+			"outputs": []
+		},
+		"typecheck": {
+			"dependsOn": ["typegen", "^typecheck"],
+			"inputs": [
+				"alchemy.run.ts",
+				"package.json",
+				"tsconfig.json",
+				"$TURBO_ROOT$/tsconfig.base.json"
+			],
+			"outputs": []
+		},
+		"deploy:prod": {
+			"dependsOn": ["typecheck"],
+			"cache": false,
+			"inputs": ["alchemy.run.ts", "package.json"],
+			"outputs": []
+		},
+		"deploy:staging": {
+			"dependsOn": ["typecheck"],
+			"cache": false,
+			"inputs": ["alchemy.run.ts", "package.json"],
+			"outputs": []
+		},
+		"deploy:preview": {
+			"dependsOn": ["typecheck"],
+			"cache": false,
+			"inputs": ["alchemy.run.ts", "package.json"],
+			"outputs": []
+		},
+		"destroy:prod": {
+			"cache": false,
+			"outputs": []
+		},
+		"destroy:staging": {
+			"cache": false,
+			"outputs": []
+		},
+		"destroy:preview": {
+			"cache": false,
+			"outputs": []
+		}
+	}
+}

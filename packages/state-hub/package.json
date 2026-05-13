@@ -1,0 +1,30 @@
+{
+	"name": "state-hub",
+	"private": true,
+	"type": "module",
+	"alchemy": {
+		"app": "stateHub"
+	},
+	"scripts": {
+		"deploy:prod": "alchemy-cli --stage prod deploy",
+		"deploy:staging": "alchemy-cli --stage staging deploy",
+		"deploy:preview": "alchemy-cli --stage preview deploy",
+		"destroy:prod": "alchemy-cli --stage prod destroy",
+		"destroy:staging": "alchemy-cli --stage staging destroy",
+		"destroy:preview": "alchemy-cli --stage preview destroy",
+		"lint": "biome check --write .",
+		"lint:format": "biome format --write .",
+		"typegen": "node -e \"process.exit(0)\"",
+		"typecheck": "tsgo --noEmit -p ."
+	},
+	"dependencies": {
+		"alchemy-utils": "workspace:*"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"alchemy": "catalog:",
+		"typescript": "catalog:"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"module": "ES2022",
+		"moduleResolution": "bundler",
+		"target": "ES2022",
+		"lib": ["ES2022"],
+		"types": ["@cloudflare/workers-types/2023-07-01"],
+		"allowArbitraryExtensions": true,
+		"resolveJsonModule": true,
+		"noEmit": true
+	},
+	"include": [
+		"workers/**/*.ts",
+		"src/**/*.ts",
+		"drizzle/**/*.js",
+		"drizzle.config.ts",
+		"alchemy.run.ts",
+		"env.d.ts"
+	]
+}

@@ -1,0 +1,41 @@
+{
+	"name": "alchemy-utils",
+	"private": true,
+	"type": "module",
+	"bin": {
+		"alchemy-cli": "./src/alchemy-cli.ts"
+	},
+	"exports": {
+		".": {
+			"types": "./src/password.ts",
+			"default": "./src/password.ts"
+		},
+		"./*": {
+			"types": "./src/*.ts",
+			"default": "./src/*.ts"
+		}
+	},
+	"scripts": {
+		"deploy:prod": "node -e \"process.exit(0)\"",
+		"deploy:staging": "node -e \"process.exit(0)\"",
+		"deploy:preview": "node -e \"process.exit(0)\"",
+		"destroy:prod": "node -e \"process.exit(0)\"",
+		"destroy:staging": "node -e \"process.exit(0)\"",
+		"destroy:preview": "node -e \"process.exit(0)\"",
+		"lint": "biome check --write .",
+		"lint:format": "biome format --write .",
+		"typegen": "node -e \"process.exit(0)\"",
+		"typecheck": "tsgo --noEmit -p ."
+	},
+	"dependencies": {
+		"alchemy": "catalog:",
+		"dotenv": "catalog:",
+		"get-port": "^7.2.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"typescript": "catalog:"
+	}
+}

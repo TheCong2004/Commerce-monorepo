@@ -1,0 +1,46 @@
+---
+description: For non-cloud agents
+alwaysApply: false
+---
+# Dev server policy
+
+**Do not** start dev servers or long-running watch processes unless the user explicitly asks (e.g. “run dev”, “verify in the browser”). If they do, use the project’s **`bun run dev`** from the repo root and stop or ask before leaving a server running forever.
+
+## What not to run without an explicit user request
+
+- `bun dev`, `npm run dev`, `yarn dev`
+- `npm start`, `yarn start`
+- Watch commands (`--watch`, `nodemon`, etc.)
+- Any long-running development processes
+
+## What is okay to run
+
+- Build commands: `bun run build`, `npm run build`
+- Type checking: `bun run typecheck` (repo root; packages use `tsgo --noEmit`)
+- Linting: `bun run lint` or `biome check` (Biome only in this repo)
+- Tests: `bun test`, `npm test`
+- Database migrations: `bun run db:migrate`
+- Code generation: `bun run db:generate`, `typegen`
+- One-off scripts and utilities
+
+## When dev server is needed but was not explicitly requested
+
+Instead of running the dev server, tell the user:
+
+```
+You'll need to restart your dev server to see these changes:
+
+bun dev
+```
+
+Or if they need to test in the browser:
+
+```
+Test the changes using the URL from the dev terminal (`Local:` line — often port 5173, else the next free port)
+```
+
+## Why
+
+- Dev servers run indefinitely and consume resources
+- User may already have a dev server running
+- User prefers to control when processes start/stop

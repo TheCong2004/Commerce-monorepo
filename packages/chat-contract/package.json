@@ -1,0 +1,32 @@
+{
+	"name": "@internal/chat-contract",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./src/contract.ts",
+			"default": "./src/contract.ts"
+		}
+	},
+	"dependencies": {
+		"@firtoz/socka": "catalog:",
+		"zod": "catalog:"
+	},
+	"scripts": {
+		"deploy:prod": "node -e \"process.exit(0)\"",
+		"deploy:staging": "node -e \"process.exit(0)\"",
+		"deploy:preview": "node -e \"process.exit(0)\"",
+		"destroy:prod": "node -e \"process.exit(0)\"",
+		"destroy:staging": "node -e \"process.exit(0)\"",
+		"destroy:preview": "node -e \"process.exit(0)\"",
+		"lint": "biome check --write .",
+		"lint:format": "biome format --write .",
+		"typegen": "node -e \"process.exit(0)\"",
+		"typecheck": "tsgo --noEmit -p ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"typescript": "catalog:"
+	}
+}

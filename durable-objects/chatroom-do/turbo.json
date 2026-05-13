@@ -1,0 +1,115 @@
+{
+	"$schema": "../../node_modules/turbo/schema.json",
+	"extends": ["//"],
+	"tasks": {
+		"dev": {
+			"dependsOn": ["scripts#dev:preflight", "db:generate", "typegen"],
+			"inputs": ["workers/**/*.ts", "src/**/*.ts", "$TURBO_ROOT$/.env.local", "package.json"],
+			"persistent": true,
+			"cache": false
+		},
+		"db:generate": {
+			"inputs": ["drizzle.config.ts", "src/schema.ts"],
+			"outputs": ["drizzle/**"]
+		},
+		"lint": {
+			"dependsOn": ["typecheck"],
+			"inputs": ["workers/**/*.ts", "src/**/*.ts", "tsconfig.json", "biome.json"],
+			"outputs": []
+		},
+		"lint:format": {
+			"inputs": ["workers/**/*.ts", "src/**/*.ts", "tsconfig.json", "biome.json"],
+			"outputs": []
+		},
+		"typecheck": {
+			"dependsOn": ["db:generate", "typegen", "^typecheck"],
+			"inputs": [
+				"workers/**/*.ts",
+				"src/**/*.ts",
+				"drizzle/migrations.js",
+				"tsconfig.json",
+				"package.json",
+				"$TURBO_ROOT$/tsconfig.base.json",
+				"env.d.ts"
+			],
+			"outputs": []
+		},
+		"typegen": {
+			"dependsOn": ["^typegen"],
+			"inputs": ["workers/**/*.ts", "src/**/*.ts", "package.json", "tsconfig.json", "env.d.ts"],
+			"outputs": []
+		},
+		"deploy:prod": {
+			"dependsOn": [
+				"^deploy:prod",
+				"db:generate",
+				"typecheck",
+				"@internal/chat-contract#typecheck"
+			],
+			"cache": false,
+			"inputs": [
+				"alchemy.run.ts",
+				"workers/**/*.ts",
+				"src/**/*.ts",
+				"drizzle/**",
+				"drizzle.config.ts",
+				"package.json",
+				"tsconfig.json",
+				"env.d.ts"
+			],
+			"outputs": []
+		},
+		"deploy:staging": {
+			"dependsOn": [
+				"^deploy:staging",
+				"db:generate",
+				"typecheck",
+				"@internal/chat-contract#typecheck"
+			],
+			"cache": false,
+			"inputs": [
+				"alchemy.run.ts",
+				"workers/**/*.ts",
+				"src/**/*.ts",
+				"drizzle/**",
+				"drizzle.config.ts",
+				"package.json",
+				"tsconfig.json",
+				"env.d.ts"
+			],
+			"outputs": []
+		},
+		"deploy:preview": {
+			"dependsOn": [
+				"^deploy:preview",
+				"db:generate",
+				"typecheck",
+				"@internal/chat-contract#typecheck"
+			],
+			"cache": false,
+			"inputs": [
+				"alchemy.run.ts",
+				"workers/**/*.ts",
+				"src/**/*.ts",
+				"drizzle/**",
+				"drizzle.config.ts",
+				"package.json",
+				"tsconfig.json",
+				"env.d.ts"
+			],
+			"outputs": []
+		},
+		"destroy:prod": {
+			"cache": false,
+			"outputs": []
+		},
+		"destroy:staging": {
+			"cache": false,
+			"outputs": []
+		},
+		"destroy:preview": {
+			"cache": false,
+			"outputs": []
+		}
+	}
+}

@@ -1,0 +1,7 @@
+---
+description: Necessary for cloud agents
+alwaysApply: false
+---
+# Git: commit and push (cloud agents)
+
+For the full policy (PRs, branches, **IDE vs cloud**), read [git-workflow.mdc](git-workflow.mdc). The mandatory checklists and commands are in [00-cloud-agent-mandatory.mdc](00-cloud-agent-mandatory.mdc).

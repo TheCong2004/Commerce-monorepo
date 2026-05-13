@@ -1,0 +1,106 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "**/.env.*local",
+    ".env.local",
+    ".env.production",
+    ".env.staging",
+    "tsconfig.base.json",
+    "packages/alchemy-utils/src/password.ts",
+    "packages/alchemy-utils/src/env-requirements.ts",
+    "packages/alchemy-utils/src/worker-peer-scripts.ts",
+    "packages/alchemy-utils/src/deployment-stage.ts",
+    "packages/alchemy-utils/src/alchemy-cli.ts",
+    "packages/scripts/src/collected-env-requirements.ts",
+    "packages/state-hub/alchemy.run.ts"
+  ],
+  "globalEnv": [
+    "CI",
+    "NODE_ENV",
+    "DEPLOYMENT_STAGE",
+    "CF_API_TOKEN",
+    "CLOUDFLARE_ACCOUNT_ID",
+    "GITHUB_TOKEN"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "build:local": {
+      "dependsOn": ["^build:local"],
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:preflight": {
+      "cache": false
+    },
+    "chatroom-do#destroy:prod": {
+      "dependsOn": ["web#destroy:prod"]
+    },
+    "ping-do#destroy:prod": {
+      "dependsOn": ["web#destroy:prod"]
+    },
+    "other-worker#destroy:prod": {
+      "dependsOn": ["web#destroy:prod"]
+    },
+    "chatroom-do#destroy:staging": {
+      "dependsOn": ["web#destroy:staging"]
+    },
+    "ping-do#destroy:staging": {
+      "dependsOn": ["web#destroy:staging"]
+    },
+    "other-worker#destroy:staging": {
+      "dependsOn": ["web#destroy:staging"]
+    },
+    "chatroom-do#destroy:preview": {
+      "dependsOn": ["web#destroy:preview"]
+    },
+    "ping-do#destroy:preview": {
+      "dependsOn": ["web#destroy:preview"]
+    },
+    "other-worker#destroy:preview": {
+      "dependsOn": ["web#destroy:preview"]
+    },
+    "deploy:prod": {
+      "dependsOn": ["^deploy:prod"],
+      "cache": false
+    },
+    "deploy:staging": {
+      "dependsOn": ["^deploy:staging"],
+      "cache": false
+    },
+    "deploy:preview": {
+      "dependsOn": ["^deploy:preview"],
+      "cache": false
+    },
+    "destroy:prod": {
+      "cache": false
+    },
+    "destroy:staging": {
+      "cache": false
+    },
+    "destroy:preview": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "lint:format": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "typegen": {
+      "cache": false
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

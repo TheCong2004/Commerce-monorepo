@@ -49,7 +49,7 @@ export default function FadeIn({
         viewport={{ once: true, amount: amount }}
         style={{ willChange: 'transform, opacity' }}
       >
-        {children}
+        {children as any}
       </m.div>
     </LazyMotion>
   );

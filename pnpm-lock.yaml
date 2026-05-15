@@ -58,7 +58,7 @@ importers:
         version: 20.4.2
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20241218.0)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20241218.0)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       alchemy-utils:
         specifier: workspace:*
         version: link:packages/alchemy-utils
@@ -150,7 +150,7 @@ importers:
     devDependencies:
       '@opennextjs/cloudflare':
         specifier: ^1.17.1
-        version: 1.19.9(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))
+        version: 1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1))
       '@types/node':
         specifier: ^20.12.12
         version: 20.19.41
@@ -178,6 +178,9 @@ importers:
       typescript:
         specifier: ^5.4.5
         version: 5.9.3
+      wrangler:
+        specifier: ^4.91.0
+        version: 4.91.0(@cloudflare/workers-types@4.20260511.1)
 
   apps/web:
     dependencies:
@@ -204,7 +207,7 @@ importers:
         version: 2.15.2
       '@medusajs/medusa-js':
         specifier: ^6.1.10
-        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))
+        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))
       '@medusajs/types':
         specifier: ^2.11.3
         version: 2.15.2(ioredis@5.10.1)(vite@5.4.21(@types/node@20.4.2)(terser@5.47.1))
@@ -615,7 +618,7 @@ importers:
         version: typescript@5.7.2
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       alchemy-utils:
         specifier: workspace:*
         version: link:../../packages/alchemy-utils
@@ -649,7 +652,7 @@ importers:
         version: typescript@5.7.2
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       alchemy-utils:
         specifier: workspace:*
         version: link:../../packages/alchemy-utils
@@ -683,7 +686,7 @@ importers:
         version: typescript@5.7.2
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       alchemy-utils:
         specifier: workspace:*
         version: link:../../packages/alchemy-utils
@@ -698,7 +701,7 @@ importers:
     dependencies:
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       dotenv:
         specifier: 'catalog:'
         version: 17.4.2
@@ -859,7 +862,7 @@ importers:
         version: typescript@5.7.2
       alchemy:
         specifier: 'catalog:'
-        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1)
+        version: 0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1892,6 +1895,12 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  '@cloudflare/workerd-darwin-64@1.20260511.1':
+    resolution: {integrity: sha512-xQXYe0ILEGKyFFgZ9SlxZV2RkWXxp9mIA5mlqfdEmmSInMHlWRO4H/l6oCXZnQXNH6o3bvmGuNzl6Mac5+Omgg==}
+    engines: {node: '>=16'}
+    cpu: [x64]
+    os: [darwin]
+
   '@cloudflare/workerd-darwin-arm64@1.20260424.1':
     resolution: {integrity: sha512-LqWKcE7x/9KyC2iQvKPeb20hKST3dYXDZlYTvFymgR1DfLS0OFOCzVGTloVNd7WqvK4SkdzBYfxo7QMIAeBK0w==}
     engines: {node: '>=16'}
@@ -1900,6 +1909,12 @@ packages:
 
   '@cloudflare/workerd-darwin-arm64@1.20260508.1':
     resolution: {integrity: sha512-JTVsisOJPcNKw0qovPjqyBWYahfdhUh7/9NICiG5wxaEQ45PYKdoqNq0hOAAIqvqoxsKZBvTgcPTJREPqk7avA==}
+    engines: {node: '>=16'}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@cloudflare/workerd-darwin-arm64@1.20260511.1':
+    resolution: {integrity: sha512-QOaY4/BlQfDEZgTlrwCPreRIyenYmFWREVP79SSz6K6QBf7bf8ubaATN11NZbouEg19iTMtl5L7FLYdcz1tz7g==}
     engines: {node: '>=16'}
     cpu: [arm64]
     os: [darwin]
@@ -1916,6 +1931,12 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@cloudflare/workerd-linux-64@1.20260511.1':
+    resolution: {integrity: sha512-5ZV6SHjU7WSsb9pRPSssckLJgDI5xemv7XpKWM023hMv9Q3jb4ZpkZEeIOGt2Q46E4/fcxfnXeQbL1nukDIpLg==}
+    engines: {node: '>=16'}
+    cpu: [x64]
+    os: [linux]
+
   '@cloudflare/workerd-linux-arm64@1.20260424.1':
     resolution: {integrity: sha512-qJ0X0m6cL8fWDUPDg8K4IxYZXNJI6XbeOihqjnqKbAClrjdPDn8VUSd+z2XiCQ5NylMtMrpa/skC9UfaR6mh8g==}
     engines: {node: '>=16'}
@@ -1928,6 +1949,12 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@cloudflare/workerd-linux-arm64@1.20260511.1':
+    resolution: {integrity: sha512-BG8rVZZCqTvnwOMPuh+cjt/VbZ3QchxXaBOlfromw+zLQoblSHJorMPZ/JY4/phV7RoP8gB2C84bBPcahvZUnQ==}
+    engines: {node: '>=16'}
+    cpu: [arm64]
+    os: [linux]
+
   '@cloudflare/workerd-windows-64@1.20260424.1':
     resolution: {integrity: sha512-tZ7Z9qmYNAP6z1/+8r/zKbk8F8DZmpmwNzMeN+zkde2Wnhfr3FBqOkJXT/5zmli8HPoWrIXxSiyqcNDMy8V2Zg==}
     engines: {node: '>=16'}
@@ -1936,6 +1963,12 @@ packages:
 
   '@cloudflare/workerd-windows-64@1.20260508.1':
     resolution: {integrity: sha512-QdDOK3B/Ul1s3QmIwDrFyx9230to6LsNmWcVR8w+TYjNZuRPzqQBgusp78LO7MlqCoEl9dvIcN00jkJnLtBSfw==}
+    engines: {node: '>=16'}
+    cpu: [x64]
+    os: [win32]
+
+  '@cloudflare/workerd-windows-64@1.20260511.1':
+    resolution: {integrity: sha512-tGEyfKFArBL0NdqmABqzsIK1vmHdshkdFzCAUo1j6LqYsEpgJWCzvqwX9IpNHEc/AAm0UtPOLhLKhz1DA7HQLA==}
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
@@ -9963,6 +9996,11 @@ packages:
     engines: {node: '>=22.0.0'}
     hasBin: true
 
+  miniflare@4.20260511.0:
+    resolution: {integrity: sha512-GjTfjtdrDb4LTUcA1S/iz/YKMvSxlbgAfgXpyhM1PQV/xzUYRpKWayq3R1vOQg53Y/g0epaBFaZLA2QbnS/meA==}
+    engines: {node: '>=22.0.0'}
+    hasBin: true
+
   minimatch@10.2.5:
     resolution: {integrity: sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==}
     engines: {node: 18 || 20 || >=22}
@@ -12453,12 +12491,27 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  workerd@1.20260511.1:
+    resolution: {integrity: sha512-ecODCw4iWIuvuXdfy358zNpGPuO8k2WLMTaM1TKd+DuR6IF/oItVuvjf4BNhiKXlhIYBbD5GQ0gGHBY/IxSJVA==}
+    engines: {node: '>=16'}
+    hasBin: true
+
   wrangler@4.90.1:
     resolution: {integrity: sha512-u2KrieKSMfRM0toTst/CfDtcRraeoVjmcExcMWgILM/ytq3qcDhuOAULoZSyPHzma43lfLJy1BC544drFyqe1A==}
     engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
       '@cloudflare/workers-types': ^4.20260508.1
+    peerDependenciesMeta:
+      '@cloudflare/workers-types':
+        optional: true
+
+  wrangler@4.91.0:
+    resolution: {integrity: sha512-dFzhAd2/DpaHGRrQMQkL8F6AKmjzK2hfbhyTJ+5dcZS6jdl9KG8oxO5oAflIdlsRYnrOzxRxQnvIqwewIq1FXA==}
+    engines: {node: '>=22.0.0'}
+    hasBin: true
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.20260511.1
     peerDependenciesMeta:
       '@cloudflare/workers-types':
         optional: true
@@ -14380,16 +14433,25 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260508.1
 
-  '@cloudflare/unenv-preset@2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260508.1)':
+  '@cloudflare/unenv-preset@2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260511.1)':
+    dependencies:
+      unenv: 2.0.0-rc.24
+    optionalDependencies:
+      workerd: 1.20260511.1
+
+  '@cloudflare/unenv-preset@2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260511.1)':
     dependencies:
       unenv: 2.0.0-rc.21
     optionalDependencies:
-      workerd: 1.20260508.1
+      workerd: 1.20260511.1
 
   '@cloudflare/workerd-darwin-64@1.20260424.1':
     optional: true
 
   '@cloudflare/workerd-darwin-64@1.20260508.1':
+    optional: true
+
+  '@cloudflare/workerd-darwin-64@1.20260511.1':
     optional: true
 
   '@cloudflare/workerd-darwin-arm64@1.20260424.1':
@@ -14398,10 +14460,16 @@ snapshots:
   '@cloudflare/workerd-darwin-arm64@1.20260508.1':
     optional: true
 
+  '@cloudflare/workerd-darwin-arm64@1.20260511.1':
+    optional: true
+
   '@cloudflare/workerd-linux-64@1.20260424.1':
     optional: true
 
   '@cloudflare/workerd-linux-64@1.20260508.1':
+    optional: true
+
+  '@cloudflare/workerd-linux-64@1.20260511.1':
     optional: true
 
   '@cloudflare/workerd-linux-arm64@1.20260424.1':
@@ -14410,10 +14478,16 @@ snapshots:
   '@cloudflare/workerd-linux-arm64@1.20260508.1':
     optional: true
 
+  '@cloudflare/workerd-linux-arm64@1.20260511.1':
+    optional: true
+
   '@cloudflare/workerd-windows-64@1.20260424.1':
     optional: true
 
   '@cloudflare/workerd-windows-64@1.20260508.1':
+    optional: true
+
+  '@cloudflare/workerd-windows-64@1.20260511.1':
     optional: true
 
   '@cloudflare/workers-types@4.20241218.0': {}
@@ -15764,13 +15838,13 @@ snapshots:
       fetch-event-stream: 0.1.6
       qs: 6.15.1
 
-  '@medusajs/link-modules@0.2.12(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/node@20.4.2)(pg@8.20.0)':
+  '@medusajs/link-modules@0.2.12(@mikro-orm/migrations@5.9.7)(@types/node@20.4.2)(pg@8.20.0)':
     dependencies:
       '@medusajs/modules-sdk': 1.12.12(@types/node@20.4.2)
       '@medusajs/types': 1.11.17
       '@medusajs/utils': 1.11.11(@types/node@20.4.2)(pg@8.20.0)
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
       awilix: 8.0.1
     transitivePeerDependencies:
       - '@mikro-orm/better-sqlite'
@@ -15843,9 +15917,9 @@ snapshots:
       - supports-color
       - tedious
 
-  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))':
+  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))':
     dependencies:
-      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))
+      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))
       axios: 0.24.0
       cross-env: 5.2.1
       qs: 6.15.1
@@ -15854,10 +15928,10 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))':
+  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))':
     dependencies:
       '@medusajs/core-flows': 0.0.10(@types/node@20.4.2)(pg@8.20.0)
-      '@medusajs/link-modules': 0.2.12(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/node@20.4.2)(pg@8.20.0)
+      '@medusajs/link-modules': 0.2.12(@mikro-orm/migrations@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
       '@medusajs/medusa-cli': 1.3.23(@types/node@20.4.2)
       '@medusajs/modules-sdk': 1.12.12(@types/node@20.4.2)
       '@medusajs/orchestration': 0.5.8(@types/node@20.4.2)(pg@8.20.0)
@@ -16028,9 +16102,9 @@ snapshots:
   '@medusajs/utils@1.11.11(@types/node@20.4.2)(pg@8.20.0)':
     dependencies:
       '@medusajs/types': 1.11.17
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
       '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
       awilix: 8.0.1
       bignumber.js: 9.3.1
       knex: 2.4.2(pg@8.20.0)
@@ -16082,7 +16156,7 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)':
+  '@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)':
     dependencies:
       acorn-loose: 8.3.0
       acorn-walk: 8.2.0
@@ -16093,11 +16167,11 @@ snapshots:
       reflect-metadata: 0.1.13
     optionalDependencies:
       '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
 
-  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.11.3)':
+  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
       fs-extra: 11.1.1
       knex: 2.5.1(pg@8.11.3)
       sqlstring: 2.3.3
@@ -16109,9 +16183,9 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.20.0)':
+  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.20.0)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
       fs-extra: 11.1.1
       knex: 2.5.1(pg@8.20.0)
       sqlstring: 2.3.3
@@ -16125,8 +16199,8 @@ snapshots:
 
   '@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.20.0)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.20.0)
       fs-extra: 11.1.1
       knex: 2.5.1(pg@8.20.0)
       umzug: 3.3.1(@types/node@20.4.2)
@@ -16143,10 +16217,10 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))':
+  '@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.11.3)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)
       pg: 8.11.3
     optionalDependencies:
       '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
@@ -16638,7 +16712,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20241218.0))':
+  '@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20241218.0))':
     dependencies:
       '@ast-grep/napi': 0.40.5
       '@dotenvx/dotenvx': 1.31.0
@@ -16650,7 +16724,7 @@ snapshots:
       glob: 12.0.0
       next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       ts-tqdm: 0.8.6
-      wrangler: 4.90.1(@cloudflare/workers-types@4.20241218.0)
+      wrangler: 4.91.0(@cloudflare/workers-types@4.20241218.0)
       yargs: 18.0.0
     transitivePeerDependencies:
       - aws-crt
@@ -16658,7 +16732,7 @@ snapshots:
       - supports-color
     optional: true
 
-  '@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))':
+  '@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1))':
     dependencies:
       '@ast-grep/napi': 0.40.5
       '@dotenvx/dotenvx': 1.31.0
@@ -16670,13 +16744,12 @@ snapshots:
       glob: 12.0.0
       next: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       ts-tqdm: 0.8.6
-      wrangler: 4.90.1(@cloudflare/workers-types@4.20260511.1)
+      wrangler: 4.91.0(@cloudflare/workers-types@4.20260511.1)
       yargs: 18.0.0
     transitivePeerDependencies:
       - aws-crt
       - encoding
       - supports-color
-    optional: true
 
   '@panva/hkdf@1.2.1': {}
 
@@ -19127,10 +19200,10 @@ snapshots:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
-  alchemy@0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20241218.0)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1):
+  alchemy@0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20241218.0)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1):
     dependencies:
       '@aws-sdk/credential-providers': 3.1045.0
-      '@cloudflare/unenv-preset': 2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260508.1)
+      '@cloudflare/unenv-preset': 2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260511.1)
       '@cloudflare/workers-types': 4.20260511.1
       '@iarna/toml': 2.2.5
       '@octokit/rest': 21.1.1
@@ -19164,7 +19237,7 @@ snapshots:
       '@aws-sdk/client-lambda': 3.984.0
       '@aws-sdk/client-s3': 3.1045.0
       '@aws-sdk/client-sqs': 3.984.0
-      '@opennextjs/cloudflare': 1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20241218.0))
+      '@opennextjs/cloudflare': 1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20241218.0))
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@electric-sql/pglite'
@@ -19198,10 +19271,10 @@ snapshots:
       - utf-8-validate
       - workerd
 
-  alchemy@0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260508.1):
+  alchemy@0.93.7(@aws-sdk/client-dynamodb@3.984.0)(@aws-sdk/client-lambda@3.984.0)(@aws-sdk/client-s3@3.1045.0)(@aws-sdk/client-sqs@3.984.0)(@opennextjs/cloudflare@1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1)))(@prisma/client@5.22.0(prisma@5.22.0))(knex@2.5.1(pg@8.20.0))(pg@8.20.0)(prisma@5.22.0)(workerd@1.20260511.1):
     dependencies:
       '@aws-sdk/credential-providers': 3.1045.0
-      '@cloudflare/unenv-preset': 2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260508.1)
+      '@cloudflare/unenv-preset': 2.7.7(unenv@2.0.0-rc.21)(workerd@1.20260511.1)
       '@cloudflare/workers-types': 4.20260511.1
       '@iarna/toml': 2.2.5
       '@octokit/rest': 21.1.1
@@ -19235,7 +19308,7 @@ snapshots:
       '@aws-sdk/client-lambda': 3.984.0
       '@aws-sdk/client-s3': 3.1045.0
       '@aws-sdk/client-sqs': 3.984.0
-      '@opennextjs/cloudflare': 1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))
+      '@opennextjs/cloudflare': 1.19.9(next@16.2.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1))
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
       - '@electric-sql/pglite'
@@ -20882,7 +20955,7 @@ snapshots:
       eslint: 8.56.0
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.56.0)
       eslint-plugin-react: 7.37.5(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.56.0)
@@ -20936,7 +21009,7 @@ snapshots:
       tinyglobby: 0.2.16
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21006,7 +21079,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -23217,6 +23290,18 @@ snapshots:
       sharp: 0.34.5
       undici: 7.24.8
       workerd: 1.20260508.1
+      ws: 8.18.0
+      youch: 4.1.0-beta.10
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  miniflare@4.20260511.0:
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      sharp: 0.34.5
+      undici: 7.24.8
+      workerd: 1.20260511.1
       ws: 8.18.0
       youch: 4.1.0-beta.10
     transitivePeerDependencies:
@@ -25977,23 +26062,13 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260508.1
       '@cloudflare/workerd-windows-64': 1.20260508.1
 
-  wrangler@4.90.1(@cloudflare/workers-types@4.20241218.0):
-    dependencies:
-      '@cloudflare/kv-asset-handler': 0.5.0
-      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260508.1)
-      blake3-wasm: 2.1.5
-      esbuild: 0.27.3
-      miniflare: 4.20260508.0
-      path-to-regexp: 6.3.0
-      unenv: 2.0.0-rc.24
-      workerd: 1.20260508.1
+  workerd@1.20260511.1:
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20241218.0
-      fsevents: 2.3.3
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    optional: true
+      '@cloudflare/workerd-darwin-64': 1.20260511.1
+      '@cloudflare/workerd-darwin-arm64': 1.20260511.1
+      '@cloudflare/workerd-linux-64': 1.20260511.1
+      '@cloudflare/workerd-linux-arm64': 1.20260511.1
+      '@cloudflare/workerd-windows-64': 1.20260511.1
 
   wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1):
     dependencies:
@@ -26005,6 +26080,41 @@ snapshots:
       path-to-regexp: 6.3.0
       unenv: 2.0.0-rc.24
       workerd: 1.20260508.1
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20260511.1
+      fsevents: 2.3.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  wrangler@4.91.0(@cloudflare/workers-types@4.20241218.0):
+    dependencies:
+      '@cloudflare/kv-asset-handler': 0.5.0
+      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260511.1)
+      blake3-wasm: 2.1.5
+      esbuild: 0.27.3
+      miniflare: 4.20260511.0
+      path-to-regexp: 6.3.0
+      unenv: 2.0.0-rc.24
+      workerd: 1.20260511.1
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20241218.0
+      fsevents: 2.3.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    optional: true
+
+  wrangler@4.91.0(@cloudflare/workers-types@4.20260511.1):
+    dependencies:
+      '@cloudflare/kv-asset-handler': 0.5.0
+      '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260511.1)
+      blake3-wasm: 2.1.5
+      esbuild: 0.27.3
+      miniflare: 4.20260511.0
+      path-to-regexp: 6.3.0
+      unenv: 2.0.0-rc.24
+      workerd: 1.20260511.1
     optionalDependencies:
       '@cloudflare/workers-types': 4.20260511.1
       fsevents: 2.3.3

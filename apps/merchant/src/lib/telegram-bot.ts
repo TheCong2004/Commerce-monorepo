@@ -11,7 +11,7 @@ export const getBot = (token: string) => {
           [
             {
               text: 'Mở cửa hàng',
-              web_app: { url: 'https://commerce-miniapp.pages.dev' }, // Placeholder
+              web_app: { url: 'https://telegram-shop.thecong2610.workers.dev/' },
             },
           ],
         ],

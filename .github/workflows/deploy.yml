@@ -16,6 +16,7 @@ jobs:
   deploy:
     name: Build & Deploy lên Cloudflare
     runs-on: ubuntu-latest
+    environment: CLOUDFLARE_ACCOUNT_ID
     steps:
       - name: Checkout mã nguồn
         uses: actions/checkout@v4

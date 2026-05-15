@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import NextLink from "next/link";
+const Link = NextLink as any;
 import dynamic from "next/dynamic";
 import { useProducts, useCart } from "@commerce/shared-hooks";
 import { Providers } from "./providers";
@@ -12,7 +13,7 @@ import type { ProductCardProps } from "@commerce/ui-kit";
 const ProductCard = dynamic<ProductCardProps>(() => import("@commerce/ui-kit").then(mod => mod.ProductCard), {
   loading: () => <div className="h-48 bg-gray-900 animate-pulse rounded-2xl"></div>,
   ssr: false
-});
+}) as any;
 
 export default function Home() {
   const { data, isLoading } = useProducts();
@@ -52,20 +53,19 @@ export default function Home() {
         </h3>
         
         <div className="grid grid-cols-2 gap-4">
-          {data?.items?.map((product: any) => (
-            <ProductCard 
-              key={product.id} 
-              product={{
-                id: product.id,
-                title: product.title,
-                description: product.description,
-                priceCents: product.variants?.[0]?.price_cents || 0,
-                imageUrl: product.variants?.[0]?.image_url
-              }} 
-              platform="telegram"
-              onAddToCart={() => addToCart(product)}
-            />
-          ))}
+          {data?.items?.map((product: any) =>                <ProductCard
+                  key={product.id}
+                  product={{
+                    id: product.id,
+                    title: product.title,
+                    description: product.description,
+                    priceCents: product.variants?.[0]?.price_cents || 0,
+                    imageUrl: product.variants?.[0]?.image_url
+                  }} 
+                  platform="telegram"
+                  onAddToCart={() => addToCart(product)}
+                />
+          )}
         </div>
       </main>
 

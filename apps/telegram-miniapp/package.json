@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build",
+    "build:cf": "npx @opennextjs/cloudflare build",
+    "deploy": "npx wrangler pages deploy .open-next",
     "start": "next start",
     "lint": "next lint"
   },
@@ -22,6 +24,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.17.1",
     "@types/node": "^20.12.12",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

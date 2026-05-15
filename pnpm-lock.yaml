@@ -148,6 +148,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@opennextjs/cloudflare':
+        specifier: ^1.17.1
+        version: 1.19.9(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))
       '@types/node':
         specifier: ^20.12.12
         version: 20.19.41
@@ -201,7 +204,7 @@ importers:
         version: 2.15.2
       '@medusajs/medusa-js':
         specifier: ^6.1.10
-        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))
+        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))
       '@medusajs/types':
         specifier: ^2.11.3
         version: 2.15.2(ioredis@5.10.1)(vite@5.4.21(@types/node@20.4.2)(terser@5.47.1))
@@ -15867,7 +15870,7 @@ snapshots:
       fetch-event-stream: 0.1.6
       qs: 6.15.1
 
-  '@medusajs/link-modules@0.2.12(@mikro-orm/migrations@5.9.7)(@types/node@20.4.2)(pg@8.20.0)':
+  '@medusajs/link-modules@0.2.12(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/node@20.4.2)(pg@8.20.0)':
     dependencies:
       '@medusajs/modules-sdk': 1.12.12(@types/node@20.4.2)
       '@medusajs/types': 1.11.17
@@ -15946,9 +15949,9 @@ snapshots:
       - supports-color
       - tedious
 
-  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))':
+  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))':
     dependencies:
-      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))
+      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))
       axios: 0.24.0
       cross-env: 5.2.1
       qs: 6.15.1
@@ -15957,10 +15960,10 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7)(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))':
+  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))':
     dependencies:
       '@medusajs/core-flows': 0.0.10(@types/node@20.4.2)(pg@8.20.0)
-      '@medusajs/link-modules': 0.2.12(@mikro-orm/migrations@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
+      '@medusajs/link-modules': 0.2.12(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/node@20.4.2)(pg@8.20.0)
       '@medusajs/medusa-cli': 1.3.23(@types/node@20.4.2)
       '@medusajs/modules-sdk': 1.12.12(@types/node@20.4.2)
       '@medusajs/orchestration': 0.5.8(@types/node@20.4.2)(pg@8.20.0)
@@ -16132,7 +16135,7 @@ snapshots:
     dependencies:
       '@medusajs/types': 1.11.17
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
       '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
       awilix: 8.0.1
       bignumber.js: 9.3.1
@@ -16212,47 +16215,12 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.20.0)':
-    dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      fs-extra: 11.1.1
-      knex: 2.5.1(pg@8.20.0)
-      sqlstring: 2.3.3
-    optionalDependencies:
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
-      pg: 8.20.0
-    transitivePeerDependencies:
-      - pg-native
-      - supports-color
-      - tedious
-
   '@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)':
     dependencies:
       '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
       '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)
       fs-extra: 11.1.1
       knex: 2.5.1(pg@8.11.3)
-      umzug: 3.3.1(@types/node@20.4.2)
-    transitivePeerDependencies:
-      - '@mikro-orm/entity-generator'
-      - '@types/node'
-      - better-sqlite3
-      - mssql
-      - mysql
-      - mysql2
-      - pg
-      - pg-native
-      - sqlite3
-      - supports-color
-      - tedious
-    optional: true
-
-  '@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)':
-    dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.20.0)
-      fs-extra: 11.1.1
-      knex: 2.5.1(pg@8.20.0)
       umzug: 3.3.1(@types/node@20.4.2)
     transitivePeerDependencies:
       - '@mikro-orm/entity-generator'
@@ -16748,6 +16716,30 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
+  '@opennextjs/aws@4.0.2(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
+    dependencies:
+      '@ast-grep/napi': 0.40.5
+      '@aws-sdk/client-cloudfront': 3.984.0
+      '@aws-sdk/client-dynamodb': 3.984.0
+      '@aws-sdk/client-lambda': 3.984.0
+      '@aws-sdk/client-s3': 3.984.0
+      '@aws-sdk/client-sqs': 3.984.0
+      '@node-minify/core': 8.0.6
+      '@node-minify/terser': 8.0.6
+      '@tsconfig/node18': 1.0.3
+      aws4fetch: 1.0.20
+      chalk: 5.6.2
+      cookie: 1.1.1
+      esbuild: 0.25.4
+      express: 5.2.1
+      next: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      path-to-regexp: 6.3.0
+      urlpattern-polyfill: 10.1.0
+      yaml: 2.9.0
+    transitivePeerDependencies:
+      - aws-crt
+      - supports-color
+
   '@opennextjs/aws@4.0.2(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       '@ast-grep/napi': 0.40.5
@@ -16770,6 +16762,25 @@ snapshots:
       yaml: 2.9.0
     transitivePeerDependencies:
       - aws-crt
+      - supports-color
+
+  '@opennextjs/cloudflare@1.19.9(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))':
+    dependencies:
+      '@ast-grep/napi': 0.40.5
+      '@dotenvx/dotenvx': 1.31.0
+      '@opennextjs/aws': 4.0.2(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      ci-info: 4.4.0
+      cloudflare: 4.5.0
+      comment-json: 4.6.2
+      enquirer: 2.4.1
+      glob: 12.0.0
+      next: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      ts-tqdm: 0.8.6
+      wrangler: 4.90.1(@cloudflare/workers-types@4.20260511.1)
+      yargs: 18.0.0
+    transitivePeerDependencies:
+      - aws-crt
+      - encoding
       - supports-color
 
   '@opennextjs/cloudflare@1.19.9(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))':
@@ -23104,6 +23115,7 @@ snapshots:
       pg: 8.20.0
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   kuler@2.0.0: {}
 

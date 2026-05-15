@@ -3,7 +3,8 @@
 import React from "react";
 import { useUtils } from "@tma.js/sdk-react";
 import { useCheckout } from "@commerce/shared-hooks";
-import Link from "next/link";
+import NextLink from "next/link";
+const Link = NextLink as any;
 
 export default function CheckoutPage() {
   const utils = useUtils();

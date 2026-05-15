@@ -1,0 +1,7 @@
+name = "commerce-telegram-miniapp"
+compatibility_date = "2024-12-30"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+NEXT_PUBLIC_MERCHANT_URL = "https://merchant.thecong2610.workers.dev"
+TELEGRAM_BOT_TOKEN = "8695451481:AAGn_HafjPaCAchdmct1_pPd4vH1ivMMhSQ"

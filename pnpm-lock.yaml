@@ -131,26 +131,26 @@ importers:
         version: link:../../packages/ui-kit
       '@tanstack/react-query':
         specifier: ^4.29.25
-        version: 4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 4.44.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tma.js/sdk':
         specifier: ^1.0.0
         version: 1.5.3
       '@tma.js/sdk-react':
         specifier: ^1.0.0
-        version: 1.2.2(@tma.js/sdk@1.5.3)(@types/react@19.2.14)(react@18.3.1)
+        version: 1.2.2(@tma.js/sdk@1.5.3)(@types/react@19.2.14)(react@19.2.4)
       next:
-        specifier: ^14.2.3
-        version: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^16.1.4
+        version: 16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: 19.2.4
+        version: 19.2.4
       react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
+        specifier: 19.2.4
+        version: 19.2.4(react@19.2.4)
     devDependencies:
       '@opennextjs/cloudflare':
         specifier: ^1.17.1
-        version: 1.19.9(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))
+        version: 1.19.9(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))
       '@types/node':
         specifier: ^20.12.12
         version: 20.19.41
@@ -204,7 +204,7 @@ importers:
         version: 2.15.2
       '@medusajs/medusa-js':
         specifier: ^6.1.10
-        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))
+        version: 6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))
       '@medusajs/types':
         specifier: ^2.11.3
         version: 2.15.2(ioredis@5.10.1)(vite@5.4.21(@types/node@20.4.2)(terser@5.47.1))
@@ -3920,9 +3920,6 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@next/env@14.2.35':
-    resolution: {integrity: sha512-DuhvCtj4t9Gwrx80dmz2F4t/zKQ4ktN8WrMwOuVzkJfBilwAwGr6v16M5eI8yCuZ63H9TTuEU09Iu2HqkzFPVQ==}
-
   '@next/env@15.5.9':
     resolution: {integrity: sha512-4GlTZ+EJM7WaW2HEZcyU317tIQDjkQIyENDLxYJfSWlfqguN+dHkZgyQTV/7ykvobU7yEH5gKvreNrH4B6QgIg==}
 
@@ -3935,22 +3932,10 @@ packages:
   '@next/eslint-plugin-next@14.2.35':
     resolution: {integrity: sha512-Jw9A3ICz2183qSsqwi7fgq4SBPiNfmOLmTPXKvlnzstUwyvBrtySiY+8RXJweNAs9KThb1+bYhZh9XWcNOr2zQ==}
 
-  '@next/swc-darwin-arm64@14.2.33':
-    resolution: {integrity: sha512-HqYnb6pxlsshoSTubdXKu15g3iivcbsMXg4bYpjL2iS/V6aQot+iyF4BUc2qA/J/n55YtvE4PHMKWBKGCF/+wA==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-
   '@next/swc-darwin-arm64@16.2.6':
     resolution: {integrity: sha512-ZJGkkcNfYgrrMkqOdZ7zoLa1TOy0qpcMfk/z4Mh/FKUz40gVO+HNQWqmLxf67Z5WB64DRp0dhEbyHfel+6sJUg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [darwin]
-
-  '@next/swc-darwin-x64@14.2.33':
-    resolution: {integrity: sha512-8HGBeAE5rX3jzKvF593XTTFg3gxeU4f+UWnswa6JPhzaR6+zblO5+fjltJWIZc4aUalqTclvN2QtTC37LxvZAA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [darwin]
 
   '@next/swc-darwin-x64@16.2.6':
@@ -3959,20 +3944,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@14.2.33':
-    resolution: {integrity: sha512-JXMBka6lNNmqbkvcTtaX8Gu5by9547bukHQvPoLe9VRBx1gHwzf5tdt4AaezW85HAB3pikcvyqBToRTDA4DeLw==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-
   '@next/swc-linux-arm64-gnu@16.2.6':
     resolution: {integrity: sha512-RPOvqlYBbcQjkz9VQQDZ2T2bARIjXZV1KFlt+V2Mr6SW/e4I9fcKsaA0hdyf2FHoTlsV2xnBd5Y912rP/1Ce6w==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-
-  '@next/swc-linux-arm64-musl@14.2.33':
-    resolution: {integrity: sha512-Bm+QulsAItD/x6Ih8wGIMfRJy4G73tu1HJsrccPW6AfqdZd0Sfm5Imhgkgq2+kly065rYMnCOxTBvmvFY1BKfg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -3983,20 +3956,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@14.2.33':
-    resolution: {integrity: sha512-FnFn+ZBgsVMbGDsTqo8zsnRzydvsGV8vfiWwUo1LD8FTmPTdV+otGSWKc4LJec0oSexFnCYVO4hX8P8qQKaSlg==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
   '@next/swc-linux-x64-gnu@16.2.6':
     resolution: {integrity: sha512-DOj182mPV8G3UkrayLoREM5YEYI+Dk5wv7Ox9xl1fFibAELEsFD0lDPfHIeILlutMMfdyhlzYPELG3peuKaurw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  '@next/swc-linux-x64-musl@14.2.33':
-    resolution: {integrity: sha512-345tsIWMzoXaQndUTDv1qypDRiebFxGYx9pYkhwY4hBRaOLt8UGfiWKr9FSSHs25dFIf8ZqIFaPdy5MljdoawA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -4007,28 +3968,10 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@14.2.33':
-    resolution: {integrity: sha512-nscpt0G6UCTkrT2ppnJnFsYbPDQwmum4GNXYTeoTIdsmMydSKFz9Iny2jpaRupTb+Wl298+Rh82WKzt9LCcqSQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-
   '@next/swc-win32-arm64-msvc@16.2.6':
     resolution: {integrity: sha512-LZXpTlPyS5v7HhSmnvsLGP3iIYgYOBnc8r8ArlT55sGHV89bR2HlDdBjWQ+PY6SJMmk8TuVGFuxalnP3k/0Dwg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [win32]
-
-  '@next/swc-win32-ia32-msvc@14.2.33':
-    resolution: {integrity: sha512-pc9LpGNKhJ0dXQhZ5QMmYxtARwwmWLpeocFmVG5Z0DzWq5Uf0izcI8tLc+qOpqxO1PWqZ5A7J1blrUIKrIFc7Q==}
-    engines: {node: '>= 10'}
-    cpu: [ia32]
-    os: [win32]
-
-  '@next/swc-win32-x64-msvc@14.2.33':
-    resolution: {integrity: sha512-nOjfZMy8B94MdisuzZo9/57xuFVLHJaDj5e/xrduJp9CV2/HrfxTRH2fbyLe+K9QT41WBLUd4iXX3R7jBp0EUg==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [win32]
 
   '@next/swc-win32-x64-msvc@16.2.6':
@@ -6034,9 +5977,6 @@ packages:
     peerDependencies:
       '@svta/cml-utils': 1.0.1
 
-  '@swc/counter@0.1.3':
-    resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
-
   '@swc/helpers@0.4.14':
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
 
@@ -6048,9 +5988,6 @@ packages:
 
   '@swc/helpers@0.5.21':
     resolution: {integrity: sha512-jI/VAmtdjB/RnI8GTnokyX7Ug8c+g+ffD6QRLa6XQewtnGyukKkKSk3wLTM3b5cjt1jNh9x0jfVlagdN2gDKQg==}
-
-  '@swc/helpers@0.5.5':
-    resolution: {integrity: sha512-KGYxvIOXcceOAbEk4bi/dVLEK9z8sZ0uBB3Il5b1rhfClSpcX0yfRO0KmTkqR2cnQDymwLB+25ZyMzICg/cm/A==}
 
   '@tailwindcss/aspect-ratio@0.4.2':
     resolution: {integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==}
@@ -10231,24 +10168,6 @@ packages:
       '@types/react-dom':
         optional: true
 
-  next@14.2.35:
-    resolution: {integrity: sha512-KhYd2Hjt/O1/1aZVX3dCwGXM1QmOV4eNM2UTacK5gipDdPN/oHHK/4oVGy7X8GMfPMsUTUEmGlsy0EY1YGAkig==}
-    engines: {node: '>=18.17.0'}
-    hasBin: true
-    peerDependencies:
-      '@opentelemetry/api': ^1.1.0
-      '@playwright/test': ^1.41.2
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      sass: ^1.3.0
-    peerDependenciesMeta:
-      '@opentelemetry/api':
-        optional: true
-      '@playwright/test':
-        optional: true
-      sass:
-        optional: true
-
   next@16.2.6:
     resolution: {integrity: sha512-qOVgKJg1+At15NpeUP+eJgCHvTCgXsogweq87Ri/Ix7PkqQHg4sdaXmSFqKlgaIXE4kW0g25LE68W87UANlHtw==}
     engines: {node: '>=20.9.0'}
@@ -11051,11 +10970,6 @@ packages:
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
-    peerDependencies:
-      react: ^18.3.1
-
   react-dom@19.2.4:
     resolution: {integrity: sha512-AXJdLo8kgMbimY95O2aKQqsz2iWi9jMgKJhRBAxECE4IFxfcazB2LmzloIoibJI3C12IlY20+KFaLv+71bUJeQ==}
     peerDependencies:
@@ -11160,10 +11074,6 @@ packages:
     peerDependencies:
       react: '*'
       react-dom: '*'
-
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
-    engines: {node: '>=0.10.0'}
 
   react@19.2.4:
     resolution: {integrity: sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==}
@@ -11426,9 +11336,6 @@ packages:
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
-
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
   scheduler@0.27.0:
     resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
@@ -11798,19 +11705,6 @@ packages:
 
   strnum@2.3.0:
     resolution: {integrity: sha512-ums3KNd42PGyx5xaoVTO1mjU1bH3NpY4vsrVlnv9PNGqQj8wd7rJ6nEypLrJ7z5vxK5RP0yMLo6J/Gsm62DI5Q==}
-
-  styled-jsx@5.1.1:
-    resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
-    engines: {node: '>= 12.0.0'}
-    peerDependencies:
-      '@babel/core': '*'
-      babel-plugin-macros: '*'
-      react: '>= 16.8.0 || 17.x.x || ^18.0.0-0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      babel-plugin-macros:
-        optional: true
 
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
@@ -15875,8 +15769,8 @@ snapshots:
       '@medusajs/modules-sdk': 1.12.12(@types/node@20.4.2)
       '@medusajs/types': 1.11.17
       '@medusajs/utils': 1.11.11(@types/node@20.4.2)(pg@8.20.0)
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
       awilix: 8.0.1
     transitivePeerDependencies:
       - '@mikro-orm/better-sqlite'
@@ -15949,9 +15843,9 @@ snapshots:
       - supports-color
       - tedious
 
-  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3)))':
+  '@medusajs/medusa-js@6.1.10(@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0)))':
     dependencies:
-      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))
+      '@medusajs/medusa': 1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))
       axios: 0.24.0
       cross-env: 5.2.1
       qs: 6.15.1
@@ -15960,7 +15854,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3))':
+  '@medusajs/medusa@1.20.11(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/ioredis-mock@8.2.7(ioredis@5.10.1))(@types/node@20.4.2)(medusa-interfaces@1.3.10)(typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0))':
     dependencies:
       '@medusajs/core-flows': 0.0.10(@types/node@20.4.2)(pg@8.20.0)
       '@medusajs/link-modules': 0.2.12(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@types/node@20.4.2)(pg@8.20.0)
@@ -16010,7 +15904,7 @@ snapshots:
       regenerator-runtime: 0.13.11
       request-ip: 3.3.0
       scrypt-kdf: 2.0.1
-      typeorm: 0.3.29(ioredis@5.10.1)(pg@8.11.3)
+      typeorm: 0.3.29(ioredis@5.10.1)(pg@8.20.0)
       ulid: 2.4.0
       uuid: 9.0.1
       winston: 3.19.0
@@ -16134,9 +16028,9 @@ snapshots:
   '@medusajs/utils@1.11.11(@types/node@20.4.2)(pg@8.20.0)':
     dependencies:
       '@medusajs/types': 1.11.17
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
       awilix: 8.0.1
       bignumber.js: 9.3.1
       knex: 2.4.2(pg@8.20.0)
@@ -16188,7 +16082,7 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)':
+  '@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)':
     dependencies:
       acorn-loose: 8.3.0
       acorn-walk: 8.2.0
@@ -16198,29 +16092,43 @@ snapshots:
       mikro-orm: 5.9.7
       reflect-metadata: 0.1.13
     optionalDependencies:
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
-      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
+      '@mikro-orm/postgresql': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))
 
-  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)':
+  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.11.3)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
       fs-extra: 11.1.1
       knex: 2.5.1(pg@8.11.3)
       sqlstring: 2.3.3
     optionalDependencies:
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
       pg: 8.11.3
     transitivePeerDependencies:
       - pg-native
       - supports-color
       - tedious
 
-  '@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)':
+  '@mikro-orm/knex@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.20.0)':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
       fs-extra: 11.1.1
-      knex: 2.5.1(pg@8.11.3)
+      knex: 2.5.1(pg@8.20.0)
+      sqlstring: 2.3.3
+    optionalDependencies:
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
+      pg: 8.20.0
+    transitivePeerDependencies:
+      - pg-native
+      - supports-color
+      - tedious
+
+  '@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)':
+    dependencies:
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.20.0)
+      fs-extra: 11.1.1
+      knex: 2.5.1(pg@8.20.0)
       umzug: 3.3.1(@types/node@20.4.2)
     transitivePeerDependencies:
       - '@mikro-orm/entity-generator'
@@ -16235,13 +16143,13 @@ snapshots:
       - supports-color
       - tedious
 
-  '@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)':
+  '@mikro-orm/postgresql@5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))':
     dependencies:
-      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7)
-      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7)(pg@8.11.3)
+      '@mikro-orm/core': 5.9.7(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(@mikro-orm/postgresql@5.9.7)
+      '@mikro-orm/knex': 5.9.7(@mikro-orm/core@5.9.7)(@mikro-orm/migrations@5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0))(pg@8.11.3)
       pg: 8.11.3
     optionalDependencies:
-      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7(@mikro-orm/migrations@5.9.7)(@mikro-orm/postgresql@5.9.7))(@types/node@20.4.2)(pg@8.11.3)
+      '@mikro-orm/migrations': 5.9.7(@mikro-orm/core@5.9.7)(@types/node@20.4.2)(pg@8.20.0)
     transitivePeerDependencies:
       - better-sqlite3
       - mssql
@@ -16343,8 +16251,6 @@ snapshots:
       '@tybys/wasm-util': 0.10.2
     optional: true
 
-  '@next/env@14.2.35': {}
-
   '@next/env@15.5.9': {}
 
   '@next/env@16.2.6': {}
@@ -16357,52 +16263,25 @@ snapshots:
     dependencies:
       glob: 10.3.10
 
-  '@next/swc-darwin-arm64@14.2.33':
-    optional: true
-
   '@next/swc-darwin-arm64@16.2.6':
-    optional: true
-
-  '@next/swc-darwin-x64@14.2.33':
     optional: true
 
   '@next/swc-darwin-x64@16.2.6':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@14.2.33':
-    optional: true
-
   '@next/swc-linux-arm64-gnu@16.2.6':
-    optional: true
-
-  '@next/swc-linux-arm64-musl@14.2.33':
     optional: true
 
   '@next/swc-linux-arm64-musl@16.2.6':
     optional: true
 
-  '@next/swc-linux-x64-gnu@14.2.33':
-    optional: true
-
   '@next/swc-linux-x64-gnu@16.2.6':
-    optional: true
-
-  '@next/swc-linux-x64-musl@14.2.33':
     optional: true
 
   '@next/swc-linux-x64-musl@16.2.6':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@14.2.33':
-    optional: true
-
   '@next/swc-win32-arm64-msvc@16.2.6':
-    optional: true
-
-  '@next/swc-win32-ia32-msvc@14.2.33':
-    optional: true
-
-  '@next/swc-win32-x64-msvc@14.2.33':
     optional: true
 
   '@next/swc-win32-x64-msvc@16.2.6':
@@ -16716,30 +16595,6 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
-  '@opennextjs/aws@4.0.2(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))':
-    dependencies:
-      '@ast-grep/napi': 0.40.5
-      '@aws-sdk/client-cloudfront': 3.984.0
-      '@aws-sdk/client-dynamodb': 3.984.0
-      '@aws-sdk/client-lambda': 3.984.0
-      '@aws-sdk/client-s3': 3.984.0
-      '@aws-sdk/client-sqs': 3.984.0
-      '@node-minify/core': 8.0.6
-      '@node-minify/terser': 8.0.6
-      '@tsconfig/node18': 1.0.3
-      aws4fetch: 1.0.20
-      chalk: 5.6.2
-      cookie: 1.1.1
-      esbuild: 0.25.4
-      express: 5.2.1
-      next: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      path-to-regexp: 6.3.0
-      urlpattern-polyfill: 10.1.0
-      yaml: 2.9.0
-    transitivePeerDependencies:
-      - aws-crt
-      - supports-color
-
   '@opennextjs/aws@4.0.2(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
     dependencies:
       '@ast-grep/napi': 0.40.5
@@ -16762,25 +16617,6 @@ snapshots:
       yaml: 2.9.0
     transitivePeerDependencies:
       - aws-crt
-      - supports-color
-
-  '@opennextjs/cloudflare@1.19.9(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))':
-    dependencies:
-      '@ast-grep/napi': 0.40.5
-      '@dotenvx/dotenvx': 1.31.0
-      '@opennextjs/aws': 4.0.2(next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
-      ci-info: 4.4.0
-      cloudflare: 4.5.0
-      comment-json: 4.6.2
-      enquirer: 2.4.1
-      glob: 12.0.0
-      next: 14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      ts-tqdm: 0.8.6
-      wrangler: 4.90.1(@cloudflare/workers-types@4.20260511.1)
-      yargs: 18.0.0
-    transitivePeerDependencies:
-      - aws-crt
-      - encoding
       - supports-color
 
   '@opennextjs/cloudflare@1.19.9(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(wrangler@4.90.1(@cloudflare/workers-types@4.20260511.1))':
@@ -18690,8 +18526,6 @@ snapshots:
     dependencies:
       '@svta/cml-utils': 1.0.1
 
-  '@swc/counter@0.1.3': {}
-
   '@swc/helpers@0.4.14':
     dependencies:
       tslib: 2.8.1
@@ -18707,11 +18541,6 @@ snapshots:
 
   '@swc/helpers@0.5.21':
     dependencies:
-      tslib: 2.8.1
-
-  '@swc/helpers@0.5.5':
-    dependencies:
-      '@swc/counter': 0.1.3
       tslib: 2.8.1
 
   '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.19(tsx@3.14.0)(yaml@2.9.0))':
@@ -18743,14 +18572,6 @@ snapshots:
       superjson: 1.13.3
       use-sync-external-store: 1.6.0(react@19.2.4)
 
-  '@tanstack/react-query@4.44.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@tanstack/query-core': 4.44.0
-      react: 18.3.1
-      use-sync-external-store: 1.6.0(react@18.3.1)
-    optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
-
   '@tanstack/react-query@4.44.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tanstack/query-core': 4.44.0
@@ -18775,10 +18596,10 @@ snapshots:
 
   '@tanstack/virtual-core@3.14.0': {}
 
-  '@tma.js/sdk-react@1.2.2(@tma.js/sdk@1.5.3)(@types/react@19.2.14)(react@18.3.1)':
+  '@tma.js/sdk-react@1.2.2(@tma.js/sdk@1.5.3)(@types/react@19.2.14)(react@19.2.4)':
     dependencies:
       '@tma.js/sdk': 1.5.3
-      react: 18.3.1
+      react: 19.2.4
     optionalDependencies:
       '@types/react': 19.2.14
 
@@ -21061,7 +20882,7 @@ snapshots:
       eslint: 8.56.0
       eslint-import-resolver-node: 0.3.10
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.56.0)
       eslint-plugin-react: 7.37.5(eslint@8.56.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.56.0)
@@ -21115,7 +20936,7 @@ snapshots:
       tinyglobby: 0.2.16
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21185,7 +21006,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@8.56.0):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@6.21.0(eslint@8.56.0)(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(eslint@8.56.0))(eslint@8.56.0))(eslint@8.56.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -23115,7 +22936,6 @@ snapshots:
       pg: 8.20.0
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   kuler@2.0.0: {}
 
@@ -23648,31 +23468,6 @@ snapshots:
       - '@types/node'
       - aws-crt
       - encoding
-
-  next@14.2.35(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@next/env': 14.2.35
-      '@swc/helpers': 0.5.5
-      busboy: 1.6.0
-      caniuse-lite: 1.0.30001792
-      graceful-fs: 4.2.11
-      postcss: 8.4.31
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.1(react@18.3.1)
-    optionalDependencies:
-      '@next/swc-darwin-arm64': 14.2.33
-      '@next/swc-darwin-x64': 14.2.33
-      '@next/swc-linux-arm64-gnu': 14.2.33
-      '@next/swc-linux-arm64-musl': 14.2.33
-      '@next/swc-linux-x64-gnu': 14.2.33
-      '@next/swc-linux-x64-musl': 14.2.33
-      '@next/swc-win32-arm64-msvc': 14.2.33
-      '@next/swc-win32-ia32-msvc': 14.2.33
-      '@next/swc-win32-x64-msvc': 14.2.33
-    transitivePeerDependencies:
-      - '@babel/core'
-      - babel-plugin-macros
 
   next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
@@ -24501,12 +24296,6 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  react-dom@18.3.1(react@18.3.1):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
-
   react-dom@19.2.4(react@19.2.4):
     dependencies:
       react: 19.2.4
@@ -24616,10 +24405,6 @@ snapshots:
       throttle-debounce: 3.0.1
       ts-easing: 0.2.0
       tslib: 2.8.1
-
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
 
   react@19.2.4: {}
 
@@ -24911,10 +24696,6 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
-
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
 
   scheduler@0.27.0: {}
 
@@ -25413,11 +25194,6 @@ snapshots:
 
   strnum@2.3.0: {}
 
-  styled-jsx@5.1.1(react@18.3.1):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.3.1
-
   styled-jsx@5.1.6(@babel/core@7.29.0)(react@19.2.4):
     dependencies:
       client-only: 0.0.1
@@ -25806,7 +25582,7 @@ snapshots:
 
   typedarray@0.0.6: {}
 
-  typeorm@0.3.29(ioredis@5.10.1)(pg@8.11.3):
+  typeorm@0.3.29(ioredis@5.10.1)(pg@8.20.0):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 4.3.0
@@ -25825,7 +25601,7 @@ snapshots:
       yargs: 17.7.2
     optionalDependencies:
       ioredis: 5.10.1
-      pg: 8.11.3
+      pg: 8.20.0
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -25969,10 +25745,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 19.2.14
-
-  use-sync-external-store@1.6.0(react@18.3.1):
-    dependencies:
-      react: 18.3.1
 
   use-sync-external-store@1.6.0(react@19.2.4):
     dependencies:

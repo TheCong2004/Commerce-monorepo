@@ -6,7 +6,11 @@ const nextConfig = {
       'lucide-react',
       '@tma.js/sdk-react'
     ],
+    turbo: {
+      enabled: false
+    }
   },
+  transpilePackages: ['@commerce/ui-kit', '@commerce/shared-hooks', '@commerce/api-client', '@commerce/shared-types', '@commerce/shared-utils'],
   // Disable production source maps to reduce bundle size
   productionBrowserSourceMaps: false,
   webpack: (config, { isServer }) => {

@@ -58,6 +58,14 @@ jobs:
           pnpm --filter web run build:cf
           pnpm --filter web run deploy
 
+      - name: Triển khai Telegram Mini App
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pnpm --filter telegram-miniapp run build:cf
+          pnpm --filter telegram-miniapp run deploy
+
       - name: Triển khai các trạm phân tán (Durable Objects)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

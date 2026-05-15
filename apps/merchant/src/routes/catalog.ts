@@ -1,4 +1,5 @@
 import { OpenAPIHono, createRoute } from '@hono/zod-openapi';
+import type { Context } from 'hono';
 import { z } from '@hono/zod-openapi';
 import { getDb } from '../db';
 import { authMiddleware, adminOnly } from '../middleware/auth';
@@ -15,6 +16,7 @@ import {
   UpdateVariantBody,
   ErrorResponse,
   DeletedResponse,
+  OkResponse,
 } from '../schemas';
 
 const VariantIdParam = z.object({
@@ -24,7 +26,10 @@ const VariantIdParam = z.object({
 
 const app = new OpenAPIHono<HonoEnv>();
 
-app.use('*', authMiddleware);
+app.use('*', async (c, next) => {
+  if (c.req.method === 'GET') return next();
+  return authMiddleware(c, next);
+});
 
 const listProducts = createRoute({
   method: 'get',
@@ -39,6 +44,7 @@ const listProducts = createRoute({
 });
 
 app.openapi(listProducts, async (c) => {
+  console.log('Fetching products...');
   const db = getDb(c.var.db);
   const { limit: limitStr, cursor, status } = c.req.valid('query');
   const limit = Math.min(parseInt(limitStr || '20'), 100);
@@ -64,6 +70,7 @@ app.openapi(listProducts, async (c) => {
   params.push(limit + 1);
 
   const products = await db.query<any>(query, params);
+  console.log(`Found ${products.length} products`);
   const hasMore = products.length > limit;
   if (hasMore) products.pop();
 
@@ -160,7 +167,7 @@ const createProduct = createRoute({
   },
 });
 
-app.openapi(createProduct, async (c) => {
+app.openapi(createProduct, async (c: any) => {
   const { title, description } = c.req.valid('json');
   const db = getDb(c.var.db);
 
@@ -195,7 +202,7 @@ const updateProduct = createRoute({
   },
 });
 
-app.openapi(updateProduct, async (c) => {
+app.openapi(updateProduct, async (c: any) => {
   const { id } = c.req.valid('param');
   const body = c.req.valid('json');
   const db = getDb(c.var.db);
@@ -258,7 +265,7 @@ const deleteProduct = createRoute({
   },
 });
 
-app.openapi(deleteProduct, async (c) => {
+app.openapi(deleteProduct, async (c: any) => {
   const { id } = c.req.valid('param');
   const db = getDb(c.var.db);
 
@@ -308,7 +315,7 @@ const createVariant = createRoute({
   },
 });
 
-app.openapi(createVariant, async (c) => {
+app.openapi(createVariant, async (c: any) => {
   const { id: productId } = c.req.valid('param');
   const { sku, title, price_cents, image_url } = c.req.valid('json');
   const db = getDb(c.var.db);
@@ -353,7 +360,7 @@ const updateVariant = createRoute({
   },
 });
 
-app.openapi(updateVariant, async (c) => {
+app.openapi(updateVariant, async (c: any) => {
   const { id: productId, variantId } = c.req.valid('param');
   const body = c.req.valid('json');
   const db = getDb(c.var.db);
@@ -422,7 +429,7 @@ const deleteVariant = createRoute({
   },
 });
 
-app.openapi(deleteVariant, async (c) => {
+app.openapi(deleteVariant, async (c: any) => {
   const { id: productId, variantId } = c.req.valid('param');
   const db = getDb(c.var.db);
 
@@ -441,6 +448,40 @@ app.openapi(deleteVariant, async (c) => {
   await db.run(`DELETE FROM variants WHERE id = ?`, [variantId]);
 
   return c.json({ deleted: true as const }, 200);
+});
+
+const seedProducts = createRoute({
+  method: 'get',
+  path: '/seed',
+  tags: ['Products'],
+  summary: 'Seed dummy products',
+  responses: {
+    200: { content: { 'application/json': { schema: OkResponse } }, description: 'Seeded' },
+  },
+});
+
+app.openapi(seedProducts, async (c) => {
+  const db = getDb(c.var.db);
+  const timestamp = now();
+
+  const products = [
+    { id: uuid(), title: 'Premium T-Shirt', description: 'Chất liệu cotton cao cấp, thoáng mát.', price: 250000, img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400' },
+    { id: uuid(), title: 'Custom Mug', description: 'In hình theo yêu cầu, giữ nhiệt tốt.', price: 120000, img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=400' },
+    { id: uuid(), title: 'POD Hoodie', description: 'Phong cách street wear cực chất.', price: 450000, img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400' },
+  ];
+
+  for (const p of products) {
+    await db.run(
+      `INSERT INTO products (id, title, description, status, created_at) VALUES (?, ?, ?, 'active', ?)`,
+      [p.id, p.title, p.description, timestamp]
+    );
+    await db.run(
+      `INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at) VALUES (?, ?, ?, 'Standard', ?, 0, ?, ?)`,
+      [uuid(), p.id, `SKU-${p.title.toUpperCase().replace(/\s/g, '-')}`, p.price, p.img, timestamp]
+    );
+  }
+
+  return c.json({ ok: true as const }, 200);
 });
 
 export { app as catalog };

@@ -96,7 +96,7 @@ const Cart = () => {
     );
 };
 
-Cart.getLayout = function getLayout(page: React.ReactElement) {
+Cart.getLayout = function getLayout(page: any) {
     return (
         <PrimaryLayout seo={{ title: 'Cart', canonical: '/cart' }}>
             {page}

@@ -81,7 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
   };
 };
 
-Home.getLayout = function getLayout(page: ReactElement) {
+Home.getLayout = function getLayout(page: any) {
   return (
     <PrimaryLayout seo={{ title: 'Home | Commerce Monorepo', canonical: '/' }}>
       {page}

@@ -1,5 +1,6 @@
 import { OpenAPIHono, createRoute } from '@hono/zod-openapi';
 import { z } from '@hono/zod-openapi';
+import { getPaymentStrategies } from '@commerce/payments';
 import Stripe from 'stripe';
 import { getDb } from '../db';
 import { authMiddleware } from '../middleware/auth';
@@ -626,6 +627,77 @@ app.openapi(removeDiscount, async (c) => {
       total_cents: subtotalCents,
     },
   }, 200);
+});
+
+const createPayment = createRoute({
+  method: 'post',
+  path: '/create-payment',
+  tags: ['Checkout'],
+  summary: 'Create a payment (ZaloPay, Telegram Stars, etc.)',
+  request: {
+    body: {
+      content: {
+        'application/json': {
+          schema: z.object({
+            provider: z.enum(['zalopay', 'telegram-stars']),
+            cartId: z.string(),
+            userId: z.string(),
+            title: z.string().optional(),
+            description: z.string().optional(),
+          }),
+        },
+      },
+    },
+  },
+  responses: {
+    200: { content: { 'application/json': { schema: z.any() } }, description: 'Payment data' },
+    400: { content: { 'application/json': { schema: ErrorResponse } }, description: 'Invalid request' },
+    404: { content: { 'application/json': { schema: ErrorResponse } }, description: 'Cart not found' },
+  },
+});
+
+app.openapi(createPayment, async (c) => {
+  const { provider, cartId, userId, title, description } = c.req.valid('json');
+  const db = getDb(c.var.db);
+
+  const [cart] = await db.query<any>(`SELECT * FROM carts WHERE id = ?`, [cartId]);
+  if (!cart) throw ApiError.notFound('Cart not found');
+
+  const items = await db.query<any>(`SELECT * FROM cart_items WHERE cart_id = ?`, [cartId]);
+  const subtotalCents = items.reduce((sum, item) => sum + item.unit_price_cents * item.qty, 0);
+  const totalCents = subtotalCents - (cart.discount_amount_cents || 0);
+
+  const strategies = getPaymentStrategies({
+    zalopay: {
+      appId: c.env.ZALOPAY_APP_ID,
+      key1: c.env.ZALOPAY_KEY1,
+      key2: c.env.ZALOPAY_KEY2,
+    },
+    telegram: {
+      token: c.env.TELEGRAM_BOT_TOKEN,
+    },
+  });
+
+  const strategy = strategies[provider];
+  if (!strategy) throw ApiError.invalidRequest('Invalid payment provider');
+
+  const paymentData = await strategy.createPayment({
+    orderId: cartId,
+    amount: totalCents,
+    items: items.map(i => ({ id: i.sku, name: i.title, price: i.unit_price_cents, quantity: i.qty })),
+    userId,
+    description: description || `Payment for cart ${cartId}`,
+    title: title || 'Order Payment',
+    appTransId: `${Date.now()}_${cartId}`,
+  });
+
+  // Update cart status or save payment intent if needed
+  await db.run(
+    `UPDATE carts SET status = 'checked_out', updated_at = ? WHERE id = ?`,
+    [now(), cartId]
+  );
+
+  return c.json({ success: true, provider, ...paymentData }, 200);
 });
 
 export { app as checkout };

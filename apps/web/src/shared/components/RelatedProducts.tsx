@@ -27,7 +27,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentProductId, col
         
         if (!res.ok) throw new Error("Fetch failed");
         
-        const data = await res.json();
+        const data = await res.json() as any;
         
         const filteredProducts = (data.products || []).filter(
           (item: any) => item.id !== currentProductId && item.handle !== currentProductId

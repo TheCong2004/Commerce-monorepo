@@ -32,6 +32,8 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@commerce/api-client": "workspace:^",
+    "@commerce/shared-hooks": "workspace:^",
     "@commerce/shared-types": "workspace:*",
     "@headlessui/react": "^1.7.15",
     "@hookform/resolvers": "^5.2.2",
@@ -119,7 +121,7 @@
     "@types/jest": "^29.5.3",
     "@types/node": "20.4.2",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "18.2.55",
+    "@types/react": "^19.0.0",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",

@@ -1,12 +1,39 @@
 {
   "name": "zalo-miniapp",
-  "version": "1.0.0",
   "private": true,
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "zmp dev",
-    "build": "zmp build"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "zalo:login": "zmp login",
+    "zalo:deploy": "pnpm build && zmp deploy"
   },
   "dependencies": {
-    "@commerce/shared-types": "workspace:*"
+    "@commerce/api-client": "workspace:*",
+    "@commerce/shared-hooks": "workspace:*",
+    "@commerce/shared-types": "workspace:*",
+    "@commerce/shared-utils": "workspace:*",
+    "@commerce/ui-kit": "workspace:*",
+    "@tanstack/react-query": "^4.29.25",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "recoil": "^0.7.7",
+    "zmp-sdk": "latest",
+    "zmp-ui": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-legacy": "^5.4.3",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "terser": "^5.47.1",
+    "typescript": "^5.7.2",
+    "vite": "^5.2.11",
+    "zmp-vite-plugin": "^1.1.6"
   }
 }

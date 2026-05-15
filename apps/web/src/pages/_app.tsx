@@ -4,6 +4,9 @@ import type { ReactElement, ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 import { api } from '@/utils/api';
 import '@/styles/globals.css';
+import { QueryClient, QueryClientProvider } from '@commerce/shared-hooks';
+
+const queryClient = new QueryClient();
 
 export type NextPageWithLayout<P = unknown, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -25,9 +28,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Nếu chưa mounted (đang SSR), chúng ta vẫn render để SEO, 
   // nhưng nếu lỗi useState xảy ra, việc bọc kỹ này sẽ giúp cô lập lỗi.
   return (
-    <div id="app-root">
-      {getLayout(<Component {...pageProps} />)}
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div id="app-root">
+        {getLayout(<Component {...pageProps} />)}
+      </div>
+    </QueryClientProvider>
   );
 }
 

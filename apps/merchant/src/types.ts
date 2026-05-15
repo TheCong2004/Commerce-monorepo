@@ -1,12 +1,14 @@
-import { type MerchantDO } from './do';
-
 export type Env = {
-  MERCHANT: DurableObjectNamespace<MerchantDO>;
+  MERCHANT: DurableObjectNamespace<any>;
   IMAGES?: R2Bucket;
   IMAGES_URL?: string;
   STORE_NAME?: string;
   STRIPE_SECRET_KEY?: string;
   STRIPE_WEBHOOK_SECRET?: string;
+  ZALOPAY_APP_ID?: string;
+  ZALOPAY_KEY1?: string;
+  ZALOPAY_KEY2?: string;
+  TELEGRAM_BOT_TOKEN?: string;
 };
 
 export type DOStub = {

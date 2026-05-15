@@ -15,9 +15,6 @@ import { oauth } from './routes/oauth';
 import { ucp } from './routes/ucp';
 import { rateLimitMiddleware } from './middleware/rate-limit';
 import { ApiError, type Env, type DOStub } from './types';
-import { MerchantDO } from './do';
-
-export { MerchantDO };
 
 type Variables = {
   db: DOStub;
@@ -27,7 +24,7 @@ const app = new OpenAPIHono<{ Bindings: Env; Variables: Variables }>();
 
 app.use('*', cors());
 
-app.use('*', async (c, next) => {
+app.use('*', async (c: any, next: any) => {
   const id = c.env.MERCHANT.idFromName('default');
   const stub = c.env.MERCHANT.get(id);
   c.set('db', stub as unknown as DOStub);
@@ -36,7 +33,7 @@ app.use('*', async (c, next) => {
 
 app.use('/v1/*', rateLimitMiddleware());
 
-app.onError((err, c) => {
+app.onError((err: Error, c: any) => {
   console.error(err);
 
   if (err instanceof ApiError) {
@@ -83,12 +80,6 @@ app.doc('/openapi.json', {
 
 app.get('/docs', swaggerUI({ url: '/openapi.json' }));
 
-export default {
-  fetch: app.fetch,
-  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
-    const id = env.MERCHANT.idFromName('default');
-    const stub = env.MERCHANT.get(id);
-    const cleaned = await (stub as unknown as { cleanupExpiredCarts: () => Promise<number> }).cleanupExpiredCarts();
-    console.log(`Cron: cleaned ${cleaned} expired carts`);
-  },
-};
+export default app;
+
+export type AppType = typeof app;

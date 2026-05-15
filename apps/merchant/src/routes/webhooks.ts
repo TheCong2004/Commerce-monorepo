@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import Stripe from 'stripe';
+import { getPaymentStrategies } from '@commerce/payments';
 import { getDb } from '../db';
 import { ApiError, uuid, now, generateOrderNumber, type HonoEnv } from '../types';
 import { dispatchWebhooks } from '../lib/webhooks';
@@ -10,6 +11,51 @@ import { handleUCPStripeWebhook } from './ucp';
 // ============================================================
 
 export const webhooks = new Hono<HonoEnv>();
+
+// POST /v1/webhooks/zalopay
+webhooks.post('/zalopay', async (c) => {
+  const data = await c.req.json();
+  const db = getDb(c.var.db);
+  
+  const strategies = getPaymentStrategies({
+    zalopay: {
+      appId: c.env.ZALOPAY_APP_ID,
+      key1: c.env.ZALOPAY_KEY1,
+      key2: c.env.ZALOPAY_KEY2,
+    },
+  });
+
+  const isValid = await strategies.zalopay.verifyCallback?.(data.data, data.mac);
+  if (!isValid) {
+    console.error('Invalid ZaloPay MAC');
+    return c.json({ return_code: -1, return_message: "Invalid MAC" });
+  }
+
+  const orderData = JSON.parse(data.data);
+  const cartId = JSON.parse(orderData.embed_data).orderId;
+  
+  console.log('ZaloPay webhook verified for cart:', cartId);
+  
+  // Update order status...
+  return c.json({ return_code: 1, return_message: "success" });
+});
+
+// POST /v1/webhooks/telegram
+webhooks.post('/telegram', async (c) => {
+  const data = await c.req.json();
+  const db = getDb(c.var.db);
+
+  if (data.message?.successful_payment) {
+    const payment = data.message.successful_payment;
+    const cartId = payment.invoice_payload;
+    console.log('Telegram Stars payment success for cart:', cartId);
+    
+    // Logic to create order from cart, similar to Stripe handler
+    // ...
+  }
+
+  return c.json({ ok: true });
+});
 
 // POST /v1/webhooks/stripe
 webhooks.post('/stripe', async (c) => {

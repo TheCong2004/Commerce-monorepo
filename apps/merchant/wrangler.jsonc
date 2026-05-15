@@ -1,6 +1,6 @@
 {
   "name": "merchant",
-  "main": "src/index.ts",
+  "main": "src/worker.ts",
   "compatibility_date": "2025-12-01",
 
   "d1_databases": [

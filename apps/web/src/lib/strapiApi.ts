@@ -50,7 +50,7 @@ export async function fetchArticles(): Promise<{
         next: { revalidate: 60 },
       });
     if (!res.ok) throw new Error(`Failed to fetch articles: ${res.status}`);
-    const data = await res.json();
+    const data: any = await res.json();
     const articles: StrapiArticle[] = Array.isArray(data.data) ? data.data : [];
     const total = data.meta?.pagination?.total || articles.length || 0;
     return { articles, total };
@@ -89,7 +89,7 @@ export async function fetchArticleBySlug(
             next: { revalidate: 60 },
           });
           if (!res.ok) continue;
-          const data = await res.json();
+          const data: any = await res.json();
           if (Array.isArray(data.data) && data.data.length > 0) {
             // Ensure the response actually contains an item matching our slug.
             const matches = data.data.filter((item: any) => {
@@ -140,7 +140,7 @@ export async function fetchArticleBySlug(
           next: { revalidate: 60 },
         });
         if (!res.ok) continue;
-        const all = await res.json();
+        const all: any = await res.json();
         const list = Array.isArray(all.data) ? all.data : [];
         const found = list.find(
           (item: any) =>

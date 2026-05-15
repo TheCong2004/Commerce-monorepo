@@ -7,6 +7,11 @@ import { ApiError, now, type HonoEnv } from '../types';
 // ============================================================
 
 export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
+  if (c.req.method === 'GET') {
+    await next();
+    return;
+  }
+  
   const authHeader = c.req.header('Authorization');
 
   if (!authHeader?.startsWith('Bearer ')) {

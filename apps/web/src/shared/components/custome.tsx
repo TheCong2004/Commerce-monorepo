@@ -1,9 +1,9 @@
 import Image from "next/image"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode } from "react"
+import { ReactNode } from "react"
 
 
-const CustomeProduct = (product: { images: any[]; title: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | Iterable<ReactNode> | null | undefined }) => {
+const CustomeProduct = (product: { images: any[]; title: ReactNode }) => {
     return (
         <div className="w-full h-full px-2 xl:p-0 relative bg-[#F8F8FA]">
             <Carousel className="w-full max-w-xl mx-auto">

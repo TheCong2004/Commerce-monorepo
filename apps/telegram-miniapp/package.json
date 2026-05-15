@@ -3,10 +3,33 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@commerce/shared-types": "workspace:*"
+    "@commerce/api-client": "workspace:*",
+    "@commerce/shared-hooks": "workspace:*",
+    "@commerce/shared-types": "workspace:*",
+    "@commerce/shared-utils": "workspace:*",
+    "@commerce/ui-kit": "workspace:*",
+    "@tanstack/react-query": "^4.29.25",
+    "@tma.js/sdk": "^1.0.0",
+    "@tma.js/sdk-react": "^1.0.0",
+    "next": "^14.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
   }
 }

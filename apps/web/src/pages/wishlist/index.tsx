@@ -130,7 +130,7 @@ const WishListPage = () => {
 
 export default WishListPage;
 
-WishListPage.getLayout = function getLayout(page: React.ReactElement) {
+WishListPage.getLayout = function getLayout(page: any) {
     return (
         <PrimaryLayout seo={{ title: 'Wishlist', canonical: '/wishlist' }}>
             {page}

@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "Open-source commerce backend. Bring Stripe key, start selling.",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "dev": "wrangler dev --config wrangler.jsonc",
     "build": "tsc --noEmit",
@@ -12,6 +15,7 @@
   },
   "dependencies": {
     "@commerce/shared-types": "workspace:*",
+    "@commerce/payments": "workspace:*",
     "@hono/swagger-ui": "^0.5.3",
     "@hono/zod-openapi": "^0.18.3",
     "hono": "^4.6.0",

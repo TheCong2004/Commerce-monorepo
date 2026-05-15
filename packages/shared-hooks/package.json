@@ -1,0 +1,29 @@
+{
+  "name": "@commerce/shared-hooks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@commerce/api-client": "workspace:*",
+    "@commerce/shared-types": "workspace:*",
+    "@tanstack/react-query": "^4.29.25"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
+    "@types/react": "^18.2.0",
+    "react": "^19.2.4",
+    "typescript": "^5.7.2"
+  }
+}

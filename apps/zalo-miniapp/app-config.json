@@ -1,0 +1,32 @@
+{
+  "appId": "3300753060489528246",
+  "type": "web",
+  "distDir": "dist",
+  "listSyncJS": ["assets/index.js"],
+  "listAsyncJS": [],
+  "listCSS": ["assets/style.css"],
+  "app": {
+    "id": "3300753060489528246",
+    "title": "Printerval",
+    "headerTitle": "Printerval",
+    "headerColor": "#2563eb",
+    "textColor": "white",
+    "statusBarColor": "#2563eb",
+    "leftButton": "back"
+  },
+  "listURLs": [
+    "http://localhost:8787",
+    "https://printerval.thecong2610.workers.dev"
+  ],
+  "pages": [
+    "pages/index"
+  ],
+  "env": {
+    "DEVELOPMENT": {
+      "API_URL": "http://localhost:8787"
+    },
+    "PRODUCTION": {
+      "API_URL": "https://printerval.thecong2610.workers.dev"
+    }
+  }
+}

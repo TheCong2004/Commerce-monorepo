@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "@commerce/shared-types": "workspace:*",
-    "hono": "^4.6.0"
+    "hono": "^4.6.0",
+    "merchant": "workspace:^"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260511.1",
     "typescript": "^5.7.2"
   }
 }

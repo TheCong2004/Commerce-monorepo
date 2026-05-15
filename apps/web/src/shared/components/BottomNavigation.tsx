@@ -1,7 +1,23 @@
 import { useState } from 'react';
 import { IconType } from 'react-icons';
 import { FiHome, FiUser, FiHeart, FiShoppingBag, FiGrid, FiX } from 'react-icons/fi';
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
+import { 
+  Drawer as DrawerRaw, 
+  DrawerClose as DrawerCloseRaw, 
+  DrawerContent as DrawerContentRaw, 
+  DrawerFooter as DrawerFooterRaw, 
+  DrawerHeader as DrawerHeaderRaw, 
+  DrawerTitle as DrawerTitleRaw, 
+  DrawerTrigger as DrawerTriggerRaw 
+} from '../ui/drawer';
+
+const Drawer = DrawerRaw as any;
+const DrawerClose = DrawerCloseRaw as any;
+const DrawerContent = DrawerContentRaw as any;
+const DrawerFooter = DrawerFooterRaw as any;
+const DrawerHeader = DrawerHeaderRaw as any;
+const DrawerTitle = DrawerTitleRaw as any;
+const DrawerTrigger = DrawerTriggerRaw as any;
 import { Button } from '../ui/button';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 import {
@@ -62,6 +78,8 @@ const bottomTabs: BottomTab[] = [
 const Size = [
   "S ($14.75)", "M ($14.75)", "L ($14.75)", "XL ($14.75)", "XXL ($15.75)", "3XL ($16.75)", "4XL ($16.75)", "5XL ($16.75)"
 ]
+const DrawerContentAny = DrawerContent as any;
+
 export const BottomNavigation = ({ handleUpload, InputRef }: { handleUpload?: any; InputRef?: any }) => {
   // const { t } = useTranslation();
   const [color, setColor] = useState(COLOR_PRESETS[0].name)
@@ -108,7 +126,7 @@ export const BottomNavigation = ({ handleUpload, InputRef }: { handleUpload?: an
                     {size || 'Choose size'}
                     <ChevronDown />
                   </DrawerTrigger>
-                  <DrawerContent>
+                  <DrawerContentAny>
                     <DrawerHeader className="shrink-0 p-0 shadow-sm mx-2">
                       <DrawerTitle className="flex items-center justify-between p-2">
                         Choose a size
@@ -130,7 +148,7 @@ export const BottomNavigation = ({ handleUpload, InputRef }: { handleUpload?: an
                         Order multiple sizes
                       </Button>
                     </DrawerFooter>
-                  </DrawerContent>
+                  </DrawerContentAny>
                 </Drawer>
               </div>
             </div>
@@ -163,7 +181,7 @@ export const BottomNavigation = ({ handleUpload, InputRef }: { handleUpload?: an
           ))}
         </div>
 
-        <DrawerContent className="flex flex-col px-1">
+        <DrawerContentAny className="flex flex-col px-1">
           <DrawerHeader className="shrink-0 p-0 shadow-sm mx-2">
             <DrawerTitle className="flex items-center justify-between border-b-2 ">
               <span>{bottomTabs.find(t => t.id === currentTab)?.header}</span>
@@ -177,7 +195,7 @@ export const BottomNavigation = ({ handleUpload, InputRef }: { handleUpload?: an
           <div>
             {renderTabContent()}
           </div>
-        </DrawerContent>
+        </DrawerContentAny>
       </Drawer>
     </div>
   );

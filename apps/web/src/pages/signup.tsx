@@ -286,7 +286,7 @@ const Signup = () => {
   );
 }
 
-Signup.getLayout = function getLayout(page: ReactElement) {
+Signup.getLayout = function getLayout(page: any) {
   return (
     <PrimaryLayout
       seo={{

@@ -1,0 +1,15 @@
+{
+  "name": "@commerce/payments",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+
+  "dependencies": {
+    "@commerce/shared-types": "workspace:*",
+    "zod": "^3.22.4",
+    "grammy": "^1.21.1"
+  }
+}

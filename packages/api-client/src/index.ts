@@ -1,6 +1,8 @@
 import { hc } from "hono/client";
+import type { AppType } from "merchant";
 
-// Example export for type-safe client wrapper
 export function createCommerceClient(baseUrl: string) {
-  return hc(baseUrl);
+  return hc<AppType>(baseUrl);
 }
+
+export type { AppType };

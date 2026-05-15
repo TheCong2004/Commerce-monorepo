@@ -119,7 +119,7 @@ export const userRouter = {
           throw new Error(`API returned ${response.status}: ${errorText}`);
         }
 
-        const data = await response.json();
+        const data: any = await response.json();
 
         return {
           success: true,
@@ -181,7 +181,7 @@ export const userRouter = {
           throw new Error(`Failed to fetch customer: ${response.status}`);
         }
 
-        const data = await response.json();
+        const data: any = await response.json();
         // sex & avatar sẽ nằm trong customer.metadata.sex / customer.metadata.avatar
         return data.customer;
       } catch (err: any) {

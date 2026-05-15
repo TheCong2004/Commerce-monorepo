@@ -14,10 +14,11 @@
     "db:seed": "npx tsx scripts/seed.ts"
   },
   "dependencies": {
-    "@commerce/shared-types": "workspace:*",
     "@commerce/payments": "workspace:*",
+    "@commerce/shared-types": "workspace:*",
     "@hono/swagger-ui": "^0.5.3",
     "@hono/zod-openapi": "^0.18.3",
+    "grammy": "^1.21.1",
     "hono": "^4.6.0",
     "stripe": "^17.0.0"
   },

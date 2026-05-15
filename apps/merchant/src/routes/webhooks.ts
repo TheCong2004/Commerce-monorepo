@@ -40,21 +40,24 @@ webhooks.post('/zalopay', async (c) => {
   return c.json({ return_code: 1, return_message: "success" });
 });
 
+import { handleBotWebhook } from '../lib/telegram-bot';
+
 // POST /v1/webhooks/telegram
 webhooks.post('/telegram', async (c) => {
   const data = await c.req.json();
-  const db = getDb(c.var.db);
-
+  
+  // If it's a successful payment, handle it
   if (data.message?.successful_payment) {
     const payment = data.message.successful_payment;
     const cartId = payment.invoice_payload;
     console.log('Telegram Stars payment success for cart:', cartId);
     
-    // Logic to create order from cart, similar to Stripe handler
-    // ...
+    // TODO: Create order from cart
   }
 
-  return c.json({ ok: true });
+  // Handle other bot commands/updates using grammy
+  // We re-parse the body because webhookCallback needs the raw body or a Hono context
+  return handleBotWebhook(c);
 });
 
 // POST /v1/webhooks/stripe

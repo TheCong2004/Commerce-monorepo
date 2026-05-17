@@ -94,4 +94,57 @@ app.openapi(setupStripe, async (c) => {
   return c.json({ ok: true as const }, 200);
 });
 
+// Route to reset and generate a fresh pair of API keys directly in the browser
+app.get('/reset-and-generate-keys', async (c) => {
+  const db = getDb(c.var.db);
+
+  // 1. Clear any existing keys
+  await db.run('DELETE FROM api_keys');
+
+  // 2. Functions to generate and hash keys
+  const generateApiKey = (prefix: 'pk' | 'sk') => {
+    const bytes = new Uint8Array(24);
+    crypto.getRandomValues(bytes);
+    const key = Array.from(bytes)
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+    return `${prefix}_${key}`;
+  };
+
+  const hashKey = async (key: string) => {
+    const data = new TextEncoder().encode(key);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  };
+
+  const publicKey = generateApiKey('pk');
+  const adminKey = generateApiKey('sk');
+  const publicHash = await hashKey(publicKey);
+  const adminHash = await hashKey(adminKey);
+
+  const publicId = crypto.randomUUID();
+  const adminId = crypto.randomUUID();
+
+  // 3. Insert into SQLite
+  await db.run(
+    `INSERT INTO api_keys (id, key_hash, key_prefix, role, created_at) VALUES (?, ?, ?, ?, ?)`,
+    [publicId, publicHash, 'pk_', 'public', now()]
+  );
+  await db.run(
+    `INSERT INTO api_keys (id, key_hash, key_prefix, role, created_at) VALUES (?, ?, ?, ?, ?)`,
+    [adminId, adminHash, 'sk_', 'admin', now()]
+  );
+
+  return c.json({
+    ok: true,
+    message: "Reset and generated new API keys successfully! Save these keys safely.",
+    keys: {
+      public: publicKey,
+      admin: adminKey
+    }
+  }, 200);
+});
+
 export { app as setup };

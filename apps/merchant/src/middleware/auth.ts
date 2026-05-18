@@ -7,14 +7,13 @@ import { ApiError, now, type HonoEnv } from '../types';
 // ============================================================
 
 export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
-  if (c.req.method === 'GET') {
-    await next();
-    return;
-  }
-  
   const authHeader = c.req.header('Authorization');
 
   if (!authHeader?.startsWith('Bearer ')) {
+    if (c.req.method === 'GET') {
+      await next();
+      return;
+    }
     throw ApiError.unauthorized('Missing or invalid Authorization header');
   }
 
@@ -72,7 +71,7 @@ export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
 export const adminOnly = createMiddleware<HonoEnv>(async (c, next) => {
   const auth = c.get('auth');
 
-  if (auth.role !== 'admin') {
+  if (!auth || auth.role !== 'admin') {
     throw ApiError.forbidden('Admin access required');
   }
 

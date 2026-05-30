@@ -153,14 +153,15 @@ const CarouselContent = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const { carouselRef, orientation } = useCarousel()
+  const isHFull = className?.includes("h-full")
 
   return (
-    <div ref={carouselRef} className="overflow-hidden h-full">
+    <div ref={carouselRef} className={cn("overflow-hidden", (isHFull || orientation === "vertical") ? "h-full" : "")}>
       <div
         ref={ref}
         className={cn(
           "flex",
-          orientation === "horizontal" ? "-ml-2 sm:-ml-3 md:-ml-4" : "-mt-4 flex-col",
+          orientation === "horizontal" ? "" : "-mt-4 flex-col",
           className
         )}
         {...props}

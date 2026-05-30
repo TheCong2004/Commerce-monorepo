@@ -1195,6 +1195,314 @@ images: [
         title: "Software Testing Agreement - Trang 17",
       },
     ],
+  },
+  {
+    id: "grad1",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "kanye-posters-graduation-album-cover",
+    title: "Kanye Posters Graduation Album Cover",
+    description: "High-quality Kanye West Graduation album cover art poster, perfect for bedroom, living room, or dorm decoration. Showcase your love for classic hip-hop and iconic visual design.",
+    category: "poster",
+    thumbnail: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=800&q=80" }],
+    variants: [
+      { id: "v-grad1-1", title: "A4", calculated_price: { calculated_amount: 1195, original_amount: 1899 }, options: [{ value: "A4" }] },
+      { id: "v-grad1-2", title: "A3", calculated_price: { calculated_amount: 1495, original_amount: 2399 }, options: [{ value: "A3" }] },
+    ],
+    options: [
+      { title: "Size", values: [{ id: "sz-g1-1", value: "A4" }, { id: "sz-g1-2", value: "A3" }] }
+    ],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: [],
+    print_additional_prices: {},
+    default_print_position: "",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad2",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "i-graduated-can-i-go-back-to-bed-now",
+    title: "I Graduated Can I Go Back To Bed Now T-Shirt",
+    description: "Funny graduation shirt for seniors and grads. 'I Graduated Can I Go Back To Bed Now?' high-quality print, soft ringspun cotton.",
+    category: "t-shirt",
+    thumbnail: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&q=80" }],
+    variants: [
+      { id: "v-grad2-1", title: "Black / M", calculated_price: { calculated_amount: 1295, original_amount: 2995 }, options: [{ value: "Black" }, { value: "M" }] },
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c-g2-1", value: "Black" }] },
+      { title: "Size", values: [{ id: "sz-g2-1", value: "M" }, { id: "sz-g2-2", value: "L" }] }
+    ],
+    weight: 200,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad3",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "i-graduated-now-im-like-smart-and-stuff",
+    title: "i graduated now i'm like smart & stuff T-Shirt",
+    description: "Cute and witty graduation t-shirt. Wording: 'i graduated now i'm like smart & stuff' with cap design. Perfect gift for friends or yourself.",
+    category: "t-shirt",
+    thumbnail: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" }],
+    variants: [
+      { id: "v-grad3-1", title: "Black / M", calculated_price: { calculated_amount: 1295, original_amount: 2995 }, options: [{ value: "Black" }, { value: "M" }] },
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c-g3-1", value: "Black" }] },
+      { title: "Size", values: [{ id: "sz-g3-1", value: "M" }, { id: "sz-g3-2", value: "L" }] }
+    ],
+    weight: 200,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad4",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "goodbye-6th-grade-graduation",
+    title: "Goodbye 6th Grade Graduation T-Shirt",
+    description: "Goodbye 6th Grade Graduation shirt. Celebrate graduating 6th grade and going to 7th grade with style.",
+    category: "t-shirt",
+    thumbnail: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=800&q=80" }],
+    variants: [
+      { id: "v-grad4-1", title: "Black / M", calculated_price: { calculated_amount: 1295, original_amount: 2995 }, options: [{ value: "Black" }, { value: "M" }] },
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c-g4-1", value: "Black" }] },
+      { title: "Size", values: [{ id: "sz-g4-1", value: "M" }, { id: "sz-g4-2", value: "L" }] }
+    ],
+    weight: 200,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad5",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "done-8th-grade-graduation-gift",
+    title: "done 8th grade graduation gift Hoodie",
+    description: "Unique hoodie for 8th grade grads. Custom printed '#DONE 8th grade' on comfortable, cozy hoodie fabric.",
+    category: "hoodie",
+    thumbnail: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" }],
+    variants: [
+      { id: "v-grad5-1", title: "Black / M", calculated_price: { calculated_amount: 2795, original_amount: 4146 }, options: [{ value: "Black" }, { value: "M" }] }
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c-g5-1", value: "Black" }] },
+      { title: "Size", values: [{ id: "sz-g5-1", value: "M" }] }
+    ],
+    weight: 500,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad6",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "vintage-custom-graphic-photo",
+    title: "Vintage Custom Graphic Photo T-Shirt",
+    description: "Vintage custom bootleg graphic photo t-shirt. Personalize with your graduation photo or memories.",
+    category: "t-shirt",
+    thumbnail: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80" }],
+    variants: [
+      { id: "v-grad6-1", title: "Grey / M", calculated_price: { calculated_amount: 1295, original_amount: 2995 }, options: [{ value: "Grey" }, { value: "M" }] }
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c-g6-1", value: "Grey" }] },
+      { title: "Size", values: [{ id: "sz-g6-1", value: "M" }] }
+    ],
+    weight: 200,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: true },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad7",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "personalized-puerto-ricans-graduation-sash",
+    title: "Personalized Puerto Ricans Graduation Sash",
+    description: "Personalized graduation sash showing national pride and achievements.",
+    category: "sash",
+    thumbnail: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" }],
+    variants: [
+      { id: "v-grad7-1", title: "Standard", calculated_price: { calculated_amount: 1695, original_amount: 2095 }, options: [{ value: "Standard" }] }
+    ],
+    options: [
+      { title: "Size", values: [{ id: "sz-g7-1", value: "Standard" }] }
+    ],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: true },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "grad8",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "custom-photo-she-believed-she-could",
+    title: "Custom Photo She Believed She Could So She Did Graduation Sash",
+    description: "Custom photo sash/stole. Features text 'She believed she could so she did' with space for personalized photos.",
+    category: "sash",
+    thumbnail: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80" }],
+    variants: [
+      { id: "v-grad8-1", title: "Standard", calculated_price: { calculated_amount: 1695, original_amount: 2095 }, options: [{ value: "Standard" }] }
+    ],
+    options: [
+      { title: "Size", values: [{ id: "sz-g8-1", value: "Standard" }] }
+    ],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: true },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "story_prod_1",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "blink-182-world-tour-poster",
+    title: "B.lin.k 182 World Tour Poster",
+    description: "Official Blink-182 World Tour commemorative art poster, high-quality satin print.",
+    category: "poster",
+    thumbnail: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=800&q=80" }],
+    variants: [
+      { id: "v-s1", title: "Standard", calculated_price: { calculated_amount: 1295, original_amount: 1999 }, options: [{ value: "Standard" }] }
+    ],
+    options: [{ title: "Size", values: [{ id: "sz-s1", value: "Standard" }] }],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: [],
+    print_additional_prices: {},
+    default_print_position: "",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "story_prod_2",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "boys-like-girls-soundtrack-tour-poster",
+    title: "Boys Like Girls The Soundtrack of Your Life Tour Poster",
+    description: "Commemorative tour poster for Boys Like Girls, printed on high grade paper.",
+    category: "poster",
+    thumbnail: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&q=80" }],
+    variants: [
+      { id: "v-s2", title: "Standard", calculated_price: { calculated_amount: 1295, original_amount: 1999 }, options: [{ value: "Standard" }] }
+    ],
+    options: [{ title: "Size", values: [{ id: "sz-s2", value: "Standard" }] }],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: [],
+    print_additional_prices: {},
+    default_print_position: "",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "story_prod_3",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "acf-tshirt",
+    title: "ACF T-Shirt",
+    description: "Premium cotton ACF print t-shirt. Comfortable lifestyle fit.",
+    category: "t-shirt",
+    thumbnail: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80" }],
+    variants: [
+      { id: "v-s3", title: "Standard", calculated_price: { calculated_amount: 1495, original_amount: 2250 }, options: [{ value: "Standard" }] }
+    ],
+    options: [{ title: "Size", values: [{ id: "sz-s3", value: "Standard" }] }],
+    weight: 200,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "story_prod_4",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "minecraft-bee-and-flower-hoodie",
+    title: "Minecraft Bee And Flower Hoodie",
+    description: "Cozy fleece Minecraft hoodie with custom bee & flower graphic print.",
+    category: "hoodie",
+    thumbnail: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=800&q=80" }],
+    variants: [
+      { id: "v-s4", title: "Standard", calculated_price: { calculated_amount: 2795, original_amount: 3999 }, options: [{ value: "Standard" }] }
+    ],
+    options: [{ title: "Size", values: [{ id: "sz-s4", value: "Standard" }] }],
+    weight: 500,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: ["Front"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "story_prod_5",
+    sellerId: "seller_1",
+    seller: MOCK_SELLERS[0],
+    handle: "all-time-low-tour-poster",
+    title: "All Time Low Tour Poster",
+    description: "Sleek graphic tour poster for All Time Low band, fine art print paper.",
+    category: "poster",
+    thumbnail: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&q=80" }],
+    variants: [
+      { id: "v-s5", title: "Standard", calculated_price: { calculated_amount: 1295, original_amount: 1999 }, options: [{ value: "Standard" }] }
+    ],
+    options: [{ title: "Size", values: [{ id: "sz-s5", value: "Standard" }] }],
+    weight: 100,
+    created_at: "2026-05-30T00:00:00Z",
+    print_locations: [],
+    print_additional_prices: {},
+    default_print_position: "",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
   }
 ];
 

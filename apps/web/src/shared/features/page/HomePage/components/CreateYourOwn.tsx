@@ -27,7 +27,7 @@ const CreateYourOwn = () => {
     };
 
     return (
-        <div className='mx-auto w-full px-2 max-w-7xlsm:py-6 md:py-8'>
+        <div className='py-4 sm:py-6 md:py-8'>
             <h1 className="text-lg px-8 xl:text-2xl font-semibold font-Inter text-gray-900 text-center mb-8 sm:mb-10">
                 Customize products to reflect your unique taste and personality
             </h1>

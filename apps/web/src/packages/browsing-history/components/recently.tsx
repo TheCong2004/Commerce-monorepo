@@ -34,7 +34,7 @@ export default function RecentlyViewed() {
 
     window.addEventListener('recently-viewed-updated', handleUpdate);
     return () => window.removeEventListener('recently-viewed-updated', handleUpdate);
-  }, [getRecentlyViewed]);
+  }, []);
 
   // 2. Trạng thái Loading hoặc không có dữ liệu
   if (isLoading) return <div className="w-full h-20 animate-pulse bg-gray-50 rounded-xl" />;

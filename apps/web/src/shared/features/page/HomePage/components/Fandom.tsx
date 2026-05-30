@@ -32,8 +32,8 @@ export function Fandom() {
   const chunkedData = chunkArray(FANDOM_DATA, 2);
 
   return (
-    <div className="w-full mx-auto max-w-7xl py-10">
-      <div className="flex items-center mb-6  xl:px-8">
+    <div className="w-full py-10">
+      <div className="flex items-center mb-6">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
           #Printerval Fandom
         </h2>

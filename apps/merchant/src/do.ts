@@ -356,7 +356,7 @@ export class MerchantDO extends DurableObject<MerchantEnv> {
       this.sql.exec(stmt);
     }
     this.initialized = true;
-    
+
     // Auto-seed if database is empty
     const products = this.sql.exec('SELECT id FROM products LIMIT 1').toArray();
     if (products.length === 0) {
@@ -367,10 +367,10 @@ export class MerchantDO extends DurableObject<MerchantEnv> {
         { id: 'p2', title: 'Custom Mug', price: 120000, img: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&q=80&w=400' },
         { id: 'p3', title: 'POD Hoodie', price: 450000, img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=400' },
       ];
-      
+
       for (const p of seedData) {
         this.sql.exec("INSERT INTO products (id, title, description, status, created_at) VALUES (?, ?, ?, 'active', ?)", p.id, p.title, 'Sản phẩm chất lượng cao từ Printerval', timestamp);
-        this.sql.exec("INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at) VALUES (?, ?, ?, ?, ?, 0, ?, ?)", crypto.randomUUID(), p.id, 'SKU-'+p.id, 'Standard', p.price, p.img, timestamp);
+        this.sql.exec("INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at) VALUES (?, ?, ?, ?, ?, 0, ?, ?)", crypto.randomUUID(), p.id, 'SKU-' + p.id, 'Standard', p.price, p.img, timestamp);
       }
     }
   }
@@ -428,7 +428,7 @@ export class MerchantDO extends DurableObject<MerchantEnv> {
       } else if (data.action === 'unsubscribe' && data.topic) {
         session.topics.delete(data.topic);
       }
-    } catch {}
+    } catch { }
   }
 
   async webSocketClose(ws: WebSocket): Promise<void> {

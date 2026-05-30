@@ -9,7 +9,7 @@ const SIDEBAR_MENU = [
   { name: 'Create Your Own', href: '/create-your-own', icon: <FiEdit3 />, color: "text-purple-600" },
   { name: 'Order Tracking', href: '/order-tracking', icon: <FiTruck />, color: "text-blue-600" },
   { name: "Happy New Year", href: '/happy-new-year', icon: <FiStar />, color: "text-red-600" },
-  { name: 'Products', href: '/product', icon: <FiPackage />, color: "text-emerald-600" },
+  { name: 'Products', href: '/collection', icon: <FiPackage />, color: "text-emerald-600" },
   { name: 'Explore Designs', href: '/designs', icon: <FiLayout />, color: "text-indigo-600" },
   { name: "Free E-Cart", href: '/free-ecart', icon: <FiBookOpen />, color: "text-orange-600" },
   { name: 'Blog', href: '/blog', icon: <FiBookOpen />, color: "text-amber-600" },

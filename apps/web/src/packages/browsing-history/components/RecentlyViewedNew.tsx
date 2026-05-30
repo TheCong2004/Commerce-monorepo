@@ -35,7 +35,7 @@ export default function RecentlyViewedNew() {
     if (!viewed || viewed.length === 0) return null;
 
     return (
-        <div className='mx-auto w-full max-w-6xl'>
+        <div className='w-full'>
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-[16px] md:text-[20px] font-semibold font-Inter text-gray-900 tracking-tight">
                     Recently Viewed

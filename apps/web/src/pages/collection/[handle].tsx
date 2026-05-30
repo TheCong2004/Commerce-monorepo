@@ -1,131 +1,298 @@
 "use client"
 import { useRouter } from 'next/router';
 import { mockProducts } from '@/lib/mockProduct';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
-import { Button } from '@/shared/ui/button';
-import { ShopAllProducts } from '@/packages/shops/components';
+import Image from 'next/image';
 import { Header } from '@/shared/layout/header/Header';
 import Recently from '@/packages/browsing-history/components/recently';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Toaster } from '@/shared/ui/sonner';
+import { Heart, Star, ChevronDown, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
 
 // Category metadata
-const COLLECTION_METADATA: Record<string, { title: string; description: string }> = {
+const COLLECTION_METADATA: Record<string, { title: string; description: string; rating: number; reviewCount: number }> = {
     't-shirt': {
-        title: 'T-Shirts',
-        description: 'Comfortable and stylish t-shirts for everyday wear. Express yourself with our unique designs.'
+        title: 'Custom T-Shirts',
+        description: 'Design your custom t-shirt easily – just create, request, and let the fulfillment service print and deliver it to you.',
+        rating: 4.8, reviewCount: 12450,
     },
     'hoodie': {
-        title: 'Hoodies',
-        description: 'Cozy hoodies perfect for any season. Stay warm and stylish with our collection.'
+        title: 'Custom Hoodies',
+        description: 'Create cozy, personalized hoodies perfect for any season. Stay warm and stylish with unique custom designs.',
+        rating: 4.7, reviewCount: 8230,
     },
     'tanktop': {
-        title: 'Tank Tops',
-        description: 'Lightweight tank tops for active wear. Perfect for gym, casual outings, and warm weather.'
+        title: 'Custom Tank Tops',
+        description: 'Design lightweight tank tops for active wear. Perfect for gym, casual outings, and warm weather.',
+        rating: 4.6, reviewCount: 3100,
     },
     'sweatshirt': {
-        title: 'Sweatshirts',
-        description: 'Comfortable sweatshirts for casual comfort. Ideal for layering and relaxed style.'
+        title: 'Custom Sweatshirts',
+        description: 'Comfortable personalized sweatshirts for casual everyday comfort. Ideal for layering and relaxed style.',
+        rating: 4.7, reviewCount: 5600,
     },
     'mug': {
-        title: 'Mugs',
-        description: 'Personalized mugs to brighten your morning. Perfect gifts for coffee and tea lovers.'
+        title: 'Custom Mugs',
+        description: 'Design personalized mugs to brighten your morning. Perfect gifts for coffee and tea lovers.',
+        rating: 4.9, reviewCount: 9870,
     },
     'poster': {
-        title: 'Posters',
-        description: 'Decorative posters to transform your space. Add art and personality to your walls.'
+        title: 'Custom Posters',
+        description: 'Create decorative posters to transform your space. Add art and personality to your walls.',
+        rating: 4.6, reviewCount: 4200,
     },
     'pets': {
-        title: 'Pets',
-        description: 'Pet-friendly products and accessories. Everything your furry friends need and love.'
+        title: 'Pet Products',
+        description: 'Custom pet-friendly products and accessories. Everything your furry friends need and love.',
+        rating: 4.8, reviewCount: 6700,
     },
     'report': {
         title: 'Digital Reports',
-        description: 'Professional digital reports and documents. Secure downloads with DRM protection.'
+        description: 'Professional digital reports and documents. Secure downloads with DRM protection.',
+        rating: 4.5, reviewCount: 1200,
+    },
+    'all': {
+        title: 'All Products',
+        description: 'Explore our wide range of custom printed products and unique designs for every occasion.',
+        rating: 4.7, reviewCount: 52000,
     },
 };
+
+const SORT_OPTIONS = [
+    { value: 'relevant', label: 'Most Relevant' },
+    { value: 'newest', label: 'Newest' },
+    { value: 'price-asc', label: 'Price: Low to High' },
+    { value: 'price-desc', label: 'Price: High to Low' },
+    { value: 'bestselling', label: 'Best Selling' },
+];
+
+function StarRating({ rating }: { rating: number }) {
+    return (
+        <div className="flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+                <Star
+                    key={star}
+                    size={15}
+                    className={star <= Math.floor(rating) ? 'fill-amber-400 text-amber-400' : star - 0.5 <= rating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}
+                />
+            ))}
+        </div>
+    );
+}
 
 export default function CollectionPage() {
     const router = useRouter();
     const { handle } = router.query;
-    const [collectionProducts, setCollectionProducts] = useState<any[]>([]);
-    const [collectionName, setCollectionName] = useState<string>('');
-    const [collectionDescription, setCollectionDescription] = useState<string>('');
+    const [wishlist, setWishlist] = useState<Set<string>>(new Set());
+    const [sortBy, setSortBy] = useState('relevant');
+    const [showSortDropdown, setShowSortDropdown] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        if (!handle) return;
+    useEffect(() => { setMounted(true); }, []);
 
-        const handleStr = handle as string;
-        const metadata = COLLECTION_METADATA[handleStr];
+    const handleStr = (handle as string) || '';
+    const isAll = handleStr.toLowerCase() === 'all';
+    const meta = COLLECTION_METADATA[handleStr] || COLLECTION_METADATA['all'];
 
-        // Filter products by category handle
-        const filteredProducts = mockProducts.filter(
-            product =>
-                product.category?.toLowerCase() === handleStr.toLowerCase() ||
-                product.handle?.toLowerCase().includes(handleStr.toLowerCase())
+    const collectionProducts = useMemo(() => {
+        if (!handleStr) return [];
+        let products = isAll
+            ? mockProducts
+            : mockProducts.filter(
+                p => p.category?.toLowerCase() === handleStr.toLowerCase() ||
+                    p.handle?.toLowerCase().includes(handleStr.toLowerCase())
+            );
+
+        if (sortBy === 'price-asc') products = [...products].sort((a, b) => (a.variants?.[0]?.calculated_price?.calculated_amount || 0) - (b.variants?.[0]?.calculated_price?.calculated_amount || 0));
+        else if (sortBy === 'price-desc') products = [...products].sort((a, b) => (b.variants?.[0]?.calculated_price?.calculated_amount || 0) - (a.variants?.[0]?.calculated_price?.calculated_amount || 0));
+        else if (sortBy === 'newest') products = [...products].sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+
+        return products;
+    }, [handleStr, isAll, sortBy]);
+
+    const toggleWishlist = useCallback((e: React.MouseEvent, productId: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setWishlist(prev => {
+            const next = new Set(prev);
+            if (next.has(productId)) next.delete(productId);
+            else next.add(productId);
+            return next;
+        });
+    }, []);
+
+    if (!handle || !mounted) {
+        return (
+            <div className="w-full min-h-screen bg-white">
+                <Header />
+                <div className="flex items-center justify-center h-64">
+                    <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+            </div>
         );
-
-        setCollectionProducts(filteredProducts);
-        setCollectionName(metadata?.title || handleStr.replace('-', ' '));
-        setCollectionDescription(
-            metadata?.description ||
-            `Browse our collection of ${handleStr.replace('-', ' ')} products.`
-        );
-    }, [handle]);
-
-    if (!handle) {
-        return <div className="flex items-center justify-center h-screen">Loading...</div>;
     }
 
+    const parentLabel = isAll ? 'All Collections' : 'Products';
+    const parentHref = '/collection';
+
     return (
-        <div className="w-full min-h-screen bg-gray-50">
+        <div className="w-full min-h-screen bg-white">
             <Header />
 
-            {/* Collection Hero Section */}
-            <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12 px-4">
-                <div className="max-w-7xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-Inter font-semibold mb-4">{collectionName}</h1>
-                    <p className="text-lg text-gray-300 mb-6 max-w-2xl">
-                        {collectionDescription}
-                    </p>
-                    <p className="text-sm text-gray-400">
-                        {collectionProducts.length} products available
-                    </p>
+            {/* Breadcrumb */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+                <nav className="flex items-center gap-1.5 text-sm text-gray-500 font-Inter">
+                    <Link href="/" className="hover:text-orange-500 transition-colors">Home</Link>
+                    <ChevronRight size={14} className="text-gray-300" />
+                    <Link href={parentHref} className="hover:text-orange-500 transition-colors">{parentLabel}</Link>
+                    {!isAll && (
+                        <>
+                            <ChevronRight size={14} className="text-gray-300" />
+                            <span className="text-gray-800 font-medium">{meta.title}</span>
+                        </>
+                    )}
+                </nav>
+            </div>
+
+            {/* Hero Header - Printerval style (centered, white bg) */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8 text-center border-b border-gray-100">
+                <h1 className="text-3xl md:text-4xl font-Inter font-bold text-gray-900 mb-3 tracking-tight">
+                    {meta.title}
+                    <span className="text-base font-normal text-gray-400 ml-3">
+                        ({collectionProducts.length.toLocaleString()} Results)
+                    </span>
+                </h1>
+                <p className="text-gray-500 font-Inter text-base max-w-2xl mx-auto mb-4 leading-relaxed">
+                    {meta.description}
+                </p>
+                <div className="flex items-center justify-center gap-2">
+                    <StarRating rating={meta.rating} />
+                    <span className="text-sm font-semibold text-gray-700">{meta.rating}</span>
+                    <span className="text-sm text-gray-400">({meta.reviewCount.toLocaleString()} reviews)</span>
                 </div>
             </div>
 
-            {/* All Products Section */}
+            {/* Toolbar: Result count + Sort */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                <p className="text-sm font-Inter text-gray-500">
+                    About <span className="font-semibold text-gray-800">{collectionProducts.length.toLocaleString()}</span> Results
+                </p>
+                <div className="relative">
+                    <button
+                        onClick={() => setShowSortDropdown(v => !v)}
+                        className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-xl text-sm font-Inter font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-all"
+                    >
+                        {SORT_OPTIONS.find(o => o.value === sortBy)?.label}
+                        <ChevronDown size={15} />
+                    </button>
+                    {showSortDropdown && (
+                        <>
+                            <div className="fixed inset-0 z-10" onClick={() => setShowSortDropdown(false)} />
+                            <div className="absolute right-0 top-full mt-1 z-20 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden w-52 py-1">
+                                {SORT_OPTIONS.map(opt => (
+                                    <button
+                                        key={opt.value}
+                                        onClick={() => { setSortBy(opt.value); setShowSortDropdown(false); }}
+                                        className={`w-full text-left px-4 py-2.5 text-sm font-Inter transition-colors ${sortBy === opt.value ? 'bg-orange-50 text-orange-600 font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
+                                    >
+                                        {opt.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+            </div>
+
+            {/* Product Grid */}
             {collectionProducts.length > 0 ? (
-                <ShopAllProducts
-                    products={collectionProducts.map((product) => ({
-                        id: product.id,
-                        title: product.title,
-                        handle: product.handle,
-                        thumbnail: product.thumbnail,
-                        price: product.variants?.[0]?.calculated_price?.calculated_amount || 0,
-                        originalPrice: product.variants?.[0]?.calculated_price?.original_amount,
-                        category: product.category || handle,
-                        subCategory: product.subCategory,
-                        postedBy: product.postedBy || 'ca-nhan',
-                    }))}
-                />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-5">
+                        {collectionProducts.map((product) => {
+                            const salePrice = product.variants?.[0]?.calculated_price?.calculated_amount || 0;
+                            const origPrice = product.variants?.[0]?.calculated_price?.original_amount;
+                            const hasDiscount = origPrice && origPrice > salePrice;
+                            const discountPct = hasDiscount ? Math.round((1 - salePrice / origPrice) * 100) : 0;
+                            const inWishlist = wishlist.has(product.id);
+
+                            return (
+                                <Link
+                                    key={product.id}
+                                    href={`/product/${product.handle}`}
+                                    className="group flex flex-col"
+                                >
+                                    {/* Image Card */}
+                                    <div className="relative w-full h-48 sm:h-52 md:h-56 lg:h-64 overflow-hidden rounded-2xl bg-gray-50 border border-black/5">
+                                        <Image
+                                            src={product.thumbnail || '/placeholder.png'}
+                                            alt={product.title || 'Product'}
+                                            fill
+                                            sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, 22vw"
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
+
+                                        {/* Discount Badge */}
+                                        {hasDiscount && (
+                                            <div className="absolute top-2 left-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                                -{discountPct}%
+                                            </div>
+                                        )}
+
+                                        {/* Wishlist Button */}
+                                        <button
+                                            onClick={(e) => toggleWishlist(e, product.id)}
+                                            className={`absolute top-2 right-2 p-2 rounded-full shadow-md transition-all duration-200
+                                                ${inWishlist
+                                                    ? 'bg-red-500 text-white scale-110'
+                                                    : 'bg-white/90 text-gray-400 opacity-0 group-hover:opacity-100 hover:text-red-500 hover:bg-white'
+                                                }`}
+                                        >
+                                            <Heart size={16} fill={inWishlist ? 'white' : 'none'} />
+                                        </button>
+                                    </div>
+
+                                    {/* Info */}
+                                    <div className="mt-3 flex flex-col gap-1 px-0.5">
+                                        <h3 className="text-sm font-Inter font-medium text-gray-800 line-clamp-2 group-hover:text-orange-500 transition-colors leading-snug">
+                                            {product.title}
+                                        </h3>
+                                        <div className="flex items-center gap-2 mt-0.5">
+                                            <span className="text-base font-Inter font-bold text-gray-900">
+                                                ${(salePrice / 100).toFixed(2)}
+                                            </span>
+                                            {hasDiscount && (
+                                                <span className="text-xs font-Inter text-gray-400 line-through">
+                                                    ${(origPrice / 100).toFixed(2)}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
             ) : (
-                <div className="max-w-7xl mx-auto px-4 py-12 text-center">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">No products found</h2>
-                    <p className="text-gray-600 mb-8">
+                <div className="max-w-7xl mx-auto px-4 py-24 text-center">
+                    <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <SlidersHorizontal size={32} className="text-gray-400" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-3">No products found</h2>
+                    <p className="text-gray-500 mb-8 max-w-md mx-auto">
                         This collection doesn't have any products yet. Check back soon!
                     </p>
-                    <Link href="/">
-                        <Button>Back to Home</Button>
+                    <Link
+                        href="/collection"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 text-white font-semibold rounded-full hover:bg-orange-600 transition-colors"
+                    >
+                        Browse All Collections
                     </Link>
                 </div>
             )}
 
             {/* Recently Viewed */}
             <Recently />
-
-            {/* Footer */}
             <Footer />
             <Toaster />
         </div>

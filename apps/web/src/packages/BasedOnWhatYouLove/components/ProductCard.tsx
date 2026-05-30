@@ -17,7 +17,7 @@ export default function ProductCard({ product }: Props) {
     return (
         <Link href={productUrl}>
             <div className="group cursor-pointer">
-                <div className="relative w-full aspect-square h-[155px] sm:h-[220px] lg:h-[270px] overflow-hidden rounded-xl">
+                <div className="relative w-full aspect-square h-[155px] sm:h-[220px] lg:h-[270px] overflow-hidden rounded-xl" style={{ aspectRatio: '1/1' }}>
                     <Image
                         src={imageUrl}
                         alt={product.title}

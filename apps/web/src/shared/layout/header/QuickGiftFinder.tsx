@@ -15,7 +15,7 @@ const QUICK_LINKS = [
 
 export const QuickGiftFinder = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-5 font-Inter">
+    <div className="py-5 font-Inter">
       {/* --- Tiêu đề --- */}
       <h2 className="text-2xl md:text-2xl font-semibold  text-center text-gray-900 mb-5">
         Quick Gift Finder

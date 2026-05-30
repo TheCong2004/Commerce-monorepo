@@ -1,13 +1,14 @@
 "use client"
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { IconType } from 'react-icons';
 import { FiHeart, FiShoppingBag, FiAlignJustify, FiX } from 'react-icons/fi';
 import { SearchBar } from '@/packages/search/components/SearchBar';
 import { TopBar } from './TopBar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/dropdown-menu';
-import { User, UserCircle, Package, MapIcon, HeartHandshakeIcon } from 'lucide-react';
+import { User, UserCircle, Package, MapIcon, HeartHandshakeIcon, ChevronDown } from 'lucide-react';
 import { GiFountainPen, GiPaintBrush } from 'react-icons/gi';
 import { Badge } from '../../ui/badge';
 import Sidebar from './SideBar';
@@ -15,6 +16,7 @@ import { navLinks, campaign, categories, blog, NavLink } from './data';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from '@/shared/ui/navigation-menu';
 
 export const Header = () => {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [sidebar, setSidebar] = useState(false);
@@ -24,6 +26,29 @@ export const Header = () => {
   const [cartCount, setCartCount] = useState(0);
   const [wishlist, setWishlist] = useState(0);
   const [accessToken, setAccessToken] = useState<string | undefined>();
+  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
+  const productDropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleProductMouseEnter = () => {
+    if (productDropdownTimeoutRef.current) {
+      clearTimeout(productDropdownTimeoutRef.current);
+    }
+    setIsProductDropdownOpen(true);
+  };
+
+  const handleProductMouseLeave = () => {
+    productDropdownTimeoutRef.current = setTimeout(() => {
+      setIsProductDropdownOpen(false);
+    }, 150);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (productDropdownTimeoutRef.current) {
+        clearTimeout(productDropdownTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     setMounted(true);
@@ -65,17 +90,7 @@ export const Header = () => {
         <TopBar blogs={campaign} />
 
         <div className="relative w-full border-b border-black/5 z-30 shadow-sm bg-[#fce4ec] min-h-[100px]">
-          {/* Con thỏ bên trái */}
-          <div className="absolute left-0 bottom-0 h-full w-auto select-none pointer-events-none z-10 hidden min-[1400px]:block">
-            <img src="https://res.cloudinary.com/dm1wqczhm/image/upload/v1774869889/tho1_pszhws.png" alt="rabbit-left" className="h-full object-contain object-left" />
-          </div>
-
-          {/* Con thỏ bên phải */}
-          <div className="absolute right-0 bottom-0 h-full w-auto select-none pointer-events-none z-10 hidden min-[1400px]:block">
-            <img src="https://res.cloudinary.com/dm1wqczhm/image/upload/v1774869517/tho22_qeespt.png" alt="rabbit-right" className="h-full object-contain object-right" />
-          </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-4 h-[100px]">
               
               <div className="flex items-center gap-4">
@@ -135,14 +150,72 @@ export const Header = () => {
           {mounted && (
             <div className="hidden lg:block max-w-7xl mx-auto pb-2">
               <ul className="flex items-center justify-center gap-6">
-                {navLinks.map((item, index) => (
-                  <li key={index} className="transition-transform hover:scale-105">
-                    <Link href={item.href} className={`font-Inter text-[16px] font-semibold transition-all ${getSolidStyle(item.name)}`}>
-                      {item.name === 'Create Your Own' && <GiPaintBrush size={18} className="inline mr-1" />}
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
+                {navLinks.map((item, index) => {
+                  const isProductMenu = item.name.toLowerCase() === 'product';
+                  
+                  if (isProductMenu) {
+                    return (
+                      <li 
+                        key={index} 
+                        className="relative transition-transform hover:scale-105"
+                        onMouseEnter={handleProductMouseEnter}
+                        onMouseLeave={handleProductMouseLeave}
+                      >
+                        <DropdownMenu open={isProductDropdownOpen} onOpenChange={setIsProductDropdownOpen}>
+                          <DropdownMenuTrigger asChild>
+                            <Link
+                              href="/collection"
+                              className="flex items-center gap-1 font-Inter text-[16px] font-semibold transition-all text-[#111111] hover:text-orange-500 focus:outline-none cursor-pointer"
+                              onClick={(e) => {
+                                setIsProductDropdownOpen(false);
+                                router.push('/collection');
+                              }}
+                            >
+                              {item.name}s <ChevronDown size={14} className="mt-0.5" />
+                            </Link>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent 
+                            className="rounded-xl overflow-hidden p-0 shadow-lg bg-white w-56 max-h-[500px] border border-gray-100 z-50"
+                            onMouseEnter={handleProductMouseEnter}
+                            onMouseLeave={handleProductMouseLeave}
+                          >
+                            <div className="overflow-y-auto py-1">
+                              <DropdownMenuItem className="p-0 focus:bg-gray-50">
+                                <Link 
+                                  href="/collection/all" 
+                                  className="block rounded-lg px-4 py-2 font-Inter w-full text-sm text-[#111111] hover:bg-gray-50 font-medium"
+                                  onClick={() => setIsProductDropdownOpen(false)}
+                                >
+                                  All Products
+                                </Link>
+                              </DropdownMenuItem>
+                              {categories?.map((cat, catIndex) => (
+                                <DropdownMenuItem key={catIndex} className="p-0 focus:bg-gray-50">
+                                  <Link 
+                                    href={`/collection/${cat.handle}`} 
+                                    className="block rounded-lg px-4 py-2 font-Inter w-full text-sm text-[#111111] hover:bg-gray-50"
+                                    onClick={() => setIsProductDropdownOpen(false)}
+                                  >
+                                    Custom {cat.name}
+                                  </Link>
+                                </DropdownMenuItem>
+                              ))}
+                            </div>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={index} className="transition-transform hover:scale-105">
+                      <Link href={item.href} className={`font-Inter text-[16px] font-semibold transition-all ${getSolidStyle(item.name)}`}>
+                        {item.name === 'Create Your Own' && <GiPaintBrush size={18} className="inline mr-1" />}
+                        {item.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}

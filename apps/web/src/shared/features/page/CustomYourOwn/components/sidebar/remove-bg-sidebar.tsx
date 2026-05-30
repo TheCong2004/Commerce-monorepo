@@ -73,10 +73,13 @@ export const RemoveBgSidebar = ({
             {imageSrc && (
                 <ScrollArea>
                     <div className="p-4 space-y-4">
-                        <div className={cn(
-                            "relative aspect-square rounded-md overflow-hidden transition bg-muted",
-                            mutation.isPending && "opacity-50",
-                        )}>
+                        <div 
+                            className={cn(
+                                "relative aspect-square rounded-md overflow-hidden transition bg-muted",
+                                mutation.isPending && "opacity-50",
+                            )}
+                            style={{ aspectRatio: '1/1' }}
+                        >
                             <Image
                                 src={imageSrc}
                                 fill

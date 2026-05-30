@@ -20,12 +20,12 @@ export const Hero = () => {
   );
 
   return (
-    <div className="max-w-6xl mx-auto px-4 my-4 lg:my-6">
-      {/* Grid: gap-2 trên mobile giúp khoảng cách khít hơn, xl:gap-3 trên desktop */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-2 md:gap-3">
+    <div className="my-4 lg:my-6">
+      {/* Grid: 2/3 and 1/3 split using standard grid-cols-3 on desktop (lg) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
 
-        {/* --- MAIN CAROUSEL --- */}
-        <div className="xl:col-span-2">
+        {/* --- MAIN CAROUSEL (Left Banner) --- */}
+        <div className="lg:col-span-2">
           <Carousel
             className="w-full"
             plugins={[plugin.current]}
@@ -34,8 +34,8 @@ export const Hero = () => {
             <CarouselContent>
               {carouselImages.map((src, i) => (
                 <CarouselItem key={i} className="pl-2 md:pl-4">
-                  {/* FIX BO GÓC: isolate giúp clip ảnh chuẩn hơn khi hover */}
-                  <div className="relative w-full h-[180px] sm:h-[240px] md:h-[280px] xl:h-[290px] rounded-xl lg:rounded-2xl overflow-hidden shadow-sm isolate">
+                  {/* Aspect ratio co giãn tự động theo tỷ lệ Printerval (781 x 273) */}
+                  <div className="relative w-full aspect-[2.1/1] sm:aspect-[2.4/1] lg:aspect-[781/273] rounded-xl lg:rounded-2xl overflow-hidden shadow-sm isolate">
                     <Image
                       src={src}
                       fill
@@ -44,7 +44,7 @@ export const Hero = () => {
                       priority={i === 0}
                       fetchPriority={i === 0 ? 'high' : 'low'}
                       loading={i === 0 ? 'eager' : 'lazy'}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 66vw"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 70vw"
                     />
                   </div>
                 </CarouselItem>
@@ -53,8 +53,8 @@ export const Hero = () => {
           </Carousel>
         </div>
 
-        {/* --- PRODUCT CAROUSEL --- */}
-        <div className="w-full h-[180px] sm:h-[240px] md:h-[280px] xl:h-[290px]">
+        {/* --- PRODUCT CAROUSEL (Right Banner) --- */}
+        <div className="hidden lg:block lg:col-span-1 w-full h-full">
           <Carousel className="w-full h-full" opts={{ align: "start", loop: true }}>
             <CarouselContent className="h-full">
               {[
@@ -63,37 +63,35 @@ export const Hero = () => {
                 { id: 3, handle: 'custom-hoodie-1', image: 'https://placehold.co/290x290/5542be/white?text=Product+3', title: 'Unique gifts that stand out' },
                 { id: 4, handle: 'custom-poster-1', image: 'https://placehold.co/290x290/ffd700/white?text=Product+4', title: 'Create your own masterpiece' },
               ].map((product) => (
-                <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-full">
+                <CarouselItem key={product.id} className="pl-2 md:pl-4 basis-full h-full">
                   <Link href={`/product/${product.handle}`} className="group block h-full">
-                    <div className="shadow-sm rounded-xl lg:rounded-2xl overflow-hidden flex items-center justify-between gap-2 xl:relative h-full cursor-pointer bg-white border border-gray-100 xl:border-none">
+                    <div className="relative w-full h-full shadow-sm rounded-xl lg:rounded-2xl overflow-hidden cursor-pointer bg-white border border-gray-100 lg:border-none">
 
-                      {/* Ảnh: Trái trên mobile, Nền trên desktop */}
-                      <div className="relative w-24 h-24 sm:w-32 sm:h-32 xl:w-full xl:h-full overflow-hidden shrink-0">
+                      {/* Image full coverage */}
+                      <div className="absolute inset-0 w-full h-full overflow-hidden">
                         <Image
                           src={product.image}
                           fill
                           alt={product.title}
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width: 640px) 96px, (max-width: 1280px) 128px, 100vw"
+                          sizes="(max-width: 1024px) 100vw, 30vw"
                         />
                       </div>
 
-                      {/* Nội dung: Phải trên mobile, Overlay trên desktop */}
-                      <div className="flex-1 p-3 xl:absolute xl:inset-0 xl:p-0 xl:bg-gradient-to-t xl:from-black/70 xl:to-transparent xl:flex xl:flex-col xl:justify-end">
-                        <div className="xl:p-4">
-                          {/* Badge */}
-                          <div className="flex items-center text-[10px] md:text-xs gap-1 mb-1 bg-orange-100 text-orange-500 p-1 px-2 rounded-full max-w-fit xl:backdrop-blur-sm xl:bg-white/20 xl:text-yellow-400">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                              <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                            <span className="truncate  font-Inter">Featured</span>
-                          </div>
-                          {/* Title */}
-                          <p className="font-semibold font-Inter text-gray-800 text-sm md:text-base xl:text-white leading-tight line-clamp-2">
-                            {product.title}
-                          </p>
+                      {/* Content Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4 xl:p-6">
+                        {/* Badge */}
+                        <div className="flex items-center text-[10px] md:text-xs gap-1 mb-2 backdrop-blur-sm bg-white/20 text-yellow-400 p-1 px-2.5 rounded-full max-w-fit">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                          <span className="truncate font-Inter">Featured</span>
                         </div>
+                        {/* Title */}
+                        <p className="font-semibold font-Inter text-white text-sm md:text-base xl:text-lg leading-snug line-clamp-2">
+                          {product.title}
+                        </p>
                       </div>
                     </div>
                   </Link>

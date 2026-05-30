@@ -88,7 +88,7 @@ const trendingItems = [
 
 export function Trending() {
   return (
-    <div className='mx-auto w-full px-2 max-w-7xl py-4 py-8 hidden md:block'>
+    <div className='py-4 md:py-8 hidden md:block'>
       <h1 className="text-base sm:text-lg md:text-xl font-bold flex gap-1.5 sm:gap-2 items-center mb-3 sm:mb-4 md:mb-5">
         <TrendingUp className="text-orange-600 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
         🔥 Trending Collection
@@ -129,26 +129,28 @@ export function Trending() {
           }}
           className="w-full"
         >
-          <CarouselContent className='p-4 gap-2'>
+          <CarouselContent className='-ml-4'>
             {trendingItems.map((item, index) => (
-              <FadeIn key={item.id} delay={index * 0.05} direction="left">
-                <CarouselItem className={`${item.color} basis-1/3 group cursor-pointer rounded-xl mx-2 p-1 overflow-hidden shadow-sm`}>
-                  <div className="grid grid-cols-3 grid-rows-2 gap-1 w-full h-full">
-                    {item.images.map((img, idx) => (
-                      <div
-                        key={idx}
-                        className={`${img.span} rounded-lg overflow-hidden bg-white relative group-hover:scale-[1.02] transition-transform`}
-                      >
-                        <img
-                          src={img.url}
-                          alt={`${item.title} ${idx + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform"
-                        />
-                      </div>
-                    ))}
+              <CarouselItem key={item.id} className="pl-4 basis-[85%] sm:basis-1/2 md:basis-1/3">
+                <FadeIn delay={index * 0.05} direction="left">
+                  <div className={`${item.color} group cursor-pointer rounded-xl p-1 overflow-hidden shadow-sm`}>
+                    <div className="grid grid-cols-3 grid-rows-2 gap-1 w-full h-full">
+                      {item.images.map((img, idx) => (
+                        <div
+                          key={idx}
+                          className={`${img.span} rounded-lg overflow-hidden bg-white relative group-hover:scale-[1.02] transition-transform`}
+                        >
+                          <img
+                            src={img.url}
+                            alt={`${item.title} ${idx + 1}`}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform"
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </CarouselItem>
-              </FadeIn>
+                </FadeIn>
+              </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>

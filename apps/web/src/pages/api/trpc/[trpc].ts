@@ -17,19 +17,80 @@
 //       : undefined,
 // });
 
-// MOCK tRPC handler trả về đúng format batch cho FE
+// MOCK tRPC handler trả về đúng format batch cho FE với superjson tương thích
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { MOCK_PRODUCTS_DATABASE } from '@/lib/mockProduct';
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Nếu là batch request (input là object với nhiều keys)
+  // Lấy các query từ url
+  const { trpc } = req.query;
+  const trpcPath = Array.isArray(trpc) ? trpc[0] : trpc || '';
+  const queries = trpcPath.split(',');
+
+  const getMockDataForQuery = (queryName: string) => {
+    switch (queryName) {
+      case 'medusa.getProductSales':
+        return MOCK_PRODUCTS_DATABASE;
+      case 'medusa.getProducts':
+        return MOCK_PRODUCTS_DATABASE;
+      case 'medusa.getRegions':
+        return [{ id: 'reg_01', name: 'US', currency_code: 'usd' }];
+      case 'medusa.getProductRecent':
+        return MOCK_PRODUCTS_DATABASE.slice(0, 4);
+      case 'blog.getCollections':
+        return [
+          { 
+            id: 1, 
+            slug: 'custom-tee-trends', 
+            Thumbnail: { url: '/assets/blog-1.jpg' }, 
+            Title: 'Top Custom Tee Design Trends in 2026', 
+            Author: 'Alex Mercer' 
+          },
+          { 
+            id: 2, 
+            slug: 'how-to-style-hoodies', 
+            Thumbnail: { url: '/assets/blog-2.jpg' }, 
+            Title: 'How to Style Your Oversized Hoodie', 
+            Author: 'Elena Fisher' 
+          },
+          { 
+            id: 3, 
+            slug: 'gift-ideas-for-creatives', 
+            Thumbnail: { url: '/assets/blog-3.jpg' }, 
+            Title: 'Thoughtful Gift Ideas for Creative People', 
+            Author: 'Marcus Vance' 
+          }
+        ];
+      case 'medusa.getProduct':
+        return MOCK_PRODUCTS_DATABASE[0];
+      default:
+        return [];
+    }
+  };
+
+  // Nếu là batch request
   if (req.method === 'GET' && req.url?.includes('batch=1')) {
-    // Trả về mảng các object { result: { data: ... } }
-    return res.status(200).json([
-      { result: { data: { regions: [{ id: 'reg_01', name: 'US', currency: 'USD' }] } } },
-      { result: { data: { products: [{ id: 'p1', title: 'Mock Product' }] } } },
-      { result: { data: { priceList: [] } } },
-      { result: { data: { video: null } } }
-    ]);
+    const results = queries.map((queryName) => {
+      const data = getMockDataForQuery(queryName.trim());
+      return {
+        result: {
+          data: {
+            json: data
+          }
+        }
+      };
+    });
+    return res.status(200).json(results);
   }
+
   // Nếu là request đơn lẻ
-  return res.status(200).json({ result: { data: { mock: true } } });
+  const singleQueryName = queries[0]?.trim();
+  const data = getMockDataForQuery(singleQueryName);
+  return res.status(200).json({
+    result: {
+      data: {
+        json: data
+      }
+    }
+  });
 }

@@ -57,11 +57,11 @@ export default function BasedOnWhatYouLove({
 
     return (
         <section className="py-12">
-            <div className="flex items-center justify-between gap-8 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-8 mb-8">
                 <h2 className="text-[24px] font-Inter text-gray-900 font-semibold">Based On What You Love</h2>
-                {/* Recently Viewed - nằm trên 1 hàng với text */}
+                {/* Recently Viewed - responsive layout */}
                 {recentlyViewed.length > 0 && (
-                    <div className="flex items-center gap-3 flex-shrink-0">
+                    <div className="flex flex-wrap items-center gap-3 flex-shrink-0">
                         <p className="text-gray-500 whitespace-nowrap text-sm">Because you viewed:</p>
                         <div className="flex gap-2">
                             {recentlyViewed.map((p) => (

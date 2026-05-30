@@ -38,7 +38,7 @@ const TopBar = ({ campaign, blogs }: { campaign?: any, blogs?: any[] | null }) =
               const postTitle = post.Title || post.title || post.name;
 
               return (
-                <CarouselItem key={index}>
+                <CarouselItem key={index} className="pl-2 sm:pl-3 md:pl-4">
                   <div className="flex justify-center md:justify-start items-center h-full">
                     <Link 
                       href={postLink}

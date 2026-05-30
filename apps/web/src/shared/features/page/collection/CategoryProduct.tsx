@@ -115,7 +115,7 @@ const CategoryProduct = ({
                             <div className="relative group">
                                 <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-200 border border-gray-100">
                                     {/* Product Image */}
-                                    <div className="aspect-square relative bg-gray-50">
+                                    <div className="aspect-square relative bg-gray-50" style={{ aspectRatio: '1/1' }}>
                                         <Image
                                             src={product.thumbnail || "/placeholder.jpg"}
                                             alt={product.title}

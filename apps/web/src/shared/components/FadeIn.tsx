@@ -9,6 +9,7 @@ interface FadeInProps {
   scale?: number;
   duration?: number; // Thêm nếu bạn muốn chỉnh thời gian
   amount?: number; // BỔ SUNG DÒNG NÀY ĐỂ FIX LỖI
+  className?: string;
 }
 
 export default function FadeIn({
@@ -18,6 +19,7 @@ export default function FadeIn({
   scale = 1,
   duration = 0.8,
   amount = 0.25, // Giá trị mặc định là 1/4 màn hình
+  className,
 }: FadeInProps) {
   const variants = {
     hidden: {
@@ -48,6 +50,7 @@ export default function FadeIn({
         // Sử dụng prop amount ở đây
         viewport={{ once: true, amount: amount }}
         style={{ willChange: 'transform, opacity' }}
+        className={className}
       >
         {children as any}
       </m.div>

@@ -35,35 +35,37 @@ export function StoryList() {
         >
           <CarouselContent className="-ml-2 md:-ml-4">
             {stories.map((story, index) => (
-              <FadeIn key={story.id} delay={index * 0.05} direction="up">
-                <CarouselItem
-                  key={story.id}
-                  // basis-2/5 giúp hiện ~2.5 item trên mobile, tạo hiệu ứng mời gọi vuốt
-                  className="pl-2 basis-[42%] sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
-                >
+              <CarouselItem
+                key={story.id}
+                // basis-2/5 giúp hiện ~2.5 item trên mobile, tạo hiệu ứng mời gọi vuốt
+                className="pl-2 basis-[42%] sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+              >
+                <FadeIn delay={index * 0.05} direction="up" className="h-full w-full">
                   <div
                     onClick={() => setActiveStoryIndex(index)}
-                    className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer group shadow-md border border-black/5"
+                    className="relative w-full rounded-2xl overflow-hidden cursor-pointer group shadow-md border border-black/5"
+                    style={{ aspectRatio: '3/4' }}
                   >
                     <Image
                       src={story.thumbnail_poster}
                       alt={story.product.name}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      sizes="(max-width: 640px) 40vw, (max-width: 1024px) 25vw, 20vw"
                     />
 
                     {/* Overlay tối dần phía dưới để nổi bật chữ */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
                     {/* Thông tin sản phẩm - Tối ưu kích thước cho mobile */}
-                    <div className="absolute bottom-0 left-0 w-full p-2 md:p-4 flex items-center gap-2 md:gap-3">
+                    <div className="absolute bottom-0 left-0 w-full p-2 md:p-4 flex items-center gap-2 md:gap-3 z-10">
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-white p-0.5 rounded-lg shrink-0 shadow-lg">
                         <div className="relative w-full h-full overflow-hidden rounded-md bg-gray-100">
                           <Image src={story.product.thumbnail_logo} alt="Logo" fill className="object-cover" />
                         </div>
                       </div>
                       <div className="flex flex-col text-white overflow-hidden text-left leading-tight">
-                        <span className="text-[16px] md:text-xs font-semibold font-Inter opacity-80 truncate">
+                        <span className="text-[11px] md:text-xs font-semibold font-Inter opacity-80 truncate">
                           {story.product.name}
                         </span>
                         <span className="text-sm md:text-base font-semibold font-Inter">
@@ -79,8 +81,8 @@ export function StoryList() {
                       </svg>
                     </div>
                   </div>
-                </CarouselItem>
-              </FadeIn>
+                </FadeIn>
+              </CarouselItem>
             ))}
           </CarouselContent>
 

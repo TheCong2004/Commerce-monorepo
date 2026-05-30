@@ -28,7 +28,7 @@ export const navLinks: NavLink[] = [
   { name: 'Create Your Own', href: '/create-your-own' },
   { name: 'Order Tracking', href: '/order-tracking' },
   { name: "Happy New Year", href: '/happy-new-year' },
-  { name: 'Product', href: '/product', collapsible: true },
+  { name: 'Product', href: '/collection', collapsible: true },
   { name: 'Explore Designs', href: '/designs' },
   { name: "Free E-Cart", href: '/free-ecart' },
   { name: 'Blog', href: '/blog', collapsible: true },

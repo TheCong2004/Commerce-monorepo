@@ -18,26 +18,23 @@ export function StoryViewer({ stories, initialIndex, onClose }: Props) {
   const [progress, setProgress] = useState(0);
 
   const router = useRouter();
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const currentStory = stories[currentIndex];
 
   useEffect(() => {
     setProgress(0); 
     setIsPlaying(true); 
-    videoRefs.current.forEach((vid, idx) => {
-      if (!vid) return;
-      if (idx === currentIndex) {
-        vid.currentTime = 0;
-        vid.play().catch(e => console.log("Autoplay prevented:", e));
-      } else {
-        vid.pause();
-      }
-    });
+    const vid = videoRef.current;
+    if (vid) {
+      vid.currentTime = 0;
+      vid.load();
+      vid.play().catch(e => console.log("Autoplay prevented:", e));
+    }
   }, [currentIndex]);
 
   const handleTimeUpdate = () => {
-    const vid = videoRefs.current[currentIndex];
+    const vid = videoRef.current;
     if (vid && vid.duration) setProgress((vid.currentTime / vid.duration) * 100);
   };
 
@@ -51,10 +48,10 @@ export function StoryViewer({ stories, initialIndex, onClose }: Props) {
   };
 
   const togglePlayPause = () => {
-    const vid = videoRefs.current[currentIndex];
+    const vid = videoRef.current;
     if (!vid) return;
     if (vid.paused) {
-      vid.play();
+      vid.play().catch(e => console.log(e));
       setIsPlaying(true);
     } else {
       vid.pause();
@@ -95,7 +92,7 @@ export function StoryViewer({ stories, initialIndex, onClose }: Props) {
         </div>
 
         <video
-          ref={el => { videoRefs.current[currentIndex] = el; }}
+          ref={videoRef}
           src={currentStory.videoUrl}
           className="w-full h-full object-cover"
           playsInline

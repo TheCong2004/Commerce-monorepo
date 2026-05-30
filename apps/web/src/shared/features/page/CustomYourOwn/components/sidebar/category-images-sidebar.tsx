@@ -318,6 +318,7 @@ export const CategoryImagesSidebar = ({
                                                         onClose();
                                                     }}
                                                     className="group relative overflow-hidden rounded-lg bg-gray-100 aspect-square hover:shadow-lg transition-shadow w-full"
+                                                    style={{ aspectRatio: '1/1' }}
                                                     title={image.name}
                                                 >
                                                     <img

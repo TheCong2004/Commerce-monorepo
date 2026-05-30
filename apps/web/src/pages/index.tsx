@@ -14,13 +14,10 @@ import { Fandom } from '@/shared/features/page/HomePage/components/Fandom';
 // Components from HomePage features (DEFAULT EXPORTS)
 import CreateYourOwn from '@/shared/features/page/HomePage/components/CreateYourOwn';
 import Blog from '@/shared/features/page/HomePage/components/Blog';
+import GraduationSection from '@/shared/features/page/HomePage/components/GraduationSection';
 
 // Other shared components (NAMED EXPORTS)
 import { QuickGiftFinder } from '@/shared/layout/header/QuickGiftFinder';
-import { Promotions as ReelsSection } from '@/shared/components/Reels';
-
-// Other shared components (DEFAULT EXPORTS)
-import SaleCodeComponent from '@/shared/components/SaleCode';
 
 // Package-based components (DEFAULT EXPORTS)
 import RecentlyViewedNew from '@/packages/browsing-history/components/RecentlyViewedNew';
@@ -34,36 +31,25 @@ import i18nConfig from '../../next-i18next.config';
 const Home = ({ productSalesData, productTopPickData, priceList }: any) => {
   return (
     <>
-      <SaleCodeComponent campaign={{ 
-        name: "New Year Sale", 
-        description: "Get up to 10% off for all New Year gifts!", 
-        ends_at: "2026-01-01T00:00:00Z",
-        promotions: [{ code: "HELLO2026" }]
-      }} />
-      <Hero />
-      <QuickGiftFinder />
-      <div >
+
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 md:space-y-10 pb-16">
+        <Hero />
+        <QuickGiftFinder />
         <SaleProduct TopSale={productSalesData as any} title={priceList?.price_lists?.[0]?.title as string} />
-        <div className='px-[30px]'>
-          <RecentlyViewedNew />
-          <BasedOnWhatYouLove
-            currentProductId="p1"
-            category="t-shirt"
-            limit={5}
-          />
-          <TopPick product={productTopPickData as any} title={priceList?.price_lists?.[1]?.title as string} />
-          <InStory />
-          <CreateYourOwn />
-          <Trending />
-          <ReelsSection video={{ productVideo: [
-            { url: 'https://res.cloudinary.com/dm1wqczhm/video/upload/v1774876250/reels-1.mp4', product_id: 'p1' },
-            { url: 'https://res.cloudinary.com/dm1wqczhm/video/upload/v1774876250/reels-2.mp4', product_id: 'p2' }
-          ] }} />
-          <Fandom />
-          <Blog />
-        </div>
-      </div>
-      <div className='px-[30px]'>
+        <RecentlyViewedNew />
+        <BasedOnWhatYouLove
+          currentProductId="p1"
+          category="t-shirt"
+          limit={5}
+        />
+        <TopPick product={productTopPickData as any} title={priceList?.price_lists?.[1]?.title as string} />
+        <GraduationSection />
+        <InStory />
+        <CreateYourOwn />
+        <Trending />
+
+        <Fandom />
+        <Blog />
         <AdsSpace />
       </div>
     </>
@@ -76,7 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
       ...(await serverSideTranslations(locale, ['common'], i18nConfig)),
       productSalesData: [],
       productTopPickData: [],
-      priceList: { price_lists: [{ title: 'Hot Sale' }, { title: 'Top Picks' }] }
+      priceList: { price_lists: [{ title: 'Hot Sale' }, { title: 'Top Picks For You' }] }
     },
   };
 };

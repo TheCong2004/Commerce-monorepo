@@ -1,0 +1,315 @@
+/* 1. Import Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Forum&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Smythe&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap");
+
+/* 2. Tailwind Directives (Chuẩn v3 cho Next 14) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3. Custom Fonts */
+@font-face {
+    src: url("../hooks/fonts/papyrus.ttf");
+    font-family: 'Papyrus';
+}
+
+/* 4. CSS Variables (Chuyển sang HSL để tương thích tối đa) */
+:root {
+    --radius: 0.625rem;
+    
+    /* Light gold ecommerce theme */
+    --background: 0 0% 100%;
+    --foreground: 20 14% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14% 4%;
+    --primary: 45 52% 52%; /* rich gold */
+    --primary-foreground: 26 83% 14%;
+    --secondary: 45 40% 96%;
+    --secondary-foreground: 20 14% 4%;
+    --muted: 45 10% 96%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 45 30% 92%;
+    --accent-foreground: 20 14% 4%;
+    --destructive: 0 84% 60%;
+    --border: 45 20% 90%;
+    --input: 45 20% 90%;
+    --ring: 45 52% 52%;
+
+    /* Charts */
+    --chart-1: 45 52% 52%;
+    --chart-2: 50 30% 40%;
+    --chart-3: 30 40% 30%;
+}
+
+.dark {
+    --background: 20 14% 10%;
+    --foreground: 45 20% 98%;
+    --card: 20 14% 12%;
+    --card-foreground: 45 20% 98%;
+    --popover: 20 14% 12%;
+    --popover-foreground: 45 20% 98%;
+    --primary: 45 52% 52%;
+    --primary-foreground: 20 14% 10%;
+    --border: 20 14% 20%;
+    --input: 20 14% 20%;
+    --ring: 45 52% 52%;
+}
+
+/* 5. Base Styles */
+@layer base {
+    * {
+        @apply border-border outline-none; /* Đã xóa outline-ring/50 bị lỗi */
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Montserrat', sans-serif;
+        overflow-x: hidden;
+    }
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+}
+
+/* 6. Custom Utilities */
+@layer utilities {
+    .papyrus { @apply font-['Papyrus']; }
+    .forum { @apply font-['Forum']; }
+    .smythe { @apply font-['Smythe']; }
+    .montserrat { @apply font-['Montserrat']; }
+
+    .padding-x {
+        @apply xxl:px-[80px] xl:px-[60px] lg:px-[40px] ml:px-[30px] md:px-[30px] sm:px-[20px] xm:px-[20px];
+    }
+    .padding-y {
+        @apply xxl:py-[80px] xl:py-[60px] lg:py-[40px] ml:py-[30px] md:py-[30px] sm:py-[20px] xm:px-[20px];
+    }
+    .heading {
+        @apply xxl:text-[65px] xl:text-[60px] lg:text-[55px] ml:text-[40px] md:text-[40px] sm:text-[35px] xm:text-[30px];
+    }
+    .subHeading {
+        @apply xxl:text-[40px] xl:text-[35px] lg:text-[28px] ml:text-[22px] md:text-[22px] sm:text-[24px] xm:text-[24px];
+    }
+    .paragraph {
+        @apply xxl:text-[20px] xl:text-[18px] lg:text-[17px] ml:text-[16px] md:text-[16px] sm:text-[16px] xm:text-[16px];
+    }
+    .subParagraph {
+        @apply xxl:text-[16px] xl:text-[16px] lg:text-[15px] ml:text-[15px] md:text-[15px] sm:text-[14px] xm:text-[14px];
+    }
+}
+
+/* 7. Animations & Hover Effects */
+.hover {
+    position: relative;
+    text-decoration: none;
+}
+
+.hover::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    background-color: #c7a743;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+}
+
+.hover:hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+.box {
+    float: left;
+    transition: 0.5s linear;
+    position: relative;
+    overflow: hidden;
+    padding: 15px;
+    text-align: center;
+    background: transparent;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.box::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 100%;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid transparent;
+    box-sizing: border-box;
+    transform: translateX(100%);
+}
+
+.box::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-top: 4px solid transparent;
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    transform: translateX(-100%);
+}
+
+.box:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.box:hover::before {
+    border-color: #936d42;
+    height: 100%;
+    transform: translateX(0);
+    transition: 0.3s transform linear, 0.3s height linear 0.3s;
+}
+
+.box:hover::after {
+    border-color: #936d42;
+    height: 100%;
+    transform: translateX(0);
+    transition: 0.3s transform linear, 0.3s height linear 0.5s;
+}
+
+@keyframes snowfall {
+    0% { transform: translateY(-10vh) translateX(0); }
+    100% { transform: translateY(100vh) translateX(100px); }
+}
+
+.animate-snowfall { animation: snowfall linear infinite; }
+
+@keyframes spin-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-ccw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+.animate-spin-cw { animation: spin-cw 28s linear infinite; }
+.animate-spin-ccw { animation: spin-ccw 42s linear infinite; }
+.animate-spin-cw-slow { animation: spin-cw 60s linear infinite; }
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes shooting-star {
+    0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+    10% { opacity: 1; }
+    20% { transform: translateX(100vw) translateY(100vh) rotate(-45deg); opacity: 0; }
+    100% { transform: translateX(100vw) translateY(100vh) rotate(-45deg); opacity: 0; }
+}
+
+.animate-twinkle { animation: twinkle linear infinite; }
+.animate-shooting-star { animation: shooting-star 12s linear infinite; }
+
+@keyframes tuvi-twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+@keyframes tuvi-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes tuvi-smoke-move-right {
+    0% { transform: translateX(-100%) skewX(15deg); opacity: 0; }
+    25% { opacity: 0.25; }
+    75% { opacity: 0.25; }
+    100% { transform: translateX(100%) skewX(-15deg); opacity: 0; }
+}
+
+@keyframes tuvi-smoke-move-left {
+    0% { transform: translateX(100%) skewX(-10deg); opacity: 0; }
+    25% { opacity: 0.15; }
+    75% { opacity: 0.15; }
+    100% { transform: translateX(-100%) skewX(10deg); opacity: 0; }
+}
+
+.tuvi-smoke-layer {
+    position: absolute;
+    width: 200%;
+    height: 450px;
+    filter: blur(90px);
+    pointer-events: none;
+}
+
+.tuvi-smoke-1 {
+    top: 5%;
+    background-image: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+    animation: tuvi-smoke-move-right 28s linear infinite;
+}
+
+.tuvi-smoke-2 {
+    top: 35%;
+    background-image: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+    animation: tuvi-smoke-move-left 38s linear infinite;
+}
+
+.tuvi-smoke-3 {
+    bottom: -5%;
+    height: 550px;
+    background-image: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.07) 0%, transparent 75%);
+    animation: tuvi-smoke-move-right 48s linear infinite;
+}
+
+.animate-tuvi-twinkle { animation: tuvi-twinkle linear infinite; }
+.animate-tuvi-spin-slow { animation: tuvi-spin 120s linear infinite; }
+
+
+@layer utilities {
+  .link-underline {
+    /* Tạo một dải màu (gradient) làm gạch chân */
+    background-image: linear-gradient(transparent, transparent), 
+                      linear-gradient(to right, #9333ea, #9333ea); /* Màu tím/xanh */
+    background-size: 0 6px; /* Chiều rộng ban đầu là 0, độ dày 3px */
+    background-position: 0 100%; /* Nằm ở dưới cùng */
+    background-repeat: no-repeat;
+    transition: background-size 0.5s ease-in-out;
+    display: inline; /* Quan trọng: để nó bao quanh từng từ khi xuống dòng */
+  }
+
+  .link-underline:hover {
+    background-size: 100% 6px; /* Khi hover, chiều rộng tràn ra 100% từng dòng */
+  }
+}
+
+/* Scrollbar nhỏ gọn – dark UI */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;            /* 👈 nhỏ xíu */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4); /* indigo nhạt */
+  border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.7);
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;               /* 👈 mảnh */
+  scrollbar-color: rgba(99,102,241,.5) transparent;
+}

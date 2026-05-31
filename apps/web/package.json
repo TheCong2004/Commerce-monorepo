@@ -33,6 +33,8 @@
   },
   "dependencies": {
     "@commerce/api-client": "workspace:^",
+    "@commerce/astrology-core": "workspace:*",
+    "@commerce/recommendation-core": "workspace:*",
     "@commerce/shared-hooks": "workspace:^",
     "@commerce/shared-types": "workspace:*",
     "@headlessui/react": "^1.7.15",

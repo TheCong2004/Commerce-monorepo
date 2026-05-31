@@ -1,0 +1,56 @@
+stages:
+  - install
+  - lint
+  - build
+  - deploy
+
+variables:
+  NODE_ENV: production
+  NEXT_TELEMETRY_DISABLED: 1
+  NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+install:
+  stage: install
+  image: node:20
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1h
+
+lint:
+  stage: lint
+  image: node:20
+  script:
+    - npm run lint
+
+build:
+  stage: build
+  image: node:20
+  script:
+    - npm run build:cf
+  artifacts:
+    paths:
+      - .opennext/
+    expire_in: 1h
+
+deploy:
+  stage: deploy
+  image: node:20
+  script:
+    - npx wrangler deploy --minify --config wrangler.toml
+  only:
+    - main
+  environment:
+    name: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+  dependencies:
+    - build

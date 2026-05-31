@@ -26,6 +26,12 @@ export interface BlogPost {
 
 export const navLinks: NavLink[] = [
   { name: 'Create Your Own', href: '/create-your-own' },
+  { name: 'Tử Vi', href: '/tu-vi' },
+  { name: 'Lá Số Tử Vi', href: '/la-so-tu-vi' },
+  { name: 'Phong Thủy', href: '/xem-phong-thuy' },
+  { name: 'Sim Phong Thuy', href: '/sim-phong-thuy' },
+  { name: 'Tarot', href: '/tarot' },
+  { name: 'Tư Vấn Cá Nhân', href: '/tu-van-ca-nhan' },
   { name: 'Order Tracking', href: '/order-tracking' },
   { name: "Happy New Year", href: '/happy-new-year' },
   { name: 'Product', href: '/collection', collapsible: true },

@@ -65,6 +65,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           cd apps/xemboituvi
+          rm -rf node_modules package-lock.json .next .open-next
           npm install --legacy-peer-deps --ignore-scripts
           npm run build:cf
 

@@ -44,13 +44,19 @@ export default function TuVi2025Card() {
     }
 
     setLoading(true);
-    const canChiSlug = tuviService.getCanChiSlug(parseInt(namSinh));
-    const slug = `tu-vi-tuoi-${canChiSlug}-${namSinh}-${
-      gioiTinh === "Nam" ? "nam" : "nu"
-    }-mang-nam-${namXem}`;
+    const params = new URLSearchParams({
+      name: hoTen.trim(),
+      gender: gioiTinh,
+      day: ngaySinh,
+      month: thangSinh,
+      year: namSinh,
+      hour: gioSinh,
+      minute: phutSinh,
+      viewYear: namXem,
+    });
 
     setTimeout(() => {
-      router.push(`/tu-vi-${namXem}/${slug}.html`);
+      router.push(`/tu-vi/tron-doi/la-so?${params.toString()}`);
     }, 600);
   };
 

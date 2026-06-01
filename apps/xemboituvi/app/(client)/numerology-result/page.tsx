@@ -2,7 +2,6 @@
 
 import { useSearchParams } from "next/navigation";
 import React, { Suspense, useMemo, useState } from "react";
-import { ArrowLeft, Loader2, ListIcon } from "lucide-react";
 import StarBackground from "@/components/ui/animated-background";
 
 import {
@@ -132,7 +131,7 @@ export default function NumerologyResultPage() {
 
       {/* --- NỘI DUNG CHÍNH --- */}
       <main className={`flex-1 relative z-10 transition-all duration-500 ${isUnlocked && showSidebar ? "lg:mr-80" : ""}`}>
-        <Suspense fallback={<div className="h-screen w-full flex items-center justify-center relative z-10"><Loader2 className="animate-spin text-[#ffd700]" /></div>}>
+        <Suspense fallback={<div className="h-screen w-full flex items-center justify-center relative z-10"><div className="h-6 w-6 animate-spin rounded-full border-2 border-[#ffd700]/30 border-t-[#ffd700]" /></div>}>
           <ResultContent onUnlockChange={(val) => {
             setIsUnlocked(val);
             setShowSidebar(val); // Tự động hiện sidebar khi vừa mở khóa

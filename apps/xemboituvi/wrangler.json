@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "mystic-marguerite",
+  "name": "xemboituvi",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-11-25",
   "compatibility_flags": [

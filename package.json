@@ -26,7 +26,7 @@
     "deploy:preflight:prod": "pnpm --filter scripts run deploy:preflight:prod",
     "deploy:preflight:staging": "pnpm --filter scripts run deploy:preflight:staging",
     "deploy:preflight:preview": "pnpm --filter scripts run deploy:preflight:preview",
-    "dev": "turbo run dev --filter=web --filter=merchant",
+    "dev": "turbo run dev --filter=web --filter=merchant --filter=xemboituvi",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

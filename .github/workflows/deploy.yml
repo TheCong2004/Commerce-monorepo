@@ -1,4 +1,4 @@
-name: Triển khai Tự động Cloudflare (CI/CD)
+name: Deploy Cloudflare
 
 on:
   push:
@@ -14,35 +14,35 @@ permissions:
 
 jobs:
   deploy:
-    name: Build & Deploy lên Cloudflare
+    name: Build and deploy to Cloudflare
     runs-on: ubuntu-latest
     environment: CLOUDFLARE_ACCOUNT_ID
     steps:
-      - name: Checkout mã nguồn
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cài đặt Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
-      - name: Cài đặt pnpm
+      - name: Install pnpm
         run: |
           npm install -g pnpm
           pnpm config delete use-node-version
           pnpm config delete node-version
 
-      - name: Kiểm tra môi trường
+      - name: Check environment
         run: |
           echo "Node version: $(node -v)"
           echo "Pnpm version: $(pnpm -v)"
           echo "Node path: $(which node)"
           echo "Pnpm path: $(which pnpm)"
 
-      - name: Cài đặt dependencies
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Triển khai Merchant (Sử dụng Node 22)
+      - name: Deploy Merchant
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -50,7 +50,7 @@ jobs:
           node -v
           pnpm --filter merchant run deploy
 
-      - name: Triển khai Giao diện Web (OpenNext Cloudflare)
+      - name: Deploy Web (OpenNext Cloudflare)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -59,7 +59,15 @@ jobs:
           pnpm --filter web run build:cf
           pnpm --filter web run deploy
 
-      - name: Triển khai Telegram Mini App
+      - name: Deploy Tu Vi So (OpenNext Cloudflare)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pnpm --filter xemboituvi run build:cf
+          pnpm --filter xemboituvi run deploy
+
+      - name: Deploy Telegram Mini App
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -67,7 +75,7 @@ jobs:
           pnpm --filter telegram-miniapp run build:cf
           pnpm --filter telegram-miniapp run deploy
 
-      - name: Triển khai các trạm phân tán (Durable Objects)
+      - name: Deploy Durable Objects
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

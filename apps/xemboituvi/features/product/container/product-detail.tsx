@@ -4,27 +4,18 @@ import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { formatUSD } from "@/lib/formate-price";
-import { getToken } from "@/features/auth/lib/get-token";
-import { useCart } from "@/features/cart/context/cart-context";
-import useLoginModal from "@/features/auth/hooks/use-login-modal";
 import { TextMask, TextReveal } from "@/components/ui/client";
-import { TproductColumnProps, TuserProps } from "@/types";
+import { TproductColumnProps } from "@/types";
+import { redirectToPrintervalCheckout } from "@/lib/printerval-checkout";
 
 // Import Actions & Services
 import getProduct from "@/features/product/actions/get-product"; // Helper xử lý ảnh
-import { getUserProfile } from "@/features/setting/services/profileService";
-import { addItemToCart } from "../services/cartService";
 import { getProductMainImage } from "@/features/user/services/urlService";
 
 export default function ProductDetail({ id }: { id: string }) {
-    const loginModal = useLoginModal();
-    const token = getToken("authToken");
-    const { toggleCart, refreshCart } = useCart();
-    
     // State
     const [loading, setLoading] = useState(false); // Loading cho nút Add Cart
     const [pageLoading, setPageLoading] = useState(true); // Loading cho cả trang
-    const [user, setUser] = useState<TuserProps>();
     const [product, setProduct] = useState<TproductColumnProps>();
 
     // 1. Fetch Data (Gộp User và Product vào để quản lý loading tốt hơn)
@@ -32,14 +23,9 @@ export default function ProductDetail({ id }: { id: string }) {
         const initData = async () => {
             try {
                 setPageLoading(true);
-                // Chạy song song 2 request cho nhanh
-                const [productRes, userRes] = await Promise.all([
-                    getProduct(id),
-                    token ? getUserProfile(token) : Promise.resolve(null)
-                ]);
+                const productRes = await getProduct(id);
 
                 setProduct(productRes.product);
-                if (userRes) setUser(userRes.data);
 
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -50,35 +36,23 @@ export default function ProductDetail({ id }: { id: string }) {
         };
 
         initData();
-    }, [id, token]);
+    }, [id]);
 
     // 2. Handle Add to Cart (Logic tách biệt)
     const handleAddToCart = async () => {
-        if (!user || !token) {
-            loginModal.onOpen();
-            return;
-        }
-
         if (!product?.id) return;
 
-        try {
-            setLoading(true);
-            // Gọi Service
-            const data = await addItemToCart(user.id.toString(), product.id.toString(), token);
-
-            if (data.success === false) {
-                toast.error(data.message);
-            } else {
-                toast.success(data.success || "Added to cart!");
-                refreshCart();
-                toggleCart();
-            }
-        } catch (error: any) {
-            const msg = error?.response?.data?.message || error.message || "An unknown error occurred";
-            toast.error(msg);
-        } finally {
-            setLoading(false);
-        }
+        redirectToPrintervalCheckout({
+            id: `xemboituvi-product-${product.id}`,
+            title: product.title || "Xemboituvi product",
+            price: Number(product.price) || 0,
+            variantTitle: "Xemboituvi product",
+            thumbnail: mainImage,
+            source: "products",
+            metadata: {
+                product_id: product.id,
+            },
+        });
     };
 
     // 3. Render Loading State cho trang

@@ -1,7 +1,7 @@
 export { default as fromImage } from './img.jpg';
 export { default as logo } from './logo.png';
 export { default as circle1 } from './circle1.png';
-export { default as circle2 } from './circle2.png';
+export { default as circle2 } from './gradientCircle.png';
 export { default as footerLogo } from './footerLogo.png';
 export { default as service1 } from './service1.png';
 
@@ -57,12 +57,12 @@ export { default as life01 } from './life01.jpg';
 export { default as life011 } from './life011.png';
 export { default as life012 } from './life012.jpg';
 export { default as life013 } from './life013.jpg';
-export { default as life02 } from './life02.png';
+export { default as life02 } from './life022.jpg';
 export { default as life022 } from './life022.jpg';
 export { default as life023 } from './life023.png';
 export { default as life03 } from './life03.png';
 export { default as life032 } from './life032.png';
-export { default as life04 } from './life04.png';
+export { default as life04 } from './life032.png';
 // export { default as AuroraFull } from './Aurora_Full.mp3';
 // export { default as FastCarsFull } from './Fast_Cars_Full.mp3';
 // export { default as MovingInFull } from './Moving_In_Full.mp3';

@@ -45,6 +45,11 @@ export const chamDiemSim = (sim: string, formData: any) => {
 
   return {
     totalScore: score,
+    sim: numbers,
+    tongNut,
+    even,
+    odd,
+    amDuongStatus,
     nguHanh: userNguHanh, // Truyền cho SuggestionList
     analysis: analysis,   // Truyền cho DetailedAnalysis
     detail: {             // Dữ liệu quẻ dịch thực tế

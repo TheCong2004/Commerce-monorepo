@@ -5,6 +5,7 @@ import { Crown, Check, Sparkles, Star, Moon, Sun, Compass } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import FadeIn from "../../../components/ui/FadeIn";
+import { parseVndPrice, redirectToPrintervalCheckout } from "@/lib/printerval-checkout";
 
 const VIP_SERVICES = [
   {
@@ -117,7 +118,23 @@ export default function MuaVipPage() {
                     ))}
                   </div>
 
-                  <button className={`w-full py-4 rounded-2xl bg-gradient-to-r ${item.color} font-bold text-white shadow-xl hover:brightness-110 active:scale-[0.98] transition-all`}>
+                  <button
+                    className={`w-full py-4 rounded-2xl bg-gradient-to-r ${item.color} font-bold text-white shadow-xl hover:brightness-110 active:scale-[0.98] transition-all`}
+                    onClick={() =>
+                      redirectToPrintervalCheckout({
+                        id: `vip-${item.id}`,
+                        title: `Goi VIP ${item.title}`,
+                        price: parseVndPrice(item.price),
+                        variantTitle: "Goi VIP",
+                        source: "mua-vip",
+                        metadata: {
+                          service_id: item.id,
+                          features: item.features,
+                          original_price: item.price,
+                        },
+                      })
+                    }
+                  >
                     Đăng Ký Ngay
                   </button>
                 </div>

@@ -1,4 +1,4 @@
-name = "mystic-marguerite"
+name = "xemboituvi"
 main = ".open-next/worker.js" 
 compatibility_date = "2026-01-04"
 compatibility_flags = ["nodejs_compat"]
@@ -9,6 +9,7 @@ binding = "ASSETS"
 
 [vars]
 NEXTJS_ENV = "production"
+NEXT_PUBLIC_PRINTERVAL_CART_URL = "https://printerval.thecong2610.workers.dev/cart"
 
 [observability]
 enabled = true

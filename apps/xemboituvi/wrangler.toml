@@ -1,5 +1,5 @@
 name = "xemboituvi"
-main = ".open-next/worker.js" 
+main = ".open-next/worker.js"
 compatibility_date = "2026-01-04"
 compatibility_flags = ["nodejs_compat"]
 
@@ -13,9 +13,3 @@ NEXT_PUBLIC_PRINTERVAL_CART_URL = "https://printerval.thecong2610.workers.dev/ca
 
 [observability]
 enabled = true
-
-# THÊM ĐOẠN NÀY: Ép Wrangler build theo định dạng ESM
-[build]
-command = "npm run build:cf"
-[build.upload]
-format = "modules"

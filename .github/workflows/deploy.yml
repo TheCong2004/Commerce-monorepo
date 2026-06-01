@@ -59,12 +59,18 @@ jobs:
           pnpm --filter web run build:cf
           pnpm --filter web run deploy
 
-      - name: Deploy Tu Vi So (OpenNext Cloudflare)
+      - name: Build Tu Vi So (OpenNext Cloudflare)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           pnpm --filter xemboituvi run build:cf
+
+      - name: Deploy Tu Vi So (OpenNext Cloudflare)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
           pnpm --filter xemboituvi run deploy
 
       - name: Deploy Telegram Mini App

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev -p 3001",
-    "build:cf": "npx @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion",
+    "build:cf": "npx @opennextjs/cloudflare build --dangerouslyUseUnsupportedNextVersion && node scripts/patch-opennext-worker.cjs",
     "preview": "npm run build:cf && wrangler dev .opennext/dist/worker.mjs",
     "deploy": "npx wrangler deploy --minify --config wrangler.toml",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
@@ -18,6 +18,7 @@
     "@gsap/react": "^2.1.1",
     "@hookform/resolvers": "^3.9.0",
     "@lexical/file": "^0.18.0",
+    "@lexical/rich-text": "^0.18.0",
     "@lexical/react": "^0.18.0",
     "@opennextjs/cloudflare": "^1.14.7",
     "@paypal/react-paypal-js": "^8.9.2",

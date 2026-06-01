@@ -1,9 +1,5 @@
-"use client";
 import "@/styles/globals.css";
-import { SideCart } from "@/components/ui/client";
-import { CartProvider } from "@/features/cart/context/cart-context";
-import ToastProvider from "@/providers/toast-provider";
-import AuthModal from "@/features/auth/components/auth-model";
+import Providers from "./providers";
 
 export default function RootLayout({
 	children,
@@ -11,20 +7,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<CartProvider>
-			<html
-				lang="en"
-				suppressHydrationWarning>
-				<body  className="bg-black">
-					<ToastProvider />
-					<AuthModal />
-					<SideCart />
-					{/* Offset for fixed header on desktop/mobile */}
+		<html
+			lang="en"
+			suppressHydrationWarning>
+			<body className="bg-black">
+				<Providers>
 					<div className="">
 						{children}
 					</div>
-				</body>
-			</html>
-		</CartProvider>
+				</Providers>
+			</body>
+		</html>
 	);
 }

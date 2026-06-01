@@ -64,14 +64,17 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          pnpm --filter xemboituvi run build:cf
+          cd apps/xemboituvi
+          npm install --legacy-peer-deps --ignore-scripts
+          npm run build:cf
 
       - name: Deploy Tu Vi So (OpenNext Cloudflare)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          pnpm --filter xemboituvi run deploy
+          cd apps/xemboituvi
+          npm run deploy
 
       - name: Deploy Telegram Mini App
         env:

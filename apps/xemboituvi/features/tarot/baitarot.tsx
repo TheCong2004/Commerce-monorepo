@@ -135,7 +135,7 @@ export default function Tarotbai() {
                 }}
               >
                 <div className={`relative rounded-xl overflow-hidden border-2 transition-all duration-300 ${
-                  isSelected ? "border-[#D4AF37] scale-110" : "border-white/10 shadow-2xl shadow-black/50"
+                  isSelected ? "border-[#D4AF37] scale-110" : "border-[#D4AF37]/30 shadow-2xl shadow-black/50"
                 }`}>
                   <img
                     src={cardImageMap["back"]}

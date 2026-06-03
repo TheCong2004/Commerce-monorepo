@@ -1,9 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {
+  MysticDarkPanel,
+  MysticGoldFrame,
+  MysticPageShell,
+} from "@/components/ui/client/mystic-page-shell";
 import spreadsData from "@/features/tarot/data/spreads.json";
-import { Navbar } from "@/components/ui/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Spread {
   id: string;
@@ -20,12 +24,12 @@ export default function Tarot() {
 
   const handleStartReading = () => {
     if (!question.trim()) {
-      alert("Please enter your question");
+      alert("Vui lòng nhập câu hỏi.");
       return;
     }
 
     if (!selectedSpread) {
-      alert("Please select a spread");
+      alert("Vui lòng chọn kiểu trải bài.");
       return;
     }
 
@@ -37,105 +41,76 @@ export default function Tarot() {
   const spreads = spreadsData.spreads as unknown as Spread[];
 
   return (
-    /* Thay đổi: bg-gradient từ đen huyền bí */
-    <section className="w-full min-h-screen padding-x padding-y bg-gradient-to-b from-[#0f0f0f] via-[#1a1a1a] to-[#000000] relative overflow-hidden">
-      
-      {/* Thêm hiệu ứng bụi sao mờ ảo trên nền đen */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+    <MysticPageShell contentClassName="mx-auto max-w-4xl px-4 py-24">
+      <MysticDarkPanel className="mb-5 p-5 text-center">
+        <h1 className="text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
+          Trải bài Tarot
+        </h1>
+        <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-relaxed text-white/70">
+          Đặt một câu hỏi rõ ràng, chọn kiểu trải bài và dùng kết quả như một gợi ý chiêm nghiệm.
+        </p>
+      </MysticDarkPanel>
 
-      <div className="max-w-4xl mx-auto relative z-10"> 
-        {/* Header */}
-        <div className="text-center mb-16">
-          
-          {/* Thay đổi: Tiêu đề màu Vàng Kim (Gold) */}
-          <h1 className="papyrus text-5xl font-bold text-[#D4AF37] uppercase tracking-wider mb-3 drop-shadow-[0_2px_10px_rgba(212,175,55,0.4)]">
-            Trải bài Tarot
-          </h1>
-          <p className="text-[#a89260] text-lg italic">Hãy đặt câu hỏi, các lá bài sẽ dẫn lối cho bạn</p>
-        </div>
+      <MysticGoldFrame className="p-5 md:p-6">
+        <label className="block">
+          <span className="mb-1.5 block text-[13px] font-semibold text-[#D4AF37]">
+            Câu hỏi của bạn
+          </span>
+          <textarea
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="Bạn muốn biết điều gì?"
+            rows={4}
+            className="w-full resize-none rounded-lg border border-[#D4AF37]/35 bg-black/45 p-3 text-[14px] text-[#F4EFE4] outline-none transition placeholder:text-white/35 focus:border-[#D4AF37] focus:bg-black/60"
+          />
+        </label>
 
-        {/* Main Container: Giữ nguyên card không thay đổi gì */}
-        <div className="bg-gradient-to-b from-[#f9f4e8] to-[#f5e8d8] rounded-3xl p-8 md:p-12 shadow-2xl border-4 border-[#bf7e26]">
-          {/* Question Input */}
-          <div className="mb-10">
-            <label className="block papyrus text-2xl font-bold text-[#8B4513] mb-4 uppercase tracking-wide">
-              Câu hỏi của bạn
-            </label>
-            <textarea
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Bạn muốn biết điều gì?"
-              rows={4}
-              className="w-full bg-white/80 border-2 border-[#d4c5a9] rounded-xl p-4 text-[#3a2a14] placeholder:text-[#b0a090] focus:outline-none focus:border-[#bf7e26] focus:ring-2 focus:ring-[#bf7e26]/20 transition-all resize-none"
-            />
-          </div>
-
-          {/* Spread Selection */}
-          <div className="mb-10">
-            <label className="block papyrus text-2xl font-bold text-[#8B4513] mb-6 uppercase tracking-wide">
-              🃏 Chọn kiểu trải bài
-            </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {spreads.map((spread) => (
+        <div className="mt-5">
+          <h2 className="mb-3 text-[13px] font-semibold uppercase tracking-wide text-[#D4AF37]">
+            Chọn kiểu trải bài
+          </h2>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            {spreads.map((spread) => {
+              const selected = selectedSpread === spread.id;
+              return (
                 <button
                   key={spread.id}
                   onClick={() => setSelectedSpread(spread.id)}
-                  className={`p-5 rounded-2xl border-2 transition-all duration-300 text-left group ${
-                    selectedSpread === spread.id
-                      ? "bg-[#bf7e26] border-[#8B4513] shadow-lg"
-                      : "bg-white border-[#d4c5a9] hover:border-[#bf7e26] hover:shadow-md"
+                  className={`rounded-lg border p-4 text-left transition ${
+                    selected
+                      ? "border-[#D4AF37] bg-[#D4AF37]/14"
+                      : "border-[#D4AF37]/25 bg-black/35 hover:border-[#D4AF37]"
                   }`}
                 >
-                  <h3
-                    className={`papyrus text-lg font-bold uppercase tracking-wider mb-2 ${
-                      selectedSpread === spread.id ? "text-white" : "text-[#8B4513]"
-                    }`}
-                  >
+                  <h3 className="text-[14px] font-semibold uppercase tracking-wide text-[#F3E3BC]">
                     {spread.name}
                   </h3>
-                  <p
-                    className={`text-sm ${
-                      selectedSpread === spread.id
-                        ? "text-white/90"
-                        : "text-[#5c4033]"
-                    }`}
-                  >
+                  <p className="mt-2 text-[13px] leading-relaxed text-white/68">
                     {spread.description}
                   </p>
-                  <div
-                    className={`text-xs font-bold uppercase tracking-wide mt-3 ${
-                      selectedSpread === spread.id
-                        ? "text-white/80"
-                        : "text-[#bf7e26]"
-                    }`}
-                  >
+                  <p className="mt-3 text-[13px] font-semibold text-[#D4AF37]">
                     {spread.cardCount} lá bài
-                  </div>
+                  </p>
                 </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Start Button */}
-          <div className="flex justify-center">
-            <button
-              onClick={handleStartReading}
-              disabled={!question.trim() || !selectedSpread}
-              className="papyrus px-10 py-4 bg-gradient-to-r from-[#bf7e26] to-[#c7a743] hover:from-[#a66a1d] hover:to-[#b5931f] disabled:from-[#d0d0d0] disabled:to-[#e0e0e0] text-white font-bold text-lg uppercase tracking-widest rounded-full shadow-lg hover:shadow-xl disabled:shadow-none transition-all duration-300 border-2 border-[#8B4513] disabled:border-[#b0b0b0]"
-            >
-              Bắt đầu trải bài 🔮
-            </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Footer Info */}
-        <div className="text-center mt-12">
-          {/* Thay đổi: Màu chữ footer sáng lên để nổi bật trên nền đen */}
-          <p className="text-[#D4AF37] italic text-sm font-medium opacity-80">
-            ✦ Lưu ý: Tarot là công cụ chiêm nghiệm, không phải định mệnh. Quyết định của bạn sẽ tạo nên tương lai. ✦
-          </p>
-        </div>
-      </div>
-    </section>
+        <button
+          onClick={handleStartReading}
+          disabled={!question.trim() || !selectedSpread}
+          className="mt-5 w-full rounded-lg bg-[#D4AF37] px-5 py-3 text-[14px] font-semibold text-[#1B140E] transition hover:bg-[#F2D26B] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Bắt đầu trải bài
+        </button>
+      </MysticGoldFrame>
+
+      <MysticDarkPanel className="mt-5 px-5 py-4 text-center">
+        <p className="text-[13px] leading-relaxed text-white/70">
+          Tarot là công cụ chiêm nghiệm, không thay thế quyết định cá nhân của bạn.
+        </p>
+      </MysticDarkPanel>
+    </MysticPageShell>
   );
 }

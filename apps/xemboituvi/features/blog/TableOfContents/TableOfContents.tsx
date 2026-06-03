@@ -93,7 +93,7 @@ export default function TableOfContents({ content }: { content: string }) {
             className={`block w-full text-left text-sm py-2.5 px-4 rounded-lg transition-all duration-300 border-l-2 ${
               activeId === item.id
                 ? 'text-[#D4AF37] font-bold bg-[#D4AF37]/10 border-[#D4AF37] shadow-[inset_0_0_10px_rgba(212,175,55,0.1)]'
-                : 'text-white/40 border-transparent hover:text-white/70 hover:bg-white/5'
+                : 'text-white/45 border-transparent hover:text-[#F3E3BC] hover:bg-[#D4AF37]/10'
             }`}
             style={{ 
               paddingLeft: `${(item.level - 1) * 16 + 16}px`,

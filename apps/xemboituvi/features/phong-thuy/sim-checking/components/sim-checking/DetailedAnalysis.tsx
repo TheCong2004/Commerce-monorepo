@@ -9,9 +9,9 @@ export default function DetailedAnalysis({ result }: { result: any }) {
 
   return (
     <section className="grid gap-5 lg:grid-cols-2">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-6">
-        <p className="text-[13px] font-semibold uppercase tracking-wide text-[#F4C76B]">Ngũ hành & âm dương</p>
-        <h3 className="mt-2 text-[20px] font-bold text-white">Kết luận dễ hiểu</h3>
+      <div className="rounded-lg border border-[#D4AF37]/35 bg-black/45 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-md transition hover:border-[#D4AF37]/75 md:p-6">
+        <p className="text-[13px] font-semibold uppercase tracking-wide text-[#D4AF37]">Ngũ hành & âm dương</p>
+        <h3 className="mt-2 text-[14px] font-bold uppercase tracking-wide text-[#F3E3BC]">Kết luận dễ hiểu</h3>
         <div className="mt-4 space-y-3">
           <ReadableBlock
             title="Bản mệnh"
@@ -28,26 +28,26 @@ export default function DetailedAnalysis({ result }: { result: any }) {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-6">
+      <div className="rounded-lg border border-[#D4AF37]/35 bg-black/45 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-md transition hover:border-[#D4AF37]/75 md:p-6">
         <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <p className="text-[13px] font-semibold uppercase tracking-wide text-[#F4C76B]">Quẻ Kinh Dịch</p>
-            <h3 className="mt-2 text-[20px] font-bold text-white">{detail.tenQue}</h3>
+            <p className="text-[13px] font-semibold uppercase tracking-wide text-[#D4AF37]">Quẻ Kinh Dịch</p>
+            <h3 className="mt-2 text-[14px] font-bold uppercase tracking-wide text-[#F3E3BC]">{detail.tenQue}</h3>
             <p className="mt-1 text-[13px] text-white/50">{detail.hanTu}</p>
           </div>
-          <span className="rounded-full border border-[#F4C76B]/20 bg-[#F4C76B]/10 px-3 py-1 text-[13px] font-semibold text-[#F4C76B]">
+          <span className="rounded-full border border-[#D4AF37]/25 bg-[#D4AF37]/10 px-3 py-1 text-[13px] font-semibold text-[#D4AF37]">
             {detail.loaiQue}
           </span>
         </div>
 
-        <div className="mt-4 rounded-xl border border-white/10 bg-[#0B1020] p-4">
-          <p className="text-[13px] font-semibold text-white">Ý nghĩa</p>
-          <p className="mt-2 text-[14px] leading-6 text-white/70">{detail.yNghia}</p>
+        <div className="mt-4 rounded-lg border border-[#D4AF37]/25 bg-black/35 p-4">
+          <p className="text-[13px] font-semibold text-[#F3E3BC]">Ý nghĩa</p>
+          <p className="mt-2 text-[13px] leading-6 text-white/70">{detail.yNghia}</p>
         </div>
 
-        <div className="mt-3 rounded-xl border border-white/10 bg-[#0B1020] p-4">
-          <p className="text-[13px] font-semibold text-white">Lời khuyên</p>
-          <p className="mt-2 text-[14px] leading-6 text-white/70">{detail.loiKhuyen}</p>
+        <div className="mt-3 rounded-lg border border-[#D4AF37]/25 bg-black/35 p-4">
+          <p className="text-[13px] font-semibold text-[#F3E3BC]">Lời khuyên</p>
+          <p className="mt-2 text-[13px] leading-6 text-white/70">{detail.loiKhuyen}</p>
         </div>
       </div>
     </section>
@@ -56,9 +56,9 @@ export default function DetailedAnalysis({ result }: { result: any }) {
 
 function ReadableBlock({ title, text }: { title: string; text: string }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-[#0B1020] p-4">
-      <p className="text-[14px] font-semibold text-white">{title}</p>
-      <p className="mt-1 text-[14px] leading-6 text-white/65">{text}</p>
+    <div className="rounded-lg border border-[#D4AF37]/25 bg-black/35 p-4">
+      <p className="text-[13px] font-semibold text-[#F3E3BC]">{title}</p>
+      <p className="mt-1 text-[13px] leading-6 text-white/65">{text}</p>
     </div>
   );
 }

@@ -30,10 +30,10 @@ export default function SingleForm({ onBack, onCalculate }: SingleFormProps) {
       className="w-full space-y-5"
     >
       <div className="flex items-center gap-2 mb-2">
-        <button onClick={onBack} className="p-2 hover:bg-pink-100 rounded-full transition-colors">
-          <ArrowLeft size={20} className="text-rose-500" />
+        <button onClick={onBack} className="rounded-lg border border-[#D4AF37]/25 p-2 text-[#D4AF37] transition-colors hover:bg-[#D4AF37] hover:text-black">
+          <ArrowLeft size={18} />
         </button>
-        <h4 className="font-bold text-rose-600 uppercase tracking-wider text-sm">Tìm Vận Đào Hoa</h4>
+        <h4 className="text-[14px] font-bold uppercase tracking-wider text-[#F3E3BC]">Tìm Vận Đào Hoa</h4>
       </div>
 
       <div className="space-y-4">
@@ -44,7 +44,7 @@ export default function SingleForm({ onBack, onCalculate }: SingleFormProps) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Họ và tên của bạn..."
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-pink-200 focus:ring-2 focus:ring-rose-400 outline-none bg-white/50"
+            className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 pl-10 pr-4 text-[14px] text-white outline-none focus:border-[#D4AF37]"
           />
         </div>
         <div className="relative">
@@ -53,7 +53,7 @@ export default function SingleForm({ onBack, onCalculate }: SingleFormProps) {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 rounded-xl border border-pink-200 focus:ring-2 focus:ring-rose-400 outline-none bg-white/50 text-gray-600"
+            className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 pl-10 pr-4 text-[14px] text-white outline-none focus:border-[#D4AF37]"
           />
         </div>
         

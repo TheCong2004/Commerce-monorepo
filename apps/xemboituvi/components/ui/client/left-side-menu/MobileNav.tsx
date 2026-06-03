@@ -69,7 +69,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
                     <span className="text-lg font-bold text-[#c7a743] uppercase tracking-wider">Menu</span>
                     <button
                         onClick={onClose}
-                        className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                        className="p-2 text-white hover:text-[#c7a743] transition-colors"
                     >
                         <X size={24} />
                     </button>
@@ -89,10 +89,10 @@ export default function MobileNav({ onClose }: MobileNavProps) {
                                 >
                                     {hasChildren ? (
                                         // Nếu có con, bấm vào chỉ để mở dropdown
-                                        <span className="font-medium text-lg text-gray-100 flex-1">{item.label}</span>
+                                        <span className="font-medium text-[13px] md:text-[14px] text-[#F3E3BC] flex-1">{item.label}</span>
                                     ) : (
                                         // Nếu không có con, bấm vào là chuyển trang
-                                        <Link href={item.href} className="font-medium text-lg text-gray-100 flex-1 block" onClick={onClose}>
+                                        <Link href={item.href} className="font-medium text-[13px] md:text-[14px] text-[#F3E3BC] flex-1 block" onClick={onClose}>
                                             {item.label}
                                         </Link>
                                     )}
@@ -101,7 +101,8 @@ export default function MobileNav({ onClose }: MobileNavProps) {
                                     {hasChildren && (
                                         <ChevronDown 
                                             size={20} 
-                                            className={`text-[#c7a743] transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} 
+                                            className="text-[#c7a743] transition-transform duration-300" 
+                                            style={{ transform: isOpen ? "rotate(180deg)" : "none" }}
                                         />
                                     )}
                                 </div>
@@ -121,7 +122,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
                                                     key={idx} 
                                                     href={child.href}
                                                     onClick={onClose}
-                                                    className="block py-3 text-sm text-gray-400 hover:text-[#c7a743] transition-colors"
+                                                    className="block py-3 text-[13px] md:text-[14px] text-[#F3E3BC]/75 hover:text-[#c7a743] transition-colors"
                                                 >
                                                     {child.label}
                                                 </Link>

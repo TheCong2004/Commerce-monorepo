@@ -139,13 +139,13 @@ function PalaceCell({ palace, selected, related, onSelect }: {
     >
       <div className="flex items-start justify-between border-b border-[#dbb76c] pb-1 text-[10px] font-semibold text-slate-600">
         <span>{palace.branch}</span>
-        <span className="text-[13px] font-black text-[#9b4b00]">{palace.name}</span>
+        <span className="text-[13px] font-bold text-[#9b4b00]">{palace.name}</span>
         <span className="text-red-600">{palace.age}</span>
       </div>
 
       <div className="mt-1 min-h-9 text-center">
         {palace.mainStars.map((star) => (
-          <div key={`${palace.name}-${star.name}`} className={`text-[15px] font-black leading-5 ${starClass(star)}`}>
+          <div key={`${palace.name}-${star.name}`} className={`text-[14px] font-bold leading-5 ${starClass(star)}`}>
             {star.name}{star.status ? <span className="ml-1 text-[10px]">({star.status})</span> : null}
           </div>
         ))}
@@ -213,10 +213,10 @@ function AnalysisText({ content }: { content: string }) {
       {content.split("\n").map((line, index) => {
         if (!line.trim()) return <div key={index} className="h-1" />;
         if (line.startsWith("### ")) {
-          return <h4 key={index} className="pt-2 text-base font-black text-violet-800">{line.replace("### ", "")}</h4>;
+          return <h4 key={index} className="pt-2 text-[14px] font-bold text-violet-800">{line.replace("### ", "")}</h4>;
         }
         if (line.startsWith("- ")) {
-          return <p key={index} className="rounded-lg bg-white px-3 py-2 text-slate-700 shadow-sm">{line.replace("- ", "")}</p>;
+          return <p key={index} className="rounded-lg border border-[#D4AF37]/25 bg-black/35 px-3 py-2 text-white/70 shadow-sm">{line.replace("- ", "")}</p>;
         }
         return <p key={index}>{line}</p>;
       })}
@@ -389,7 +389,7 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
 
     context.textAlign = "center";
     context.fillStyle = "#7a4d16";
-    context.font = "italic 14px Arial";
+    context.font = "14px Arial";
     drawWrappedText(context, "Lá số dùng để tham khảo định hướng, không xem như định mệnh cố định.", centerX + 70, centerY + cell * 2 - 64, cell * 2 - 140, 18);
 
     context.fillStyle = "#f5deb3";
@@ -432,10 +432,10 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
   return (
     <section className="min-h-screen bg-gradient-to-b from-white via-[#faf5ff] to-white pb-8 pt-28 text-slate-900">
       <div className="mx-auto max-w-[1470px] px-4">
-        <div className="overflow-hidden rounded-[26px] border border-violet-100 bg-white shadow-[0_20px_60px_rgba(88,28,135,0.10)]">
+        <div className="overflow-hidden rounded-xl border border-[#D4AF37]/35 bg-black/45 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
           <header className="flex items-center gap-3 border-b border-violet-100 bg-gradient-to-r from-violet-50 to-white px-5 py-4">
-            <span className="text-xl text-orange-500">★</span>
-            <h1 className="text-lg font-black">Thiên Bàn & Địa Bàn</h1>
+            <span className="text-[14px] text-orange-500">★</span>
+            <h1 className="text-[14px] font-bold">Thiên Bàn & Địa Bàn</h1>
           </header>
 
           <div className="flex flex-col gap-5 p-5 lg:flex-row lg:items-start lg:justify-between">
@@ -478,7 +478,7 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
                       if (rowIndex === 1 && colIndex === 1) {
                         return (
                           <div key="center" className="col-span-2 row-span-2 flex min-h-[376px] flex-col items-center justify-center border border-[#cf9b50] bg-[#f9dfaa] p-5 text-center">
-                            <div className="mb-2 text-2xl font-black uppercase tracking-[0.16em] text-[#9b4b00]">Tử Vi Đẩu Số</div>
+                            <div className="mb-2 text-[14px] font-bold uppercase tracking-[0.14em] text-[#9b4b00]">Tử Vi Đẩu Số</div>
                             <div className="mb-5 h-px w-44 bg-[#c48735]" />
                             <div className="grid w-full grid-cols-2 gap-2 text-left text-sm">
                               <div className="space-y-2">
@@ -490,14 +490,14 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
                                 <p><b>Giới tính:</b> {input.gender}</p>
                               </div>
                               <div className="space-y-2 text-right">
-                                <p><b>Bản Mệnh:</b> <span className="font-black text-red-600">{chart.menh}</span></p>
-                                <p><b>Cục:</b> <span className="font-black text-blue-700">{chart.cuc}</span></p>
+                                <p><b>Bản Mệnh:</b> <span className="font-bold text-red-600">{chart.menh}</span></p>
+                                <p><b>Cục:</b> <span className="font-bold text-blue-700">{chart.cuc}</span></p>
                                 <p><b>Sinh Mệnh:</b> {chart.menh}</p>
                                 <p><b>Chủ Mệnh:</b> {chart.chuMenh}</p>
                                 <p><b>Chủ Thân:</b> {chart.chuThan}</p>
                               </div>
                             </div>
-                            <div className="mt-5 text-xs italic leading-5 text-[#7a4d16]">
+                            <div className="mt-5 text-[12px] leading-5 text-[#7a4d16]">
                               Chủ về sự thông minh, sáng suốt, thay đổi linh hoạt. Nên lấy lá số như bản đồ định hướng, không xem như định mệnh cố định.
                             </div>
                           </div>
@@ -530,17 +530,17 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
       {detailPalace ? (
         <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/55 px-4 backdrop-blur-sm" onClick={() => setDetailPalace(null)}>
           <div
-            className="w-full max-w-[520px] rounded-2xl bg-white p-6 text-slate-700 shadow-2xl"
+            className="w-full max-w-[520px] rounded-xl border border-[#D4AF37]/35 bg-black p-6 text-white/75 shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-5 flex items-start justify-between gap-4">
-              <h2 className="text-2xl font-black text-[#8b4513]">
+              <h2 className="text-[14px] font-bold text-[#8b4513]">
                 {detailPalace.name.replace(/\s+/g, " ")} <span className="text-orange-500">({PALACE_DETAILS[detailPalace.name]?.chinese || detailPalace.branch})</span>
               </h2>
               <button
                 type="button"
                 onClick={() => setDetailPalace(null)}
-                className="rounded-full px-2 text-2xl leading-none text-slate-500 hover:bg-slate-100"
+                className="rounded-full px-2 text-[14px] leading-none text-slate-500 hover:bg-slate-100"
                 aria-label="Đóng"
               >
                 ×
@@ -549,17 +549,17 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
 
             <div className="space-y-6">
               <div>
-                <h3 className="mb-2 text-xl font-black text-[#8b4513]">Ý Nghĩa Cung</h3>
+                <h3 className="mb-2 text-[14px] font-bold text-[#8b4513]">Ý Nghĩa Cung</h3>
                 <p className="leading-7">{PALACE_DETAILS[detailPalace.name]?.meaning}</p>
               </div>
 
               <div>
-                <h3 className="mb-2 text-xl font-black text-[#8b4513]">Ảnh Hưởng</h3>
+                <h3 className="mb-2 text-[14px] font-bold text-[#8b4513]">Ảnh Hưởng</h3>
                 <p className="leading-7">{PALACE_DETAILS[detailPalace.name]?.influence}</p>
               </div>
 
               <div>
-                <h3 className="mb-3 text-xl font-black text-[#8b4513]">Sao Phụ (Phụ Tinh)</h3>
+                <h3 className="mb-3 text-[14px] font-bold text-[#8b4513]">Sao Phụ (Phụ Tinh)</h3>
                 <div className="flex flex-wrap gap-2">
                   {[...detailPalace.leftStars, ...detailPalace.rightStars].map((star) => (
                     <span key={`${detailPalace.name}-modal-${star.name}`} className="rounded-lg bg-slate-100 px-3 py-2 text-xs font-semibold text-slate-700">
@@ -570,7 +570,7 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
               </div>
 
               <div className="border-t border-violet-100 pt-6 text-center">
-                <h3 className="mb-8 text-2xl font-black text-violet-700">✦ Luận Giải Chi Tiết (AI)</h3>
+                <h3 className="mb-5 text-[14px] font-bold text-violet-700">✦ Luận Giải Chi Tiết (AI)</h3>
                 {palaceAnalyses[detailPalace.name] ? (
                   <div className="rounded-xl border border-violet-100 bg-violet-50/60 p-4">
                     <AnalysisText content={palaceAnalyses[detailPalace.name]} />
@@ -582,7 +582,7 @@ export default function TuViAiChart({ input }: { input: TuViAiChartInput }) {
                     <button
                       type="button"
                       disabled={analyzingPalace === detailPalace.name}
-                      className="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-7 py-3 text-sm font-black text-white shadow-lg hover:brightness-110 disabled:cursor-wait disabled:opacity-70"
+                      className="rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-5 py-3 text-[13px] font-bold text-white shadow-lg hover:brightness-110 disabled:cursor-wait disabled:opacity-70"
                       onClick={() => handleAnalyzePalace(detailPalace)}
                     >
                       {analyzingPalace === detailPalace.name ? "Đang phân tích..." : "✦ Luận giải ngay"}

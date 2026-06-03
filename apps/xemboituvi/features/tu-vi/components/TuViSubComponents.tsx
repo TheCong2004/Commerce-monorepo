@@ -8,25 +8,27 @@ function cn(...inputs: ClassValue[]) {
 }
 
 export const Label = ({ text, icon }: { text: string; icon?: React.ReactNode }) => (
-  <label className="text-[#8A0000]/80 font-black text-[10px] md:text-[11px] uppercase tracking-[0.15em] md:tracking-[0.2em] ml-1 flex items-center gap-2 mb-1 font-sans">
+  <label className="ml-1 mb-1 flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.12em] text-[#D4AF37]">
     {icon} {text}
   </label>
 );
 
 export const GenderOption = ({ label, value, current, set, setError }: any) => (
   <button
-    type="button" 
-    onClick={() => { set(value); setError(null); }}
-    // Sửa h-[58px] thành min-h-[48px] và bỏ tracking-widest trên mobile
+    type="button"
+    onClick={() => {
+      set(value);
+      setError(null);
+    }}
     className={cn(
-      "flex items-center justify-center rounded-xl border-2 transition-all duration-300 font-black text-xs md:text-sm uppercase tracking-wider md:tracking-widest relative shadow-sm min-h-[48px] md:min-h-[58px] w-full px-2",
+      "relative flex h-11 w-full items-center justify-center rounded-lg border px-2 text-[13px] font-bold uppercase tracking-[0.1em] transition",
       current === value
-        ? "border-[#8A0000] bg-white text-[#8A0000] shadow-md scale-[1.02] z-10"
-        : "border-[#8A0000]/10 bg-white/50 text-[#8b4513]/40 hover:border-[#8A0000]/30"
+        ? "border-[#D4AF37] bg-[#D4AF37] text-black"
+        : "border-[#D4AF37]/25 bg-black/35 text-white/70 hover:border-[#D4AF37]/55"
     )}
   >
     {current === value && (
-      <div className="absolute top-1 right-1 bg-[#8A0000] text-white rounded-full p-0.5 shadow-sm">
+      <div className="absolute right-1.5 top-1.5 text-black/70">
         <Star size={8} fill="currentColor" />
       </div>
     )}
@@ -35,24 +37,24 @@ export const GenderOption = ({ label, value, current, set, setError }: any) => (
 );
 
 export const CustomSelect = ({ value, onChange, options, suffix = "", highlight = false }: any) => (
-  <div className="relative group w-full">
+  <div className="relative w-full">
     <select
-      value={value} 
-      onChange={(e) => onChange(e.target.value)}
-      // Tối ưu padding cho mobile
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
       className={cn(
-        "w-full appearance-none px-3 md:px-4 py-3 md:py-4 rounded-xl text-xs md:text-sm font-bold border-2 cursor-pointer focus:outline-none transition-all font-sans shadow-sm",
-        highlight 
-          ? "border-[#8A0000] bg-white text-[#8A0000]" 
-          : "bg-white/50 border-[#8A0000]/10 text-[#252525] focus:border-[#8A0000]/40"
+        "h-11 w-full cursor-pointer appearance-none rounded-lg border px-3 pr-9 text-[13px] font-semibold outline-none transition",
+        highlight
+          ? "border-[#D4AF37] bg-[#D4AF37]/25 text-white"
+          : "border-[#D4AF37]/30 bg-black/45 text-white focus:border-[#D4AF37]"
       )}
     >
       {options.map((opt: string) => (
-        <option key={opt} value={opt} className="bg-[#FDFBF7] text-[#252525] font-sans">
-          {opt}{suffix}
+        <option key={opt} value={opt} className="bg-[#121218] text-white">
+          {opt}
+          {suffix}
         </option>
       ))}
     </select>
-    <ChevronDown className="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 w-4 h-4 md:w-5 md:h-5 text-[#8A0000]/30 pointer-events-none group-focus-within:text-[#8A0000] transition-colors" />
+    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#D4AF37]/60" />
   </div>
 );

@@ -1,73 +1,82 @@
-import { notFound } from 'next/navigation';
-import { fetchPhongThuySoArticleBySlug } from '@/lib/strapi-api';
-import Link from 'next/link';
+import {
+  MysticDarkPanel,
+  MysticGoldFrame,
+  MysticPageShell,
+} from "@/components/ui/client/mystic-page-shell";
+import { fetchPhongThuySoArticleBySlug, PhongThuySoArticle } from "@/lib/strapi-api";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-export default async function ArticlePage({ params }: Props) {
-  // ✅ Await params (Next.js 15)
-  const { slug } = await params;
+const STATIC_ARTICLE: PhongThuySoArticle = {
+  id: 0,
+  documentId: "static-fallback",
+  title: "Cẩm nang phong thủy ứng dụng",
+  slug: "cam-nang-phong-thuy",
+  description: "Nội dung tĩnh được hiển thị khi hệ thống chưa kết nối được API Strapi.",
+  content: `
+    <h2>Nguyên tắc chung</h2>
+    <p>Không gian sống nên sáng, thoáng, sạch và có luồng di chuyển rõ ràng. Đây là nền tảng dễ áp dụng nhất trước khi xét từng hướng cụ thể.</p>
+    <h2>Cách dùng thông tin tra cứu</h2>
+    <p>Kết quả phong thủy nên được xem như gợi ý tham khảo. Khi có dữ liệu API, bài viết chi tiết từ hệ thống nội dung sẽ tự động thay thế phần tĩnh này.</p>
+  `,
+  image_urls: [],
+  createdAt: "",
+  updatedAt: "",
+};
 
+export default async function ArticlePage({ params }: Props) {
+  const { slug } = await params;
   const segments = Array.isArray(slug) ? slug : [slug];
   if (segments.length === 0) return notFound();
 
-  // ✅ LẤY NGUYÊN XI PHẦN CUỐI — KHÔNG CẮT .html
   const actualSlug = segments[segments.length - 1];
-
-  // ✅ Gọi API với slug nguyên bản (có .html nếu URL có)
-  const article = await fetchPhongThuySoArticleBySlug(actualSlug);
-
-  if (!article) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#f7edd6] to-[#f3e2c2] p-4">
-        <div className="bg-white rounded-xl shadow-lg border border-[#e2cfa3] p-8 max-w-md text-center">
-          <h1 className="text-xl font-bold text-[#8B4513] mb-4">❗ Nội dung không tìm thấy</h1>
-          <p className="text-[#5c4033] mb-6">
-            Trang bạn yêu cầu hiện chưa được cập nhật hoặc không tồn tại.
-          </p>
-          <Link
-            href="/"
-            className="inline-block bg-[#bf7e26] hover:bg-[#a66a1d] text-white font-bold py-2 px-6 rounded-lg transition-colors"
-          >
-            Quay về trang chủ
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const article = (await fetchPhongThuySoArticleBySlug(actualSlug)) || {
+    ...STATIC_ARTICLE,
+    slug: actualSlug,
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f7edd6] to-[#f3e2c2] py-8 px-2 sm:px-6">
-      <article className="w-full max-w-3xl bg-white/95 rounded-2xl shadow-2xl border border-[#e2cfa3] overflow-hidden flex flex-col gap-0">
-        <div className="p-6 sm:p-10 flex flex-col gap-4">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#8B4513] mb-2 leading-tight text-center drop-shadow-md">
-            {article.title}
-          </h1>
-          {article.description && (
-            <p className="text-[#a67c52] text-lg sm:text-xl italic mb-4 text-center">{article.description}</p>
-          )}
-          {/* Hiển thị tất cả ảnh trong image_urls nếu có */}
-          {Array.isArray(article.image_urls) && article.image_urls.length > 0 && (
-            <div className="flex flex-wrap gap-4 justify-center mb-4">
-              {article.image_urls.map((url, idx) => (
-                <img
-                  key={url + idx}
-                  src={url}
-                  alt={article.title + ' - ảnh ' + (idx + 1)}
-                  className="rounded-xl shadow-md max-h-60 w-auto object-cover"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          )}
-          <div
-            className="prose prose-stone max-w-none text-[#5c4033] leading-relaxed prose-h2:text-2xl prose-h2:font-bold prose-h2:text-[#8B4513] prose-p:text-base prose-p:sm:text-lg prose-li:marker:text-[#bf7e26] prose-a:text-[#bf7e26] prose-a:underline hover:prose-a:text-[#a66a1d] prose-img:rounded-lg prose-img:mx-auto"
-            dangerouslySetInnerHTML={{ __html: article.content || '' }}
-          />
-        </div>
-      </article>
-    </div>
+    <MysticPageShell contentClassName="mx-auto max-w-4xl px-4 py-24">
+      <MysticDarkPanel className="mb-5 p-5 text-center">
+        <h1 className="text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
+          {article.title}
+        </h1>
+        {article.description && (
+          <p className="mx-auto mt-2 max-w-2xl text-[13px] leading-relaxed text-white/70">
+            {article.description}
+          </p>
+        )}
+      </MysticDarkPanel>
+
+      <MysticGoldFrame className="p-5">
+        {Array.isArray(article.image_urls) && article.image_urls.length > 0 && (
+          <div className="mb-5 flex flex-wrap justify-center gap-4">
+            {article.image_urls.map((url, idx) => (
+              <img
+                key={url + idx}
+                src={url}
+                alt={`${article.title} - ảnh ${idx + 1}`}
+                className="max-h-60 w-auto rounded-lg border border-[#D4AF37]/25 object-cover"
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
+        <div
+          className="prose prose-invert prose-sm max-w-none text-[13px] leading-relaxed text-white/68 prose-h2:text-[14px] prose-h2:font-semibold prose-h2:text-[#F3E3BC] prose-h3:text-[14px] prose-h3:text-[#F3E3BC] prose-p:text-[13px] prose-p:text-white/68 prose-li:text-[13px] prose-li:text-white/68 prose-a:text-[#D4AF37]"
+          dangerouslySetInnerHTML={{ __html: article.content || "" }}
+        />
+        <Link
+          href="/"
+          className="mt-5 inline-flex rounded-lg bg-[#D4AF37] px-5 py-3 text-[14px] font-semibold text-[#1B140E]"
+        >
+          Quay về trang chủ
+        </Link>
+      </MysticGoldFrame>
+    </MysticPageShell>
   );
 }

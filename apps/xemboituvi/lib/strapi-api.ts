@@ -1,5 +1,4 @@
-// Clean Strapi API helper for fetching phongthuyso articles
-const API_BASE = process.env.NEXT_PUBLIC_STRAPI_API as string;
+const API_BASE = process.env.NEXT_PUBLIC_STRAPI_API;
 
 export interface PhongThuySoArticle {
   id: number;
@@ -17,14 +16,38 @@ export interface PhongThuySoArticle {
 }
 
 const getHeaders = (): HeadersInit => ({
-  'Content-Type': 'application/json',
+  "Content-Type": "application/json",
 });
 
-/**
- * Fetch all phongthuyso articles from Strapi
- */
+const getApiBase = () => {
+  const base = API_BASE?.trim();
+  return base ? base.replace(/\/$/, "") : null;
+};
+
+const normalizeArticle = (item: any): PhongThuySoArticle => {
+  const source = item?.attributes ? { id: item.id, ...item.attributes } : item;
+
+  return {
+    id: source.id ?? item?.id ?? 0,
+    documentId: source.documentId ?? "",
+    title: source.title ?? "",
+    slug: source.slug ?? "",
+    description: source.description ?? "",
+    content: source.content,
+    author: source.author,
+    url: source.url,
+    image_urls: Array.isArray(source.image_urls) ? source.image_urls : [],
+    publishedAt: source.publishedAt,
+    createdAt: source.createdAt ?? "",
+    updatedAt: source.updatedAt ?? "",
+  };
+};
+
 export async function fetchPhongThuySoArticles(): Promise<PhongThuySoArticle[]> {
-  const url = `${API_BASE.replace(/\/$/, '')}api/phongthuysos?populate=*`;
+  const base = getApiBase();
+  if (!base) return [];
+
+  const url = `${base}/api/phongthuysos?populate=*`;
 
   try {
     const res = await fetch(url, {
@@ -37,34 +60,18 @@ export async function fetchPhongThuySoArticles(): Promise<PhongThuySoArticle[]> 
     }
 
     const data = await res.json();
-    // Map data to PhongThuySoArticle[]
-    return Array.isArray(data.data)
-      ? data.data.map((item: any) => ({
-          id: item.id,
-          documentId: item.documentId,
-          title: item.title,
-          slug: item.slug,
-          description: item.description,
-          content: item.content,
-          author: item.author,
-          url: item.url,
-          image_urls: item.image_urls,
-          publishedAt: item.publishedAt,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-        }))
-      : [];
+    return Array.isArray(data.data) ? data.data.map(normalizeArticle) : [];
   } catch (err) {
-    console.error('🚨 fetchPhongThuySoArticles error:', err);
+    console.error("fetchPhongThuySoArticles error:", err);
     return [];
   }
 }
 
-/**
- * Fetch phongthuyso article by slug
- */
 export async function fetchPhongThuySoArticleBySlug(slug: string): Promise<PhongThuySoArticle | null> {
-  const url = `${API_BASE.replace(/\/$/, '')}/api/phongthuysos?filters[slug][$eq]=${slug}&populate=*`;
+  const base = getApiBase();
+  if (!base) return null;
+
+  const url = `${base}/api/phongthuysos?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`;
 
   try {
     const res = await fetch(url, {
@@ -77,25 +84,10 @@ export async function fetchPhongThuySoArticleBySlug(slug: string): Promise<Phong
     }
 
     const data = await res.json();
-    const articles = Array.isArray(data.data)
-      ? data.data.map((item: any) => ({
-          id: item.id,
-          documentId: item.documentId,
-          title: item.title,
-          slug: item.slug,
-          description: item.description,
-          content: item.content,
-          author: item.author,
-          url: item.url,
-          image_urls: item.image_urls,
-          publishedAt: item.publishedAt,
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-        }))
-      : [];
-    return articles.length > 0 ? articles[0] : null;
+    const articles = Array.isArray(data.data) ? data.data.map(normalizeArticle) : [];
+    return articles[0] ?? null;
   } catch (err) {
-    console.error('🚨 fetchPhongThuySoArticleBySlug error:', err);
+    console.error("fetchPhongThuySoArticleBySlug error:", err);
     return null;
   }
 }

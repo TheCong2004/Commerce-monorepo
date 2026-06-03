@@ -19,7 +19,7 @@ export default function BlogHero() {
       <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-20 text-white">
         <div className="max-w-4xl">
           {/* Nhãn phân loại */}
-          <div className="inline-block border-2 border-white rounded-full px-6 py-2 mb-6 bg-black/10 backdrop-blur-sm">
+          <div className="inline-block border-2 border-[#D4AF37]/70 rounded-full px-6 py-2 mb-6 bg-black/35 backdrop-blur-sm">
             <span className="text-sm font-bold uppercase tracking-widest">
               Phát triển Web
             </span>

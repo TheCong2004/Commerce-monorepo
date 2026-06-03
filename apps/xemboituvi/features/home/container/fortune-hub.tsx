@@ -109,25 +109,15 @@ export default function FortuneHub({ onlyTitle }: FortuneHubProps) {
                               <Link
                                 href={item.url || "#"}
                                 key={item.text}
-                                className="group/item relative flex flex-col items-center justify-center gap-4 p-5 rounded-2xl bg-white border border-[#eaddca] shadow-[0_4px_6px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(139,69,19,0.2)] hover:border-[#d4af37] hover:-translate-y-2 transition-all duration-500 cursor-pointer overflow-hidden min-h-[160px]"
+                                className="group/item relative flex flex-col items-center justify-center gap-4 p-5 rounded-2xl bg-gradient-to-b from-white to-[#fdfaf1] border border-[#eaddca] shadow-[0_4px_6px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_rgba(139,69,19,0.15)] hover:border-[#d4af37] hover:-translate-y-1.5 transition-all duration-500 cursor-pointer overflow-hidden min-h-[160px]"
                               >
-                                {/* ẢNH NỀN RIÊNG CHO MỖI CARD KHI HOVER */}
-                                <div className="absolute inset-0 z-0 opacity-0 group-hover/item:opacity-100 transition-opacity duration-700">
-                                  <img
-                                    src={item.bgImage} // Sử dụng bgImage riêng từ data
-                                    className="w-full h-full object-cover scale-110 group-hover/item:scale-100 transition-transform duration-1000"
-                                    alt={item.text}
-                                  />
-                                  <div className="absolute inset-0 bg-black/50 group-hover/item:bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                                </div>
-
                                 <div className="relative z-10 flex flex-col items-center gap-3">
                                   <div className="relative w-16 h-16 flex items-center justify-center">
                                     <div className="absolute inset-0 bg-[#fdfaf1] rounded-2xl rotate-45 group-hover/item:rotate-180 group-hover/item:bg-[#d4af37] transition-all duration-500 border border-[#e6d0a8] group-hover/item:border-white shadow-sm"></div>
                                     <ItemIcon className="relative z-10 w-8 h-8 text-[#8b4513] group-hover/item:text-white transition-colors duration-300" />
                                   </div>
 
-                                  <span className="text-[#3e2723] font-bold text-base text-center group-hover/item:text-white transition-colors duration-300 px-2 leading-tight drop-shadow-md uppercase tracking-wider">
+                                  <span className="text-[#3e2723] font-bold text-base text-center group-hover/item:text-[#8b4513] transition-colors duration-300 px-2 leading-tight drop-shadow-md uppercase tracking-wider">
                                     {item.text}
                                   </span>
                                 </div>

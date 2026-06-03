@@ -47,7 +47,7 @@ const FeaturedPosts = () => {
           <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
              {/* Thẻ phân loại */}
             <div className="mb-4">
-              <span className="border border-white/50 bg-black/40 backdrop-blur-sm px-5 py-2 rounded-full text-sm font-semibold">
+              <span className="border border-[#D4AF37]/60 bg-black/40 backdrop-blur-sm px-5 py-2 rounded-full text-sm font-semibold text-[#F3E3BC]">
                 {featuredData.bigPost.category}
               </span>
             </div>

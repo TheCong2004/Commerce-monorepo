@@ -272,6 +272,13 @@ export default function NumerologyCard() {
               </label>
             </div>
 
+            {/* ERROR DISPLAY */}
+            {error && (
+              <div className="text-red-500 text-xs text-center font-semibold bg-red-500/10 border border-red-500/20 py-1.5 rounded-lg">
+                {error}
+              </div>
+            )}
+
             {/* BUTTON */}
             <button
               type="submit"

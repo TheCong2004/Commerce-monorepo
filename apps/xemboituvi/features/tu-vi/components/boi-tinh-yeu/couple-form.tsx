@@ -31,23 +31,23 @@ export default function CoupleForm({ onBack, onCalculate }: CoupleFormProps) {
       className="w-full space-y-5"
     >
       <div className="flex items-center gap-2 mb-2">
-        <button onClick={onBack} className="p-2 hover:bg-purple-100 rounded-full transition-colors">
+        <button onClick={onBack} className="rounded-lg border border-[#D4AF37]/25 p-2 text-[#D4AF37] transition-colors hover:bg-[#D4AF37] hover:text-black">
           <ArrowLeft size={20} className="text-purple-600" />
         </button>
         <h4 className="font-bold text-purple-600 uppercase tracking-wider text-sm">Kết Nối Tình Duyên</h4>
       </div>
 
       <div className="grid grid-cols-1 gap-4">
-        <div className="space-y-3 bg-white/40 p-4 rounded-2xl border border-pink-100">
+        <div className="space-y-3 rounded-lg border border-[#D4AF37]/25 bg-black/35 p-4">
           <p className="text-[10px] font-bold text-pink-500 uppercase ml-1 flex items-center gap-1"><User size={12}/> Bạn</p>
-          <input type="text" value={n1} onChange={(e) => setN1(e.target.value)} placeholder="Tên của bạn" className="w-full px-4 py-2 rounded-lg border border-pink-100 outline-none focus:border-pink-400" />
-          <input type="date" value={d1} onChange={(e) => setD1(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-pink-100 outline-none focus:border-pink-400 text-gray-500 text-sm" />
+          <input type="text" value={n1} onChange={(e) => setN1(e.target.value)} placeholder="Tên của bạn" className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 px-3 text-[14px] text-white outline-none focus:border-[#D4AF37]" />
+          <input type="date" value={d1} onChange={(e) => setD1(e.target.value)} className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 px-3 text-[14px] text-white outline-none focus:border-[#D4AF37]" />
         </div>
 
-        <div className="space-y-3 bg-white/40 p-4 rounded-2xl border border-purple-100">
+        <div className="space-y-3 rounded-lg border border-[#D4AF37]/25 bg-black/35 p-4">
           <p className="text-[10px] font-bold text-purple-500 uppercase ml-1 flex items-center gap-1"><Users size={12}/> Người ấy</p>
-          <input type="text" value={n2} onChange={(e) => setN2(e.target.value)} placeholder="Tên người ấy" className="w-full px-4 py-2 rounded-lg border border-purple-100 outline-none focus:border-purple-400" />
-          <input type="date" value={d2} onChange={(e) => setD2(e.target.value)} className="w-full px-4 py-2 rounded-lg border border-purple-100 outline-none focus:border-purple-400 text-gray-500 text-sm" />
+          <input type="text" value={n2} onChange={(e) => setN2(e.target.value)} placeholder="Tên người ấy" className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 px-3 text-[14px] text-white outline-none focus:border-[#D4AF37]" />
+          <input type="date" value={d2} onChange={(e) => setD2(e.target.value)} className="h-11 w-full rounded-lg border border-[#D4AF37]/30 bg-black/45 px-3 text-[14px] text-white outline-none focus:border-[#D4AF37]" />
         </div>
       </div>
       

@@ -51,7 +51,7 @@ function ResultContent({ onUnlockChange }: { onUnlockChange: (val: boolean) => v
   }
 
   return (
-    <div className="pb-24 animate-in fade-in zoom-in duration-700 max-w-5xl mx-auto relative z-10">
+    <div className="pt-16 md:pt-20 pb-24 animate-in fade-in zoom-in duration-700 max-w-5xl mx-auto relative z-10">
       <HeaderInfo fullName={fullName} nickname={nickname} dob={dob} gender={gender} />
       
       <LifePathCircle>

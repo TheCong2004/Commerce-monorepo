@@ -71,7 +71,7 @@ export default function NavButton({ btn, x, y, index, isOpen, isSystemPaused, on
                         ${
                             isOpen
                                 ? "opacity-0 invisible scale-50"
-                                : "opacity-100 visible text-[10px] md:text-xs papyrus"
+                                : "opacity-100 visible text-[13px] md:text-[14px] papyrus"
                         }
                     `}
                 >
@@ -102,8 +102,8 @@ export default function NavButton({ btn, x, y, index, isOpen, isSystemPaused, on
                                 onToggle(null);
                             }}
                         >
-                            <span className="text-[10px] bg-black/10 w-5 h-5 flex items-center justify-center rounded-full hover:bg-black/30 transition-colors">✕</span>
-                            <span className="text-[11px] md:text-xs tracking-[0.25em] uppercase italic">{btn.label}</span>
+                            <span className="text-[14px] flex items-center justify-center hover:scale-115 transition-transform">✕</span>
+                            <span className="text-[13px] md:text-[14px] tracking-[0.25em] uppercase italic">{btn.label}</span>
                             <span className="w-5"></span>
                         </div>
 
@@ -113,8 +113,8 @@ export default function NavButton({ btn, x, y, index, isOpen, isSystemPaused, on
                                 <li key={idx} className="mb-1 last:mb-0">
                                     <Link
                                         href={sub.href}
-                                        className="block px-6 py-4 text-xs md:text-sm text-white/70 
-                                                   hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] 
+                                        className="block px-6 py-4 text-[13px] md:text-[14px] text-[#F3E3BC] 
+                                                   hover:bg-[#D4AF37]/10 hover:text-white 
                                                    transition-all duration-300 rounded-xl 
                                                    border-b border-white/5 group flex justify-between items-center"
                                     >

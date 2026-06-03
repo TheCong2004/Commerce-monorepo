@@ -47,6 +47,30 @@ export default function NumerologyCard() {
     return Array.from({ length: maxDays }, (_, i) => i + 1);
   }, [month, year]);
 
+  // Load cached form data and prefetch results page
+  React.useEffect(() => {
+    // Prefetch page to optimize transition
+    router.prefetch("/numerology-result");
+
+    // Load cache
+    const cached = localStorage.getItem("xemboituvi_numerology_input");
+    if (cached) {
+      try {
+        const data = JSON.parse(cached);
+        if (data.fullName) setFullName(data.fullName);
+        if (data.nickname) setNickname(data.nickname);
+        if (data.gender) setGender(data.gender);
+        if (data.day) setDay(data.day);
+        if (data.month) setMonth(data.month);
+        if (data.year) setYear(data.year);
+        if (data.checkLove !== undefined) setCheckLove(data.checkLove);
+        if (data.checkPhone !== undefined) setCheckPhone(data.checkPhone);
+      } catch (err) {
+        console.error("Failed to parse cached numerology form data", err);
+      }
+    }
+  }, [router]);
+
   React.useEffect(() => {
     if (day && month) {
       const maxDay = getDaysInMonth(
@@ -83,6 +107,25 @@ export default function NumerologyCard() {
       checkLove: checkLove.toString(),
       checkPhone: checkPhone.toString(),
     });
+
+    // Cache the inputs
+    try {
+      localStorage.setItem(
+        "xemboituvi_numerology_input",
+        JSON.stringify({
+          fullName: fullName.trim(),
+          nickname: nickname.trim(),
+          gender,
+          day,
+          month,
+          year,
+          checkLove,
+          checkPhone,
+        })
+      );
+    } catch (err) {
+      console.error("Failed to cache form data", err);
+    }
 
     router.push(`/numerology-result?${params.toString()}`);
   };

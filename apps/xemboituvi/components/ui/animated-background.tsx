@@ -69,8 +69,6 @@ const StarBackground = ({ children }: StarBackgroundProps) => {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
         ctx.fillStyle = "#fff";
-        ctx.shadowColor = "#fff";
-        ctx.shadowBlur = 8;
         ctx.fill();
         ctx.restore();
         // Move star
@@ -112,8 +110,8 @@ const StarBackground = ({ children }: StarBackgroundProps) => {
         ctx.globalAlpha = num.opacity;
         ctx.font = `bold ${num.size}px 'Montserrat', Arial, sans-serif`;
         ctx.fillStyle = "#fcf7fbff";
-        ctx.shadowColor = "#fff";
-        ctx.shadowBlur = 12;
+        ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
+        ctx.shadowBlur = 4;
         ctx.fillText(num.value.toString(), num.x, num.y);
         ctx.restore();
       });

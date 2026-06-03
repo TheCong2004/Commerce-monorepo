@@ -30,7 +30,7 @@ const DiscRadarChart = ({ scores }: { scores: Record<PersonalityType, number> })
   const polyPoints = points.map((point) => `${point.x},${point.y}`).join(" ");
 
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-[#D4AF37]/20 bg-[#F8F2E6] p-4">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-[#D4AF37]/20 bg-black/45 p-4">
       <svg width={size} height={size} className="overflow-visible">
         {[0.25, 0.5, 0.75, 1].map((scale) => {
           const r = radius * scale;
@@ -42,21 +42,21 @@ const DiscRadarChart = ({ scores }: { scores: Record<PersonalityType, number> })
             .join(" ");
           return <polygon key={scale} points={webPoints} fill="none" stroke="#D8C79E" strokeWidth="1" />;
         })}
-        <polygon points={polyPoints} fill="rgba(212,175,55,0.28)" stroke="#9A5418" strokeWidth="2" />
+        <polygon points={polyPoints} fill="rgba(212,175,55,0.28)" stroke="#D4AF37" strokeWidth="2" />
         {chartData.map((item) => {
           const point = getPoint(item.angle, item.value);
           const label = getPoint(item.angle, maxVal * 1.22);
           return (
             <g key={item.label}>
-              <circle cx={point.x} cy={point.y} r="4" fill="#9A5418" />
-              <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" className="fill-[#3B2A22] text-[11px] font-semibold">
+              <circle cx={point.x} cy={point.y} r="4" fill="#D4AF37" />
+              <text x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle" className="fill-[#F3E3BC] text-[11px] font-semibold">
                 {item.label} ({item.value})
               </text>
             </g>
           );
         })}
       </svg>
-      <p className="mt-2 text-[13px] text-[#6F6258]">Biểu đồ năng lượng DISC</p>
+      <p className="mt-2 text-[13px] text-slate-300">Biểu đồ năng lượng DISC</p>
     </div>
   );
 };
@@ -114,11 +114,11 @@ export default function DiscAssessment() {
         </FadeIn>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <MysticPanel className="p-5">
+          <MysticDarkPanel className="p-5">
             <DiscRadarChart scores={result.scores} />
-          </MysticPanel>
-          <MysticPanel className="p-5">
-            <h2 className="mb-3 text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
+          </MysticDarkPanel>
+          <MysticDarkPanel className="p-5">
+            <h2 className="mb-3 text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
               Nhóm chủ đạo
             </h2>
             <div className="mb-4 flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ export default function DiscAssessment() {
                 </span>
               ))}
             </div>
-            <div className="space-y-2 text-[13px] text-[#6F6258]">
+            <div className="space-y-2 text-[13px] text-slate-300">
               {[
                 ["D", "Thống trị"],
                 ["I", "Ảnh hưởng"],
@@ -143,22 +143,22 @@ export default function DiscAssessment() {
             </div>
             <button
               onClick={() => window.location.reload()}
-              className="mt-5 flex items-center gap-2 text-[13px] font-semibold text-[#9A5418]"
+              className="mt-5 flex items-center gap-2 text-[13px] font-semibold text-[#D4AF37]"
             >
               <RefreshCcw size={14} /> Làm lại bài test
             </button>
-          </MysticPanel>
+          </MysticDarkPanel>
         </div>
 
-        <MysticPanel className="mt-5 p-5 text-center">
-          <h3 className="mb-3 text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
+        <MysticDarkPanel className="mt-5 p-5 text-center">
+          <h3 className="mb-3 text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
             Nhận phân tích chi tiết
           </h3>
           <div className="mx-auto flex max-w-md gap-2">
             <input
               type="email"
               placeholder="email@gmail.com"
-              className="flex-1 rounded-lg border border-[#D4AF37]/35 bg-white/80 px-3 py-3 text-[14px] outline-none"
+              className="flex-1 rounded-lg border border-slate-600 bg-[#1e293b]/50 px-3 py-3 text-[13px] md:text-[14px] font-medium text-white outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:bg-[#1e293b]/70"
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
             />
@@ -170,7 +170,7 @@ export default function DiscAssessment() {
               {isSending ? "..." : "Gửi"}
             </button>
           </div>
-        </MysticPanel>
+        </MysticDarkPanel>
       </MysticPageShell>
     );
   }
@@ -191,8 +191,8 @@ export default function DiscAssessment() {
       </div>
 
       <FadeIn key={currentQIndex} direction="up">
-        <MysticPanel className="p-5 md:p-6">
-          <h1 className="mb-5 text-center text-[14px] font-semibold leading-relaxed text-[#3B2A22]">
+        <MysticDarkPanel className="p-5 md:p-6">
+          <h1 className="mb-5 text-center text-[14px] font-semibold leading-relaxed text-[#F7E8B1]">
             {currentQuestion.question}
           </h1>
           <div className="grid gap-3">
@@ -200,17 +200,17 @@ export default function DiscAssessment() {
               <button
                 key={`${opt.type}-${idx}`}
                 onClick={() => handleSelect(opt.type as PersonalityType)}
-                className="group flex items-center gap-3 rounded-lg border border-[#D4AF37]/25 bg-white/60 p-4 text-left transition hover:border-[#D4AF37] hover:bg-[#F8F2E6]"
+                className="group flex items-center gap-3 rounded-lg border border-[#D4AF37]/25 bg-black/30 p-4 text-left transition hover:border-[#D4AF37] hover:bg-white/10"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#D4AF37] text-[13px] font-semibold text-[#1B140E]">
                   {String.fromCharCode(65 + idx)}
                 </span>
-                <span className="flex-1 text-[13px] font-medium leading-relaxed text-[#6F6258]">{opt.text}</span>
-                <ChevronRight className="text-[#9A5418]" size={16} />
+                <span className="flex-1 text-[13px] font-medium leading-relaxed text-slate-300">{opt.text}</span>
+                <ChevronRight className="text-[#D4AF37]" size={16} />
               </button>
             ))}
           </div>
-        </MysticPanel>
+        </MysticDarkPanel>
       </FadeIn>
     </MysticPageShell>
   );

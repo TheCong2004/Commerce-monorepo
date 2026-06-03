@@ -34,7 +34,7 @@ export default function NatalChart() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-[#D4AF37]/35 bg-white/80 py-3 pl-10 pr-3 text-[14px] text-[#3B2A22] outline-none transition focus:border-[#D4AF37] focus:bg-white";
+    "w-full rounded-lg border border-slate-600 bg-[#1e293b]/50 py-3 pl-10 pr-3 text-[13px] md:text-[14px] font-medium text-white outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:bg-[#1e293b]/70";
 
   return (
     <MysticPageShell contentClassName="mx-auto max-w-3xl px-4 py-10">
@@ -50,12 +50,12 @@ export default function NatalChart() {
       </FadeIn>
 
       <FadeIn scale={0.98} delay={0.1}>
-        <MysticPanel className="p-5 md:p-6">
+        <MysticDarkPanel className="p-5 md:p-6">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-[#3B2A22]">Ngày sinh</span>
+              <span className="mb-1.5 block text-[13px] font-semibold text-slate-300">Ngày sinh</span>
               <div className="relative">
-                <Calendar className="absolute left-3 top-3.5 text-[#9A5418]" size={16} />
+                <Calendar className="absolute left-3 top-3.5 text-[#D4AF37]" size={16} />
                 <input
                   type="date"
                   className={inputClass}
@@ -65,9 +65,9 @@ export default function NatalChart() {
             </label>
 
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-[#3B2A22]">Giờ sinh</span>
+              <span className="mb-1.5 block text-[13px] font-semibold text-slate-300">Giờ sinh</span>
               <div className="relative">
-                <Clock className="absolute left-3 top-3.5 text-[#9A5418]" size={16} />
+                <Clock className="absolute left-3 top-3.5 text-[#D4AF37]" size={16} />
                 <input
                   type="time"
                   className={inputClass}
@@ -86,10 +86,10 @@ export default function NatalChart() {
             {loading ? "Đang kết nối..." : <>Giải mã ngay <ArrowRight size={16} /></>}
           </button>
 
-          <p className="mt-3 text-center text-[13px] leading-relaxed text-[#6F6258]">
+          <p className="mt-3 text-center text-[13px] leading-relaxed text-white/70">
             Dữ liệu được tính toán dựa trên tọa độ mặc định và thời điểm bạn cung cấp.
           </p>
-        </MysticPanel>
+        </MysticDarkPanel>
       </FadeIn>
     </MysticPageShell>
   );

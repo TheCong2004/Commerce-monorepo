@@ -105,31 +105,31 @@ export default function BabyNumerology() {
   }
 
   const inputClass =
-    "w-full rounded-lg border border-[#D4AF37]/35 bg-white/80 px-3 py-3 text-[14px] font-medium text-[#3B2A22] outline-none transition placeholder:text-[#9A9188] focus:border-[#D4AF37] focus:bg-white";
+    "w-full rounded-lg border border-slate-600 bg-[#1e293b]/50 px-3 py-2.5 text-[13px] md:text-[14px] font-medium text-white outline-none transition placeholder:text-slate-400 focus:border-[#D4AF37] focus:bg-[#1e293b]/70";
 
   return (
     <MysticPageShell
       className="min-h-[calc(100vh-80px)]"
-      contentClassName="mx-auto flex min-h-[calc(100vh-80px)] max-w-3xl items-center px-4 py-10"
+      contentClassName="mx-auto flex min-h-[calc(100vh-80px)] max-w-3xl items-center px-4 pt-24 pb-16"
     >
       <div className="w-full">
         <FadeIn scale={0.98} direction="up">
-          <MysticPanel className="p-5 md:p-6">
+          <MysticDarkPanel className="p-5 md:p-6">
             <div className="mb-6 text-center">
-              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg border border-[#D4AF37]/40 bg-[#F8F2E6] text-[#9A5418]">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg border border-[#D4AF37]/40 bg-[#F8F2E6]/10 text-[#D4AF37]">
                 <Baby size={24} />
               </div>
-              <h1 className="text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
+              <h1 className="text-[14px] font-semibold uppercase tracking-wide text-[#F3E3BC]">
                 Thần Số Học Bé Yêu
               </h1>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#6F6258]">
+              <p className="mt-2 text-[13px] leading-relaxed text-slate-300">
                 Khám phá bản đồ định hướng của bé bằng một biểu mẫu ngắn gọn.
               </p>
             </div>
 
             <div className="space-y-4">
               <label className="block">
-                <span className="mb-1.5 block text-[13px] font-semibold text-[#3B2A22]">
+                <span className="mb-1.5 block text-[13px] font-semibold text-slate-300">
                   Tên đầy đủ của bé
                 </span>
                 <input
@@ -142,7 +142,7 @@ export default function BabyNumerology() {
               </label>
 
               <label className="block">
-                <span className="mb-1.5 block text-[13px] font-semibold text-[#3B2A22]">
+                <span className="mb-1.5 block text-[13px] font-semibold text-slate-300">
                   Ngày sinh dương lịch
                 </span>
                 <div className="grid grid-cols-3 gap-3">
@@ -171,28 +171,28 @@ export default function BabyNumerology() {
               </label>
 
               <div className="border-t border-[#D4AF37]/20 pt-4">
-                <div className="mb-2 flex items-center gap-2 text-[13px] font-semibold text-[#3B2A22]">
-                  <Sparkles size={14} className="text-[#9A5418]" /> Năng lượng tương hợp
+                <div className="mb-2 flex items-center gap-2 text-[13px] font-semibold text-[#F3E3BC]">
+                  <Sparkles size={14} className="text-[#D4AF37]" /> Năng lượng tương hợp
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   <input
                     type="number"
                     placeholder="Ngày"
-                    className={inputClass}
+                    className={`${inputClass} text-center`}
                     value={formData.parentDay}
                     onChange={(e) => setFormData({ ...formData, parentDay: e.target.value })}
                   />
                   <input
                     type="number"
                     placeholder="Tháng"
-                    className={inputClass}
+                    className={`${inputClass} text-center`}
                     value={formData.parentMonth}
                     onChange={(e) => setFormData({ ...formData, parentMonth: e.target.value })}
                   />
                   <input
                     type="number"
                     placeholder="Năm"
-                    className={inputClass}
+                    className={`${inputClass} text-center`}
                     value={formData.parentYear}
                     onChange={(e) => setFormData({ ...formData, parentYear: e.target.value })}
                   />
@@ -206,7 +206,7 @@ export default function BabyNumerology() {
                 <Calculator size={16} /> Khám phá ngay
               </button>
             </div>
-          </MysticPanel>
+          </MysticDarkPanel>
         </FadeIn>
 
         <MysticDarkPanel className="mt-5 px-5 py-4 text-center">

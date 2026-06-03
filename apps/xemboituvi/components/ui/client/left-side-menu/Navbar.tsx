@@ -67,10 +67,10 @@ export default function Navbar() {
                                     </Link>
                                     <AnimatePresence>
                                         {activeDropdown === item.id && item.id !== 'tarot' && item.children && item.children.length > 0 && (
-                                            <motion.div initial="hidden" animate="visible" exit="hidden" variants={dropdownVariants} className="absolute top-full left-0 mt-0 bg-white shadow-xl rounded-lg border border-gray-100 min-w-[260px] py-2 max-h-[70vh] overflow-y-auto custom-scrollbar">
+                                            <motion.div initial="hidden" animate="visible" exit="hidden" variants={dropdownVariants} className="absolute top-full left-0 mt-0 bg-[#0F0C29]/95 backdrop-blur-md shadow-2xl rounded-lg border border-[#c7a743]/30 min-w-[260px] py-2 max-h-[70vh] overflow-y-auto custom-scrollbar">
                                                 <div className="flex flex-col">
                                                     {item.children.map((subItem, index) => (
-                                                        <Link key={index} href={subItem.href} className="block px-4 py-3 text-sm font-sans text-gray-700 hover:bg-[#c7a743] hover:text-white transition-all border-b border-gray-50 last:border-0">
+                                                        <Link key={index} href={subItem.href} className="block px-4 py-3 text-sm font-sans text-[#F3E3BC] hover:bg-[#c7a743] hover:text-white transition-all border-b border-white/10 last:border-0">
                                                             {subItem.label}
                                                         </Link>
                                                     ))}

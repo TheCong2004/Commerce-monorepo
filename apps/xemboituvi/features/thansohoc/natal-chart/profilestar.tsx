@@ -47,16 +47,16 @@ export default function IntroNatalChart() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {bigThree.map((item, index) => (
             <FadeIn key={item.title} direction="up" delay={index * 0.08}>
-              <MysticPanel className="h-full p-5">
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-[#D4AF37]/40 bg-[#F8F2E6] text-[#9A5418]">
+              <MysticDarkPanel className="h-full p-5">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37]">
                   {item.icon}
                 </div>
-                <h3 className="text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
+                <h3 className="text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
                   {item.title}
                 </h3>
-                <p className="mt-1 text-[13px] font-semibold text-[#9A5418]">{item.sub}</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-[#6F6258]">{item.desc}</p>
-              </MysticPanel>
+                <p className="mt-1 text-[13px] font-semibold text-[#D4AF37]">{item.sub}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-slate-300">{item.desc}</p>
+              </MysticDarkPanel>
             </FadeIn>
           ))}
         </div>

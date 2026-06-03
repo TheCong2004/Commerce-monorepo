@@ -53,55 +53,55 @@ export default function MbtiAssessment() {
         </FadeIn>
 
         <div className="space-y-5">
-          <MysticPanel className="p-5">
-            <h2 className="mb-4 text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
+          <MysticDarkPanel className="p-5">
+            <h2 className="mb-4 text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
               Phân tích 4 chiều hướng
             </h2>
             <div className="space-y-4">
               {stats.map((stat, idx) => (
                 <div key={idx}>
-                  <div className="mb-2 flex justify-between text-[13px] font-semibold text-[#6F6258]">
+                  <div className="mb-2 flex justify-between text-[13px] font-semibold text-slate-300">
                     <span>{stat.labelL}</span>
                     <span>{stat.labelR}</span>
                   </div>
-                  <div className="flex h-2 overflow-hidden rounded-lg bg-[#E7D9BE]">
+                  <div className="flex h-2 overflow-hidden rounded-lg bg-white/10">
                     <div className="h-full bg-[#D4AF37]" style={{ width: `${stat.leftPercent}%` }} />
-                    <div className="h-full bg-[#3B2A22]" style={{ width: `${stat.rightPercent}%` }} />
+                    <div className="h-full bg-[#1b140e]/60" style={{ width: `${stat.rightPercent}%` }} />
                   </div>
                 </div>
               ))}
             </div>
-          </MysticPanel>
+          </MysticDarkPanel>
 
           <div className="grid gap-5 md:grid-cols-2">
-            <MysticPanel className="p-5">
-              <h3 className="mb-3 flex items-center gap-2 text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
-                <Star size={16} className="text-[#9A5418]" /> Điểm mạnh
+            <MysticDarkPanel className="p-5">
+              <h3 className="mb-3 flex items-center gap-2 text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
+                <Star size={16} className="text-[#D4AF37]" /> Điểm mạnh
               </h3>
               <ul className="space-y-2">
                 {profile.strengths.map((item) => (
-                  <li key={item} className="text-[13px] leading-relaxed text-[#6F6258]">
+                  <li key={item} className="text-[13px] leading-relaxed text-slate-300">
                     {item}
                   </li>
                 ))}
               </ul>
-            </MysticPanel>
+            </MysticDarkPanel>
 
-            <MysticPanel className="p-5">
-              <h3 className="mb-3 flex items-center gap-2 text-[14px] font-semibold uppercase tracking-wide text-[#3B2A22]">
-                <Briefcase size={16} className="text-[#9A5418]" /> Nghề nghiệp gợi ý
+            <MysticDarkPanel className="p-5">
+              <h3 className="mb-3 flex items-center gap-2 text-[14px] font-semibold uppercase tracking-wide text-[#F7E8B1]">
+                <Briefcase size={16} className="text-[#D4AF37]" /> Nghề nghiệp gợi ý
               </h3>
               <div className="flex flex-wrap gap-2">
                 {profile.careers.map((item) => (
                   <span
                     key={item}
-                    className="rounded-lg border border-[#D4AF37]/25 bg-[#F8F2E6] px-3 py-1.5 text-[13px] text-[#6F6258]"
+                    className="rounded-lg border border-[#D4AF37]/25 bg-black/40 px-3 py-1.5 text-[13px] text-slate-300"
                   >
                     {item}
                   </span>
                 ))}
               </div>
-            </MysticPanel>
+            </MysticDarkPanel>
           </div>
 
           <button
@@ -130,8 +130,8 @@ export default function MbtiAssessment() {
       </div>
 
       <FadeIn key={currentQIndex} direction="up">
-        <MysticPanel className="p-5 md:p-6">
-          <p className="mb-4 text-center text-[13px] font-semibold uppercase tracking-wide text-[#9A5418]">
+        <MysticDarkPanel className="p-5 md:p-6">
+          <p className="mb-4 text-center text-[13px] font-semibold uppercase tracking-wide text-[#D4AF37]">
             {currentQ.dimension === "EI"
               ? "Xu hướng năng lượng"
               : currentQ.dimension === "SN"
@@ -140,7 +140,7 @@ export default function MbtiAssessment() {
                   ? "Cách đưa ra quyết định"
                   : "Lối sống và hành động"}
           </p>
-          <h1 className="mb-5 text-center text-[14px] font-semibold leading-relaxed text-[#3B2A22]">
+          <h1 className="mb-5 text-center text-[14px] font-semibold leading-relaxed text-[#F7E8B1]">
             {currentQ.question}
           </h1>
           <div className="grid gap-3">
@@ -148,16 +148,16 @@ export default function MbtiAssessment() {
               <button
                 key={opt.value}
                 onClick={() => handleSelect(opt.value)}
-                className="flex items-center gap-3 rounded-lg border border-[#D4AF37]/25 bg-white/60 p-4 text-left transition hover:border-[#D4AF37] hover:bg-[#F8F2E6]"
+                className="flex items-center gap-3 rounded-lg border border-[#D4AF37]/25 bg-black/30 p-4 text-left transition hover:border-[#D4AF37] hover:bg-white/10"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#D4AF37] text-[13px] font-semibold text-[#1B140E]">
                   {idx === 0 ? "A" : "B"}
                 </span>
-                <span className="text-[13px] font-medium leading-relaxed text-[#6F6258]">{opt.text}</span>
+                <span className="text-[13px] font-medium leading-relaxed text-slate-300">{opt.text}</span>
               </button>
             ))}
           </div>
-        </MysticPanel>
+        </MysticDarkPanel>
       </FadeIn>
     </MysticPageShell>
   );

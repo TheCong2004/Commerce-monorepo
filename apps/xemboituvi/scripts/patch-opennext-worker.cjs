@@ -10,10 +10,11 @@ const handlerPath = path.join(
   "handler.mjs",
 );
 
-const dynamicRequireRegex = /function\s*\(x\)\s*\{\s*if\s*\(\s*typeof\s+require\s*<\s*["']u["']\s*\)\s*return\s+require\.apply\(\s*this\s*,\s*arguments\s*\)\s*;\s*throw\s+Error\(\s*['"]Dynamic require of ['"]\s*\+\s*x\s*\+\s*['"] is not supported['"]\s*\)\s*;?\s*\}/;
+// Match the core logic of the dynamic require shim to make it extremely robust
+const dynamicRequireRegex = /if\s*\(\s*typeof\s+require\s*<\s*["']u["']\s*\)\s*return\s+require\.apply\(\s*this\s*,\s*arguments\s*\)\s*;?\s*throw\s+(?:new\s+)?Error\(\s*["']Dynamic require of ["']\s*\+\s*x\s*\+\s*["'] is not supported["']\s*\)/;
 
 const patchedRequire =
-  "function(x){if(String(x).endsWith(\"/.next/server/middleware-manifest.json\"))return{version:3,middleware:{},functions:{},sortedMiddleware:[]};if(typeof require<\"u\")return require.apply(this,arguments);throw Error('Dynamic require of \"'+x+'\" is not supported')}";
+  'if(String(x).endsWith("/.next/server/middleware-manifest.json"))return{version:3,middleware:{},functions:{},sortedMiddleware:[]};if(typeof require<"u")return require.apply(this,arguments);throw Error(\'Dynamic require of "\'+x+\'" is not supported\')';
 
 const getMiddlewareManifestRegex = /getMiddlewareManifest\s*\(\s*\)\s*\{\s*return\s+this\.minimalMode\s*\?\s*null\s*:\s*(?:require|__require)\s*\(\s*this\.middlewareManifestPath\s*\);?\s*\}/;
 

@@ -2,7 +2,7 @@ export { default as TextMask } from './text-mask';
 export { default as MediaPlayer } from './player';
 export { default as AnimatedText } from './animated-text';
 export { default as TextReveal } from './text-reveal';
-export { default as Navbar } from './left-side-menu/navbar';
+export { default as Navbar } from './left-side-menu/Navbar';
 export { default as LoginForm } from './login-form';
 export { default as UserMenu } from '../../../features/user/components/user-menu';
 export { default as Footer } from './footer';

@@ -13,6 +13,7 @@ import { images } from './routes/images';
 import { discounts } from './routes/discounts';
 import { oauth } from './routes/oauth';
 import { ucp } from './routes/ucp';
+import { adminAuth } from './routes/admin-auth';
 import { rateLimitMiddleware } from './middleware/rate-limit';
 import { ApiError, type Env, type DOStub } from './types';
 
@@ -64,6 +65,7 @@ app.route('/v1/webhooks', webhooks);
 app.route('/v1/webhooks', webhooksRoutes);
 app.route('/v1/images', images);
 app.route('/v1/discounts', discounts);
+app.route('/v1/admin', adminAuth);
 app.route('/oauth', oauth);
 app.route('', oauth);
 app.route('', ucp);

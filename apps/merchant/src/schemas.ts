@@ -549,6 +549,56 @@ export const ImageUploadResponse = z.object({
 }).openapi('ImageUpload');
 
 // ============================================================
+// ADMIN AUTH SCHEMAS
+// ============================================================
+
+export const AdminRole = z.enum(['super_admin', 'admin', 'editor']);
+
+export const AdminLoginBody = z.object({
+  email: z.string().email().openapi({ example: 'admin@merchant.local' }),
+  password: z.string().min(6).openapi({ example: 'Admin@2024!' }),
+}).openapi('AdminLogin');
+
+export const AdminResponse = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  name: z.string(),
+  role: AdminRole,
+  avatar_url: z.string().nullable(),
+  is_active: z.boolean(),
+  last_login_at: z.string().datetime().nullable(),
+  created_at: z.string().datetime(),
+}).openapi('Admin');
+
+export const AdminLoginResponse = z.object({
+  token: z.string().openapi({ example: 'adm_a1b2c3d4e5f6...' }),
+  admin: AdminResponse,
+  expires_at: z.string().datetime(),
+}).openapi('AdminLoginResult');
+
+export const AdminRegisterBody = z.object({
+  email: z.string().email().openapi({ example: 'staff@mystore.com' }),
+  password: z.string().min(6).openapi({ example: 'StrongPass123!' }),
+  name: z.string().min(1).openapi({ example: 'Staff Member' }),
+  role: AdminRole.optional().default('admin').openapi({ example: 'admin' }),
+}).openapi('AdminRegister');
+
+export const AdminInitBody = z.object({
+  email: z.string().email().openapi({ example: 'admin@merchant.local' }),
+  password: z.string().min(6).openapi({ example: 'Admin@2024!' }),
+  name: z.string().min(1).openapi({ example: 'Super Admin' }),
+}).openapi('AdminInit');
+
+export const ChangePasswordBody = z.object({
+  current_password: z.string().min(1),
+  new_password: z.string().min(6),
+}).openapi('ChangePassword');
+
+export const AdminListResponse = z.object({
+  items: z.array(AdminResponse),
+}).openapi('AdminList');
+
+// ============================================================
 // TYPE EXPORTS
 // ============================================================
 
@@ -560,3 +610,4 @@ export type Discount = z.infer<typeof DiscountResponse>;
 export type Webhook = z.infer<typeof WebhookResponse>;
 export type InventoryItemType = z.infer<typeof InventoryItem>;
 export type CartType = z.infer<typeof CartResponse>;
+export type AdminUser = z.infer<typeof AdminResponse>;

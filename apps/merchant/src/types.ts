@@ -9,6 +9,8 @@ export type Env = {
   ZALOPAY_KEY1?: string;
   ZALOPAY_KEY2?: string;
   TELEGRAM_BOT_TOKEN?: string;
+  SUPABASE_URL?: string;
+  SUPABASE_ANON_KEY?: string;
 };
 
 export type DOStub = {
@@ -35,6 +37,8 @@ export type AuthContext = {
   stripeWebhookSecret: string | null;
   oauthScopes?: string[];
   customerEmail?: string;
+  adminUserId?: string;
+  adminEmail?: string;
 };
 
 export class ApiError extends Error {

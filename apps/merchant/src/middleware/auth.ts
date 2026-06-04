@@ -22,6 +22,41 @@ export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
   const stripeSecretKey = c.env.STRIPE_SECRET_KEY || null;
   const stripeWebhookSecret = c.env.STRIPE_WEBHOOK_SECRET || null;
 
+  // 1. Supabase JWT tokens (admin session tokens)
+  const isJwt = token.includes('.') && token.split('.').length === 3;
+  if (isJwt) {
+    const supabaseUrl = c.env.SUPABASE_URL;
+    const supabaseAnonKey = c.env.SUPABASE_ANON_KEY;
+
+    if (supabaseUrl && supabaseAnonKey) {
+      try {
+        const res = await fetch(`${supabaseUrl}/auth/v1/user`, {
+          headers: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (res.ok) {
+          const user = await res.json() as any;
+          c.set('auth', {
+            role: 'admin',
+            stripeSecretKey,
+            stripeWebhookSecret,
+            adminUserId: user.id,
+            adminEmail: user.email
+          });
+          await next();
+          return;
+        }
+      } catch (fetchErr: any) {
+        console.error('Supabase JWT verification fetch failed:', fetchErr);
+      }
+    }
+    throw ApiError.unauthorized('Invalid or expired session');
+  }
+
+  // 2. OAuth tokens (64-char hex)
   const isOAuthToken = token.length === 64 && /^[a-f0-9]+$/.test(token);
   if (isOAuthToken) {
     const tokenHash = await hashKey(token);
@@ -49,6 +84,7 @@ export const authMiddleware = createMiddleware<HonoEnv>(async (c, next) => {
     }
   }
 
+  // 3. API keys (default)
   const keyHash = await hashKey(token);
   const result = await db.query<any>(
     `SELECT role FROM api_keys WHERE key_hash = ? LIMIT 1`,

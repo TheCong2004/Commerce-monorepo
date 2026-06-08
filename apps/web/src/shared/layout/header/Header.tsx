@@ -151,7 +151,7 @@ export const Header = () => {
             <div className="hidden lg:block max-w-7xl mx-auto pb-2">
               <ul className="flex items-center justify-center gap-6">
                 {navLinks.map((item, index) => {
-                  const isProductMenu = item.name.toLowerCase() === 'product';
+                  const isProductMenu = item.name.toLowerCase() === 'products';
                   
                   if (isProductMenu) {
                     return (
@@ -171,7 +171,7 @@ export const Header = () => {
                                 router.push('/collection');
                               }}
                             >
-                              {item.name}s <ChevronDown size={14} className="mt-0.5" />
+                              {item.name} <ChevronDown size={14} className="mt-0.5" />
                             </Link>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent 

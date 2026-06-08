@@ -8,8 +8,6 @@ const nextConfig: NextConfig = {
     'three',
     '@react-three/fiber',
     '@react-three/drei',
-    '@commerce/astrology-core',
-    '@commerce/recommendation-core',
   ],
   experimental: {
     serverActions: {

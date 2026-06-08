@@ -1,11 +1,10 @@
 "use client";
 
-import { FiChevronRight, FiX, FiPackage, FiTruck, FiStar, FiEdit3, FiLayout, FiBookOpen, FiCalendar } from "react-icons/fi";
+import { FiChevronRight, FiX, FiPackage, FiTruck, FiStar, FiEdit3, FiLayout, FiBookOpen } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 
 const SIDEBAR_MENU = [
-  { name: 'Easter Day', href: '/footer/sell-your-product', icon: <FiCalendar />, color: "text-pink-600" },
   { name: 'Create Your Own', href: '/create-your-own', icon: <FiEdit3 />, color: "text-purple-600" },
   { name: 'Order Tracking', href: '/order-tracking', icon: <FiTruck />, color: "text-blue-600" },
   { name: "Happy New Year", href: '/happy-new-year', icon: <FiStar />, color: "text-red-600" },

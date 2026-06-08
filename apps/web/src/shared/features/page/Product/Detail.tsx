@@ -14,7 +14,6 @@ import clsx from "clsx";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { ChevronDown, Heart, Trash2, Palette, HelpCircle, Download, Eye } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/ui/sheet";
-import { mockProduct, isCustomizableProduct, getCustomizationByHandle } from "@/lib/mockProduct";
 import { PrintLocationSelector } from "@/packages/product-asset/print-location";
 import { CustomizationController } from "@/packages/customization";
 import { MiniCartSheet } from "@/shared/features/page/cart/MiniCartSheet";
@@ -41,8 +40,14 @@ const Detail = ({ product, cart = [], addToCart, createCart, boughtTogetherSelec
     data?: { cart: { id: string } };
   }
 }) => {
-  const safeProduct = product && Object.keys(product).length > 0 ? product : mockProduct;
-  const customizationData = safeProduct?.handle ? getCustomizationByHandle(safeProduct.handle) : null;
+  const safeProduct = product && Object.keys(product).length > 0 ? product : {};
+  const customizationData = safeProduct?.metadata?.customization_data || safeProduct?.customization_data || null;
+  const productIsCustomizable = Boolean(
+    safeProduct?.metadata?.supports_customization ||
+    safeProduct?.metadata?.customization_type ||
+    safeProduct?.supports_customization ||
+    customizationData
+  );
   const Payment = ["affirm.svg", "after-pay.svg", "klarna.svg", "paypal.svg"];
 
   const [showMore, setShowMore] = useState(false);
@@ -467,7 +472,7 @@ const Detail = ({ product, cart = [], addToCart, createCart, boughtTogetherSelec
         </Select>
       </div>
       {/* ── CUSTOMIZE SECTION (if applicable) ── */}
-      {isCustomizableProduct(safeProduct) && customizationData && (
+      {productIsCustomizable && customizationData && (
         <div>
           <CustomizationController
             product={customizationData}

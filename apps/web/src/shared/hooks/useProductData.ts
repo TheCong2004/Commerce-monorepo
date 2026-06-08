@@ -1,5 +1,4 @@
 import { api } from "@/utils/api";
-import { MOCK_PRODUCTS_DATABASE } from "@/lib/mockProduct";
 
 export type ProductDataType = 'sales' | 'top-pick' | 'all';
 
@@ -26,13 +25,12 @@ export function useProductData(type: ProductDataType, options?: ProductDataOptio
   const activeQuery = type === 'sales' ? salesQuery : productsQuery;
   const { data, isLoading, error } = activeQuery;
 
-  // Fallback check: if API response is empty, undefined, or error state, use mock database
-  const products = (data && data.length > 0) ? data : MOCK_PRODUCTS_DATABASE;
+  const products = data || [];
 
   return {
     products,
     isLoading: type === 'sales' ? salesQuery.isLoading : productsQuery.isLoading,
     error,
-    isFallback: !data || data.length === 0,
+    isFallback: false,
   };
 }

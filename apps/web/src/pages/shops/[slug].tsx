@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from 'next/router';
-import { MOCK_PRODUCTS_DATABASE, MOCK_SELLERS } from '@/lib/mockProduct';
+import { getProducts } from '@/lib/productApi';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/shared/ui/button';
@@ -15,26 +15,55 @@ export default function ShopPage() {
     const { slug } = router.query;
     const [sellerProducts, setSellerProducts] = useState<any[]>([]);
     const [seller, setSeller] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (!slug) return;
+        let cancelled = false;
 
-        // Find seller by name
-        const foundSeller = MOCK_SELLERS.find(s => s.name === slug);
-        setSeller(foundSeller);
+        setIsLoading(true);
+        getProducts({ limit: 100 })
+            .then((products) => {
+                if (cancelled) return;
+                const slugValue = String(slug);
+                const shopProducts = products.filter((product: any) => {
+                    const metadata = product.metadata as any;
+                    const sellerName = product.seller?.name || metadata?.seller?.name || metadata?.sellerId;
+                    return sellerName === slugValue || product.sellerId === slugValue || metadata?.sellerId === slugValue;
+                });
 
-        if (foundSeller) {
-            // Get all products from this seller
-            const products = MOCK_PRODUCTS_DATABASE.filter(p => p.sellerId === foundSeller.id);
-            setSellerProducts(products);
-        }
+                const firstSeller = (shopProducts[0]?.metadata as any)?.seller || shopProducts[0]?.seller || {
+                    id: slugValue,
+                    name: slugValue,
+                    avatar: '',
+                    followerCount: 0,
+                    favoriteCount: 0,
+                    rating: 4.8,
+                };
+
+                setSeller(firstSeller);
+                setSellerProducts(shopProducts);
+            })
+            .catch(() => {
+                if (!cancelled) {
+                    setSeller(null);
+                    setSellerProducts([]);
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setIsLoading(false);
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, [slug]);
 
-    if (!slug) {
+    if (!slug || isLoading) {
         return <div className="flex items-center justify-center h-screen">Loading...</div>;
     }
 
-    if (!seller) {
+    if (!seller || sellerProducts.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-screen gap-4">
                 <h1 className="text-2xl font-bold">Shop not found</h1>

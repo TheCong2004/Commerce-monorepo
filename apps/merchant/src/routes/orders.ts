@@ -5,6 +5,7 @@ import { authMiddleware, adminOnly } from '../middleware/auth';
 import { ApiError, uuid, now, generateOrderNumber, type HonoEnv } from '../types';
 import { validateDiscount, calculateDiscount, type Discount } from './discounts';
 import { dispatchWebhooks, type WebhookEventType } from '../lib/webhooks';
+import { grantDownloadsForOrder } from '../lib/downloads';
 import {
   OrderIdParam,
   OrderResponse,
@@ -428,6 +429,13 @@ app.openapi(createTestOrder, async (c) => {
       );
     }
   }
+
+  await grantDownloadsForOrder(db, {
+    orderId,
+    customerEmail: customer_email,
+    items: orderItems,
+    origin: new URL(c.req.url).origin,
+  });
 
   const [order] = await db.query<any>(`SELECT * FROM orders WHERE id = ?`, [orderId]);
   return c.json(formatOrder(order, orderItems), 200);

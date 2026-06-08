@@ -1,14 +1,30 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CalendarDays, ArrowRight } from 'lucide-react';
-import { mockProducts } from '@/lib/mockProduct';
+import { getProducts } from '@/lib/productApi';
 import { getProductPrices } from '@/utils';
 
 export default function GraduationSection() {
-  // Get our 8 specific graduation products
-  const graduationProducts = mockProducts.filter((p) => p.id.startsWith('grad'));
+  const [graduationProducts, setGraduationProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getProducts({ limit: 100 })
+      .then((products) => {
+        if (!cancelled) {
+          setGraduationProducts(products.filter((p: any) => p.category === 'graduation' || p.handle?.includes('graduation')));
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setGraduationProducts([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="w-full py-4 sm:py-6 md:py-8 lg:py-10">

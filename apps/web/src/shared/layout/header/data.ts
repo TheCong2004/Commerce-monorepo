@@ -49,6 +49,12 @@ export const categories: ProductCategory[] = [
   { id: 6, name: 'Posters', handle: 'poster' },
   { id: 7, name: 'Pets', handle: 'pets' },
   { id: 8, name: 'Digital Reports', handle: 'report' },
+  { id: 9, name: 'Digital Products', handle: 'digital-product' },
+  { id: 10, name: 'PDF Books', handle: 'pdf-book' },
+  { id: 11, name: 'Contract Templates', handle: 'contract-template' },
+  { id: 12, name: 'SIM & Telecom Plans', handle: 'telecom-plan' },
+  { id: 13, name: 'Agriculture', handle: 'agriculture' },
+  { id: 14, name: 'Digital Marketing', handle: 'digital-marketing' },
 ];
 
 export const blog: BlogPost[] = [

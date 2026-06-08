@@ -1,29 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-// MOCK DATA
-const mockRegions = [
-  { id: 'reg_01', name: 'US', currency: 'USD' },
-  { id: 'reg_02', name: 'VN', currency: 'VND' },
-];
-const mockProducts = [
-  { id: 'p1', title: 'Anytime Fitness T-Shirt', price: 12.95 },
-  { id: 'p2', title: 'Bonecrusher Skull Hoodie', price: 14.95 },
-];
+const merchantApiUrl = process.env.NEXT_PUBLIC_MERCHANT_API_URL?.replace(/\/$/, '');
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Mock regions endpoint
   if (req.url?.includes('/regions')) {
-    return res.status(200).json({ regions: mockRegions });
+    return res.status(200).json({ regions: [{ id: 'reg_01', name: 'US', currency: 'USD' }] });
   }
-  // Mock product endpoint
+
   if (req.url?.includes('/product')) {
+    if (!merchantApiUrl) {
+      return res.status(503).json({ products: [], count: 0, message: 'Merchant API is not configured' });
+    }
+
+    const response = await fetch(`${merchantApiUrl}/v1/products?status=active&limit=100`);
+    if (!response.ok) {
+      return res.status(response.status).json({ products: [], count: 0 });
+    }
+
+    const data = (await response.json()) as any;
     return res.status(200).json({
-      products: mockProducts,
-      count: mockProducts.length,
+      products: data.items || [],
+      count: data.items?.length || 0,
       offset: 0,
-      limit: mockProducts.length,
+      limit: data.items?.length || 0,
     });
   }
-  // Default mock response
-  return res.status(200).json({ message: 'Mock API route', url: req.url });
+
+  return res.status(404).json({ message: 'Route not found', url: req.url });
 }

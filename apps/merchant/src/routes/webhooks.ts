@@ -4,6 +4,7 @@ import { getPaymentStrategies } from '@commerce/payments';
 import { getDb } from '../db';
 import { ApiError, uuid, now, generateOrderNumber, type HonoEnv } from '../types';
 import { dispatchWebhooks } from '../lib/webhooks';
+import { grantDownloadsForOrder } from '../lib/downloads';
 import { handleUCPStripeWebhook } from './ucp';
 
 // ============================================================
@@ -355,6 +356,12 @@ webhooks.post('/stripe', async (c) => {
         const orderItems = await db.query<any>(`SELECT * FROM order_items WHERE order_id = ?`, [
           orderId,
         ]);
+        const downloadGrants = await grantDownloadsForOrder(db, {
+          orderId,
+          customerEmail,
+          items: orderItems,
+          origin: new URL(c.req.url).origin,
+        });
         await dispatchWebhooks(c.var.db, c.executionCtx, 'order.created', {
           order: {
             id: orderId,
@@ -384,6 +391,14 @@ webhooks.post('/stripe', async (c) => {
               checkout_session_id: session.id,
               payment_intent_id: session.payment_intent,
             },
+            downloads: downloadGrants.map((grant) => ({
+              asset_id: grant.asset_id,
+              title: grant.title,
+              file_name: grant.file_name,
+              expires_at: grant.expires_at,
+              max_downloads: grant.max_downloads,
+              download_url: grant.download_url,
+            })),
           },
         });
       }

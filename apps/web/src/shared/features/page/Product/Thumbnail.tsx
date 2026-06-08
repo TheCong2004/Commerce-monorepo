@@ -170,10 +170,6 @@ const Thumbnail = ({ product, customDesign, customTemplate, customElements }: { 
 
             {/* Thumbnail vertical column (bên trái trên Desktop/Laptop) */}
             <div className="hidden md:flex flex-col gap-2 w-16 md:w-24 xl:w-40 flex-shrink-0">
-                {/* Header hiển thị tổng số hình ảnh cực kỳ trực quan ở bên trái */}
-                <div className="bg-gray-50 border border-gray-200 rounded-lg py-2 px-2 text-center shadow-sm">
-                    <span className="text-xs font-bold text-[#ff4e00]">📸 Tổng: {product?.images?.length || 0} hình</span>
-                </div>
 
                 <Carousel
                     opts={{ align: "start", startIndex: activeIndex }}

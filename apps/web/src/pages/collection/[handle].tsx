@@ -1,10 +1,11 @@
 "use client"
 import { useRouter } from 'next/router';
-import { mockProducts } from '@/lib/mockProduct';
+import { getProducts } from '@/lib/productApi';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Header } from '@/shared/layout/header/Header';
+import { categories } from '@/shared/layout/header/data';
 import Recently from '@/packages/browsing-history/components/recently';
 import { Footer } from '@/shared/layout/footer/Footer';
 import { Toaster } from '@/shared/ui/sonner';
@@ -52,6 +53,36 @@ const COLLECTION_METADATA: Record<string, { title: string; description: string; 
         description: 'Professional digital reports and documents. Secure downloads with DRM protection.',
         rating: 4.5, reviewCount: 1200,
     },
+    'digital-product': {
+        title: 'Digital Products',
+        description: 'Downloadable products, templates, files, guides, and business-ready digital assets.',
+        rating: 4.6, reviewCount: 900,
+    },
+    'pdf-book': {
+        title: 'PDF Books',
+        description: 'Curated PDF books and downloadable learning materials for instant access.',
+        rating: 4.6, reviewCount: 760,
+    },
+    'contract-template': {
+        title: 'Contract Templates',
+        description: 'Ready-to-use contract templates and business documents for fast download.',
+        rating: 4.7, reviewCount: 860,
+    },
+    'telecom-plan': {
+        title: 'SIM & Telecom Plans',
+        description: 'SIM numbers, mobile data, internet, and telecom packages for customers and businesses.',
+        rating: 4.5, reviewCount: 640,
+    },
+    'agriculture': {
+        title: 'Agriculture',
+        description: 'Agricultural products, supplies, services, and digital tools for farm operations.',
+        rating: 4.5, reviewCount: 520,
+    },
+    'digital-marketing': {
+        title: 'Digital Marketing Products',
+        description: 'Marketing templates, content kits, ad assets, SEO files, and growth resources.',
+        rating: 4.6, reviewCount: 780,
+    },
     'all': {
         title: 'All Products',
         description: 'Explore our wide range of custom printed products and unique designs for every occasion.',
@@ -88,6 +119,9 @@ export default function CollectionPage() {
     const [sortBy, setSortBy] = useState('relevant');
     const [showSortDropdown, setShowSortDropdown] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [catalogProducts, setCatalogProducts] = useState<any[] | null>(null);
+    const [isLoadingProducts, setIsLoadingProducts] = useState(false);
+    const [productsError, setProductsError] = useState<string | null>(null);
 
     useEffect(() => { setMounted(true); }, []);
 
@@ -95,11 +129,40 @@ export default function CollectionPage() {
     const isAll = handleStr.toLowerCase() === 'all';
     const meta = COLLECTION_METADATA[handleStr] || COLLECTION_METADATA['all'];
 
+    useEffect(() => {
+        if (!handleStr) return;
+        let cancelled = false;
+
+        setIsLoadingProducts(true);
+        getProducts({ category: isAll ? undefined : handleStr, limit: 100 })
+            .then((products) => {
+                if (!cancelled) {
+                    setCatalogProducts(products);
+                    setProductsError(null);
+                }
+            })
+            .catch((err) => {
+                if (!cancelled) {
+                    setCatalogProducts([]);
+                    setProductsError(err?.message || 'Failed to load products');
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setIsLoadingProducts(false);
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [handleStr, isAll]);
+
+    const productsSource = catalogProducts || [];
+
     const collectionProducts = useMemo(() => {
         if (!handleStr) return [];
         let products = isAll
-            ? mockProducts
-            : mockProducts.filter(
+            ? productsSource
+            : productsSource.filter(
                 p => p.category?.toLowerCase() === handleStr.toLowerCase() ||
                     p.handle?.toLowerCase().includes(handleStr.toLowerCase())
             );
@@ -109,7 +172,20 @@ export default function CollectionPage() {
         else if (sortBy === 'newest') products = [...products].sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
 
         return products;
-    }, [handleStr, isAll, sortBy]);
+    }, [handleStr, isAll, productsSource, sortBy]);
+
+    const categoryFilters = useMemo(() => {
+        return categories
+            .map((category) => {
+                const count = productsSource.filter((product) => {
+                    const productCategory = String(product.category || product.metadata?.category || '').toLowerCase();
+                    return productCategory === category.handle.toLowerCase();
+                }).length;
+
+                return { ...category, count };
+            })
+            .filter((category) => category.count > 0);
+    }, [productsSource]);
 
     const toggleWishlist = useCallback((e: React.MouseEvent, productId: string) => {
         e.preventDefault();
@@ -173,6 +249,31 @@ export default function CollectionPage() {
                 </div>
             </div>
 
+            {isAll && categoryFilters.length > 0 && (
+                <div className="border-b border-gray-100 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+                        <div className="mb-3 flex items-center justify-between gap-4">
+                            <h2 className="text-base font-Inter font-bold text-gray-900">Browse by category</h2>
+                            <Link href="/collection" className="text-sm font-semibold text-orange-600 hover:text-orange-700">
+                                View collections
+                            </Link>
+                        </div>
+                        <div className="flex gap-3 overflow-x-auto pb-1">
+                            {categoryFilters.map((category) => (
+                                <Link
+                                    key={category.handle}
+                                    href={`/collection/${category.handle}`}
+                                    className="shrink-0 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-left transition hover:border-orange-300 hover:bg-orange-50"
+                                >
+                                    <span className="block text-sm font-Inter font-bold text-gray-900">{category.name}</span>
+                                    <span className="mt-1 block text-xs font-Inter text-gray-500">{category.count.toLocaleString()} products</span>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Toolbar: Result count + Sort */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                 <p className="text-sm font-Inter text-gray-500">
@@ -206,7 +307,17 @@ export default function CollectionPage() {
             </div>
 
             {/* Product Grid */}
-            {collectionProducts.length > 0 ? (
+            {isLoadingProducts ? (
+                <div className="max-w-7xl mx-auto px-4 py-24 text-center">
+                    <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
+                </div>
+            ) : productsError ? (
+                <div className="max-w-7xl mx-auto px-4 py-16">
+                    <div className="rounded-lg border border-red-100 bg-red-50 p-6 text-center text-red-700">
+                        {productsError}
+                    </div>
+                </div>
+            ) : collectionProducts.length > 0 ? (
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-5">
                         {collectionProducts.map((product) => {

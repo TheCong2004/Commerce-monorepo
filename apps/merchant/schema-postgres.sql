@@ -28,9 +28,13 @@ CREATE TABLE api_keys (
 CREATE TABLE products (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   store_id UUID NOT NULL REFERENCES stores(id),
+  handle TEXT,
   title TEXT NOT NULL,
   description TEXT DEFAULT '',
   image_url TEXT,
+  category TEXT,
+  product_type TEXT,
+  metadata JSONB,
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -162,6 +166,50 @@ CREATE TABLE refunds (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Digital Assets
+CREATE TABLE digital_assets (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  store_id UUID NOT NULL REFERENCES stores(id),
+  product_id UUID NOT NULL REFERENCES products(id),
+  variant_sku TEXT,
+  title TEXT NOT NULL,
+  file_key TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  content_type TEXT,
+  file_size INTEGER,
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Download Tokens
+CREATE TABLE download_tokens (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  store_id UUID NOT NULL REFERENCES stores(id),
+  token_hash TEXT NOT NULL UNIQUE,
+  order_id UUID NOT NULL REFERENCES orders(id),
+  customer_email TEXT NOT NULL,
+  asset_id UUID NOT NULL REFERENCES digital_assets(id),
+  expires_at TIMESTAMPTZ NOT NULL,
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  download_count INTEGER NOT NULL DEFAULT 0,
+  revoked_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- Download Logs
+CREATE TABLE download_logs (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  store_id UUID NOT NULL REFERENCES stores(id),
+  token_id UUID NOT NULL REFERENCES download_tokens(id),
+  order_id UUID NOT NULL REFERENCES orders(id),
+  asset_id UUID NOT NULL REFERENCES digital_assets(id),
+  customer_email TEXT NOT NULL,
+  ip TEXT,
+  user_agent TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 -- Events (webhook deduplication)
 CREATE TABLE events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -193,4 +241,8 @@ CREATE INDEX idx_orders_store ON orders(store_id);
 CREATE INDEX idx_discounts_store_code ON discounts(store_id, code);
 CREATE INDEX idx_discount_usage_order ON discount_usage(order_id);
 CREATE INDEX idx_discount_usage_customer ON discount_usage(discount_id, customer_email);
-
+CREATE INDEX idx_digital_assets_store_product ON digital_assets(store_id, product_id);
+CREATE INDEX idx_digital_assets_variant_sku ON digital_assets(variant_sku);
+CREATE INDEX idx_download_tokens_hash ON download_tokens(token_hash);
+CREATE INDEX idx_download_tokens_store_order ON download_tokens(store_id, order_id);
+CREATE INDEX idx_download_logs_store_order ON download_logs(store_id, order_id);

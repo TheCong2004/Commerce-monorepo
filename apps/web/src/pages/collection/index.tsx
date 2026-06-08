@@ -1,6 +1,7 @@
 "use client"
-import { mockProducts } from '@/lib/mockProduct';
+import { getProducts } from '@/lib/productApi';
 import { categories } from '@/shared/layout/header/data';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Header } from '@/shared/layout/header/Header';
@@ -12,9 +13,41 @@ import { getProductPrices } from '@/utils';
 import { ArrowRight } from 'lucide-react';
 
 export default function CollectionsOverviewPage() {
+    const [catalogProducts, setCatalogProducts] = useState<any[] | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        setIsLoading(true);
+        getProducts({ limit: 100 })
+            .then((products) => {
+                if (!cancelled) {
+                    setCatalogProducts(products);
+                    setError(null);
+                }
+            })
+            .catch((err) => {
+                if (!cancelled) {
+                    setCatalogProducts([]);
+                    setError(err?.message || 'Failed to load products');
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setIsLoading(false);
+            });
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    const productsSource = catalogProducts || [];
+
     // Group products by category handle
     const categoriesWithProducts = categories.map(cat => {
-        const products = mockProducts.filter(
+        const products = productsSource.filter(
             product => product.category?.toLowerCase() === cat.handle.toLowerCase()
         );
         return {
@@ -41,7 +74,20 @@ export default function CollectionsOverviewPage() {
 
             {/* Categories Sections */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-                {categoriesWithProducts.map((cat) => (
+                {isLoading ? (
+                    <div className="flex justify-center py-16">
+                        <div className="h-10 w-10 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
+                    </div>
+                ) : error ? (
+                    <div className="rounded-lg border border-red-100 bg-red-50 p-6 text-center text-red-700">
+                        {error}
+                    </div>
+                ) : categoriesWithProducts.length === 0 ? (
+                    <div className="rounded-lg border border-gray-200 bg-white p-10 text-center">
+                        <h2 className="text-xl font-bold text-gray-900">No collections yet</h2>
+                        <p className="mt-2 text-gray-500">Add products in merchant admin, then this page will update from the API.</p>
+                    </div>
+                ) : categoriesWithProducts.map((cat) => (
                     <div key={cat.id} className="border-b border-gray-100 pb-12 last:border-0 last:pb-0">
                         {/* Section Header */}
                         <div className="flex items-center justify-between mb-6">

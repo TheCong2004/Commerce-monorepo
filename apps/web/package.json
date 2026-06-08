@@ -26,6 +26,7 @@
     "lint": "next lint",
     "build": "next build",
     "test": "run-s test:*",
+    "seed:merchant-products": "tsx scripts/seed-merchant-products.ts",
     "build:cf": "npx @opennextjs/cloudflare build",
     "preview": "opennextjs-cloudflare preview",
     "deploy": "npx wrangler deploy --minify --config wrangler.toml",

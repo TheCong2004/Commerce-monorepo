@@ -48,7 +48,7 @@ Mọi kết quả tính toán đều phải được rút gọn về một chữ
 LifePath = Reduce( Reduce(Day) + Reduce(Month) + Reduce(Year) )
 * **Ví dụ:** 29/11/1999
   * Ngày 29 -> 2+9=11 (Giữ nguyên)
-  * Tháng 11 -> Giữ nguyên
+  * Tháng 11 -> Giữ nguyên![alt text](image.png)
   * Năm 1999 -> 1+9+9+9=28 -> 2+8=10 -> 1
   * Tổng: 11 + 11 + 1 = 23 -> 2+3 = **5**
 

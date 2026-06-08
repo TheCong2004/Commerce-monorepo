@@ -60,8 +60,13 @@ export const ProductStatus = z.enum(['active', 'draft']);
 
 export const ProductResponse = z.object({
   id: z.string().uuid(),
+  handle: z.string().nullable().openapi({ example: 'classic-t-shirt' }),
   title: z.string().openapi({ example: 'Classic T-Shirt' }),
   description: z.string().nullable().openapi({ example: 'A comfortable cotton tee' }),
+  image_url: z.string().nullable().openapi({ example: 'https://example.com/product.jpg' }),
+  category: z.string().nullable().openapi({ example: 't-shirt' }),
+  product_type: z.string().nullable().openapi({ example: 'pod' }),
+  metadata: z.record(z.unknown()).nullable(),
   status: ProductStatus,
   created_at: z.string().datetime(),
   variants: z.array(VariantResponse),
@@ -75,16 +80,29 @@ export const ProductListResponse = z.object({
 export const CreateProductBody = z.object({
   title: z.string().min(1).openapi({ example: 'Classic T-Shirt' }),
   description: z.string().optional().openapi({ example: 'A comfortable cotton tee' }),
+  handle: z.string().min(1).optional().openapi({ example: 'classic-t-shirt' }),
+  image_url: z.string().url().optional().openapi({ example: 'https://example.com/product.jpg' }),
+  category: z.string().min(1).optional().openapi({ example: 't-shirt' }),
+  product_type: z.string().min(1).optional().openapi({ example: 'pod' }),
+  metadata: z.record(z.unknown()).optional(),
 }).openapi('CreateProduct');
 
 export const UpdateProductBody = z.object({
   title: z.string().min(1).optional(),
   description: z.string().nullable().optional(),
+  handle: z.string().min(1).nullable().optional(),
+  image_url: z.string().url().nullable().optional(),
+  category: z.string().min(1).nullable().optional(),
+  product_type: z.string().min(1).nullable().optional(),
+  metadata: z.record(z.unknown()).nullable().optional(),
   status: ProductStatus.optional(),
 }).openapi('UpdateProduct');
 
 export const ProductQuery = PaginationQuery.extend({
   status: ProductStatus.optional().openapi({ param: { name: 'status', in: 'query' } }),
+  category: z.string().optional().openapi({ param: { name: 'category', in: 'query' } }),
+  product_type: z.string().optional().openapi({ param: { name: 'product_type', in: 'query' } }),
+  handle: z.string().optional().openapi({ param: { name: 'handle', in: 'query' } }),
 });
 
 // ============================================================

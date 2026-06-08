@@ -24,12 +24,61 @@ const VariantIdParam = z.object({
   variantId: z.string().uuid().openapi({ param: { name: 'variantId', in: 'path' } }),
 });
 
+const ProductLookupParam = z.object({
+  id: z.string().openapi({ param: { name: 'id', in: 'path' } }),
+});
+
 const app = new OpenAPIHono<HonoEnv>();
 
 app.use('*', async (c, next) => {
   if (c.req.method === 'GET') return next();
   return authMiddleware(c, next);
 });
+
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 120);
+}
+
+function parseMetadata(value: string | null) {
+  if (!value) return null;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+}
+
+function serializeMetadata(value: Record<string, unknown> | null | undefined) {
+  if (value === undefined) return undefined;
+  return value === null ? null : JSON.stringify(value);
+}
+
+function toProductResponse(product: any, variants: any[] = []) {
+  return {
+    id: product.id,
+    handle: product.handle || null,
+    title: product.title,
+    description: product.description || null,
+    image_url: product.image_url || null,
+    category: product.category || null,
+    product_type: product.product_type || null,
+    metadata: parseMetadata(product.metadata),
+    status: product.status,
+    created_at: product.created_at,
+    variants: variants.map((v) => ({
+      id: v.id,
+      sku: v.sku,
+      title: v.title,
+      price_cents: v.price_cents,
+      image_url: v.image_url,
+    })),
+  };
+}
 
 const listProducts = createRoute({
   method: 'get',
@@ -46,7 +95,7 @@ const listProducts = createRoute({
 app.openapi(listProducts, async (c) => {
   console.log('Fetching products...');
   const db = getDb(c.var.db);
-  const { limit: limitStr, cursor, status } = c.req.valid('query');
+  const { limit: limitStr, cursor, status, category, product_type, handle } = c.req.valid('query');
   const limit = Math.min(parseInt(limitStr || '20'), 100);
 
   let query = `SELECT * FROM products`;
@@ -56,6 +105,18 @@ app.openapi(listProducts, async (c) => {
   if (status) {
     conditions.push(`status = ?`);
     params.push(status);
+  }
+  if (category) {
+    conditions.push(`category = ?`);
+    params.push(category);
+  }
+  if (product_type) {
+    conditions.push(`product_type = ?`);
+    params.push(product_type);
+  }
+  if (handle) {
+    conditions.push(`handle = ?`);
+    params.push(handle);
   }
   if (cursor) {
     conditions.push(`created_at < ?`);
@@ -92,20 +153,7 @@ app.openapi(listProducts, async (c) => {
     }
   }
 
-  const items = products.map((p) => ({
-    id: p.id,
-    title: p.title,
-    description: p.description,
-    status: p.status,
-    created_at: p.created_at,
-    variants: (variantsByProduct[p.id] || []).map((v) => ({
-      id: v.id,
-      sku: v.sku,
-      title: v.title,
-      price_cents: v.price_cents,
-      image_url: v.image_url,
-    })),
-  }));
+  const items = products.map((p) => toProductResponse(p, variantsByProduct[p.id] || []));
 
   const nextCursor = hasMore && items.length > 0 ? items[items.length - 1].created_at : null;
 
@@ -118,7 +166,7 @@ const getProduct = createRoute({
   tags: ['Products'],
   summary: 'Get product by ID',
   security: [{ bearerAuth: [] }],
-  request: { params: IdParam },
+  request: { params: ProductLookupParam },
   responses: {
     200: { content: { 'application/json': { schema: ProductResponse } }, description: 'Product details' },
     404: { content: { 'application/json': { schema: ErrorResponse } }, description: 'Not found' },
@@ -129,7 +177,7 @@ app.openapi(getProduct, async (c) => {
   const db = getDb(c.var.db);
   const { id } = c.req.valid('param');
 
-  const [product] = await db.query<any>(`SELECT * FROM products WHERE id = ?`, [id]);
+  const [product] = await db.query<any>(`SELECT * FROM products WHERE id = ? OR handle = ?`, [id, id]);
   if (!product) throw ApiError.notFound('Product not found');
 
   const variants = await db.query<any>(
@@ -137,20 +185,7 @@ app.openapi(getProduct, async (c) => {
     [id]
   );
 
-  return c.json({
-    id: product.id,
-    title: product.title,
-    description: product.description,
-    status: product.status,
-    created_at: product.created_at,
-    variants: variants.map((v) => ({
-      id: v.id,
-      sku: v.sku,
-      title: v.title,
-      price_cents: v.price_cents,
-      image_url: v.image_url,
-    })),
-  }, 200);
+  return c.json(toProductResponse(product, variants), 200);
 });
 
 const createProduct = createRoute({
@@ -168,19 +203,44 @@ const createProduct = createRoute({
 });
 
 app.openapi(createProduct, async (c: any) => {
-  const { title, description } = c.req.valid('json');
+  const { title, description, image_url, category, product_type, metadata } = c.req.valid('json');
+  let { handle } = c.req.valid('json');
   const db = getDb(c.var.db);
 
   const id = uuid();
   const timestamp = now();
+  handle = handle ? slugify(handle) : slugify(title);
 
   await db.run(
-    `INSERT INTO products (id, title, description, status, created_at) VALUES (?, ?, ?, 'active', ?)`,
-    [id, title, description || null, timestamp]
+    `INSERT INTO products (id, handle, title, description, image_url, category, product_type, metadata, status, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active', ?)`,
+    [
+      id,
+      handle || null,
+      title,
+      description || null,
+      image_url || null,
+      category || null,
+      product_type || null,
+      serializeMetadata(metadata) || null,
+      timestamp,
+    ]
   );
 
   return c.json(
-    { id, title, description: description || null, status: 'active' as const, created_at: timestamp, variants: [] },
+    {
+      id,
+      handle: handle || null,
+      title,
+      description: description || null,
+      image_url: image_url || null,
+      category: category || null,
+      product_type: product_type || null,
+      metadata: metadata || null,
+      status: 'active' as const,
+      created_at: timestamp,
+      variants: [],
+    },
     201
   );
 });
@@ -217,9 +277,29 @@ app.openapi(updateProduct, async (c: any) => {
     updates.push('title = ?');
     params.push(body.title);
   }
+  if (body.handle !== undefined) {
+    updates.push('handle = ?');
+    params.push(body.handle ? slugify(body.handle) : null);
+  }
   if (body.description !== undefined) {
     updates.push('description = ?');
     params.push(body.description);
+  }
+  if (body.image_url !== undefined) {
+    updates.push('image_url = ?');
+    params.push(body.image_url);
+  }
+  if (body.category !== undefined) {
+    updates.push('category = ?');
+    params.push(body.category);
+  }
+  if (body.product_type !== undefined) {
+    updates.push('product_type = ?');
+    params.push(body.product_type);
+  }
+  if (body.metadata !== undefined) {
+    updates.push('metadata = ?');
+    params.push(serializeMetadata(body.metadata));
   }
   if (body.status !== undefined) {
     updates.push('status = ?');
@@ -234,20 +314,7 @@ app.openapi(updateProduct, async (c: any) => {
   const [product] = await db.query<any>(`SELECT * FROM products WHERE id = ?`, [id]);
   const variants = await db.query<any>(`SELECT * FROM variants WHERE product_id = ?`, [id]);
 
-  return c.json({
-    id: product.id,
-    title: product.title,
-    description: product.description,
-    status: product.status,
-    created_at: product.created_at,
-    variants: variants.map((v) => ({
-      id: v.id,
-      sku: v.sku,
-      title: v.title,
-      price_cents: v.price_cents,
-      image_url: v.image_url,
-    })),
-  }, 200);
+  return c.json(toProductResponse(product, variants), 200);
 });
 
 const deleteProduct = createRoute({
@@ -472,8 +539,9 @@ app.openapi(seedProducts, async (c) => {
 
   for (const p of products) {
     await db.run(
-      `INSERT INTO products (id, title, description, status, created_at) VALUES (?, ?, ?, 'active', ?)`,
-      [p.id, p.title, p.description, timestamp]
+      `INSERT INTO products (id, handle, title, description, image_url, category, product_type, status, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, 'pod', 'active', ?)`,
+      [p.id, slugify(p.title), p.title, p.description, p.img, p.title.toLowerCase().includes('mug') ? 'mug' : p.title.toLowerCase().includes('hoodie') ? 'hoodie' : 't-shirt', timestamp]
     );
     await db.run(
       `INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at) VALUES (?, ?, ?, 'Standard', ?, 0, ?, ?)`,

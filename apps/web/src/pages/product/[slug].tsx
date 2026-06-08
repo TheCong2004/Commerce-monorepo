@@ -1,5 +1,5 @@
 import { PrimaryLayout } from "@/layouts";
-import { ReactElement, useEffect, useCallback, useMemo, useState, Suspense } from "react";
+import { ReactElement, useEffect, useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { NextPageWithLayout } from "../_app";
 import Thumbnail from "@/shared/features/page/Product/Thumbnail";
@@ -7,7 +7,7 @@ import Detail from "@/shared/features/page/Product/Detail";
 import CarouselProductList from "@/shared/features/page/Product/CarouselProductList";
 import BoughtTogether from "@/packages/bought-together/BoughtTogether";
 
-import { mockProducts, getMockProductByHandle, getBoughtTogetherSuggestions } from "@/lib/mockProduct";
+import { getProductBySlug, getProducts } from "@/lib/productApi";
 import { useRouter } from 'next/router';
 import { useRecentlyViewed } from "@/packages/browsing-history/hooks/useRecentlyViewed";
 import { MOCK_REVIEWS } from "@/packages/reviews/Reviews";
@@ -17,6 +17,10 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { QuickGiftFinder } from "@/shared/layout/header/QuickGiftFinder";
 import { SaleProduct } from "@/shared/features/page/HomePage/components/Promotions";
 import ImageViewer from "@/shared/features/page/Product/ImageViewer";
+import PdfBookDetail from "@/shared/features/page/Product/PdfBookDetail";
+import DigitalMarketingDetail from "@/shared/features/page/Product/DigitalMarketingDetail";
+import AgricultureDetail from "@/shared/features/page/Product/AgricultureDetail";
+import TelecomPlanDetail from "@/shared/features/page/Product/TelecomPlanDetail";
 
 // Lazy load below-fold components for better performance
 const FAQ = dynamic(() => import("@/shared/features/page/Product/FAQ"), {
@@ -39,11 +43,6 @@ const Description = dynamic(() => import("@/shared/features/page/Product/Descrip
   loading: () => <div className="h-24" />,
   ssr: true,
 });
-const MoreFromThisShop = dynamic(() => import("@/packages/MoreFromThisShop/components/MoreFromThisShop"), {
-  loading: () => null,
-  ssr: true,
-});
-
 const detectProductType = (productData: any): "home" | "fashion" | "report" => {
   // Check if it's a report product first
   if (productData?.productType === "report") return "report";
@@ -62,24 +61,58 @@ const calculateAverageRating = (reviews: typeof MOCK_REVIEWS): number => {
   const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
   return Math.round((sum / reviews.length) * 10) / 10; // Round to 1 decimal place
 };
-const productSalesData = mockProducts;
+const productSalesData: any[] = [];
 const priceList = { price_lists: [{ id: 'pl1', title: 'Sale' }, { id: 'pl2', title: 'Top Picks For You' }] };
 const Products: NextPageWithLayout = () => {
   const { addViewedProduct } = useRecentlyViewed();
 
   // Map products để add price field từ variants - memoized to prevent recalculation
+  const [allProducts, setAllProducts] = useState<any[]>([]);
+
   const productsWithPrice = useMemo(() =>
-    mockProducts.map(product => ({
+    allProducts.map(product => ({
       ...product,
       price: product.variants?.[0]?.calculated_price?.calculated_amount || 0,
       originalPrice: product.variants?.[0]?.calculated_price?.original_amount || 0,
     }))
-    , []);
+    , [allProducts]);
 
-  // === USING MOCK DATA INSTEAD ===
   const router = useRouter();
   const { slug } = router.query;
-  const productData = getMockProductByHandle(slug as string) || getMockProductByHandle("custom-comfort-colors-tee");
+  const [merchantProduct, setMerchantProduct] = useState<any | null>(null);
+  const [productError, setProductError] = useState<string | null>(null);
+  const [isProductLoading, setIsProductLoading] = useState(true);
+
+  useEffect(() => {
+    if (!router.isReady || !slug || Array.isArray(slug)) return;
+    let cancelled = false;
+
+    setIsProductLoading(true);
+    Promise.all([getProductBySlug(slug), getProducts({ limit: 100 })])
+      .then(([product, products]) => {
+        if (!cancelled) {
+          setMerchantProduct(product);
+          setAllProducts(products);
+          setProductError(product ? null : "Product not found");
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setMerchantProduct(null);
+          setAllProducts([]);
+          setProductError(err?.message || "Failed to load product");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setIsProductLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [router.isReady, slug]);
+
+  const productData = merchantProduct;
   const cart = productData;
 
   // Transform productData to add price field
@@ -141,17 +174,17 @@ const Products: NextPageWithLayout = () => {
     }
   }, [productData?.id, productData?.title, productData?.thumbnail, productData?.handle, addViewedProduct]);
 
-  // Get bought together suggestions
-  const boughtTogetherSuggestions = useMemo(() =>
-    getBoughtTogetherSuggestions(productData?.id || "", 5),
-    [productData?.id]
-  );
+  const relatedProducts = useMemo(() => {
+    if (!productData) return [];
+    const category = String(productData.category || productData.metadata?.category || '').toLowerCase();
+    return productsWithPrice
+      .filter((product: any) => product.id !== productData.id)
+      .filter((product: any) => String(product.category || product.metadata?.category || '').toLowerCase() === category)
+      .slice(0, 5);
+  }, [productData, productsWithPrice]);
 
-  // Memoize bought together products for 3 items
-  const boughtTogetherFor3 = useMemo(() =>
-    getBoughtTogetherSuggestions(productData?.id || "", 3),
-    [productData?.id]
-  );
+  const boughtTogetherSuggestions = relatedProducts.slice(0, 5);
+  const boughtTogetherFor3 = relatedProducts.slice(0, 3);
 
   // Calculate average rating and review count
   const averageRating = useMemo(() => calculateAverageRating(MOCK_REVIEWS), []);
@@ -204,8 +237,62 @@ const Products: NextPageWithLayout = () => {
     }
   }, [productData?.id]);
 
-  if (!router.isReady) return <div className="p-20 text-center font-sans">Loading...</div>;
-  if (!productData) return <div className="p-20 text-center font-sans">Product Not Found</div>;
+  if (!router.isReady || isProductLoading) return <div className="p-20 text-center font-sans">Loading...</div>;
+  if (!productData) return <div className="p-20 text-center font-sans">{productError || 'Product Not Found'}</div>;
+
+  const productCategory = String(productData?.category || productData?.metadata?.category || "").toLowerCase();
+
+  if (productCategory === "pdf-book") {
+    const relatedPdfBooks = productsWithPrice.filter((product: any) => product.category === "pdf-book" && product.id !== productData.id);
+
+    return (
+      <PdfBookDetail
+        product={productData}
+        relatedProducts={relatedPdfBooks}
+        onAddToCart={() => handleAddToCart({})}
+        isLoading={isLoading}
+      />
+    );
+  }
+
+  if (productCategory === "digital-marketing") {
+    const relatedDigitalMarketing = productsWithPrice.filter((product: any) => product.category === "digital-marketing" && product.id !== productData.id);
+
+    return (
+      <DigitalMarketingDetail
+        product={productData}
+        relatedProducts={relatedDigitalMarketing}
+        onAddToCart={() => handleAddToCart({})}
+        isLoading={isLoading}
+      />
+    );
+  }
+
+  if (productCategory === "agriculture") {
+    const relatedAgriculture = productsWithPrice.filter((product: any) => product.category === "agriculture" && product.id !== productData.id);
+
+    return (
+      <AgricultureDetail
+        product={productData}
+        relatedProducts={relatedAgriculture}
+        onAddToCart={() => handleAddToCart({})}
+        isLoading={isLoading}
+      />
+    );
+  }
+
+  if (productCategory === "telecom-plan") {
+    const relatedTelecomPlans = productsWithPrice.filter((product: any) => product.category === "telecom-plan" && product.id !== productData.id);
+
+    return (
+      <TelecomPlanDetail
+        product={productData}
+        relatedProducts={relatedTelecomPlans}
+        onAddToCart={() => handleAddToCart({})}
+        isLoading={isLoading}
+      />
+    );
+  }
 
   return (
     <div>
@@ -395,26 +482,11 @@ const Products: NextPageWithLayout = () => {
 };
 
 Products.getLayout = function getLayout(page: ReactElement) {
-  const router = useRouter();
-  const { slug } = router.query;
-  const productData = getMockProductByHandle(slug as string) || getMockProductByHandle("custom-comfort-colors-tee");
-
   return (
     <PrimaryLayout seo={{ title: 'Product', canonical: '/product' }}>
       {page}
       <QuickGiftFinder />
       <SaleProduct TopSale={productSalesData as any} title={priceList?.price_lists?.[0]?.title as string} />
-      {productData && (
-        <Suspense fallback={null}>
-          <MoreFromThisShop
-            currentProduct={{ id: productData?.id }}
-            shopId={productData?.sellerId || ''}
-            shopName={productData?.title || 'This Shop'}
-            seller={{ id: productData?.sellerId || '', name: productData?.title }}
-            limit={4}
-          />
-        </Suspense>
-      )}
     </PrimaryLayout>
   );
 };

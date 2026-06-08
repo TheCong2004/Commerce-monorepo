@@ -112,8 +112,13 @@ export type CustomerAddress = {
 
 export type Product = {
   id: string;
+  handle: string | null;
   title: string;
   description: string | null;
+  image_url: string | null;
+  category: string | null;
+  product_type: string | null;
+  metadata: Record<string, unknown> | null;
   status: 'active' | 'draft';
   created_at: string;
   variants: Variant[];
@@ -204,11 +209,14 @@ export const api = {
   },
 
   // Products
-  async getProducts(params?: { limit?: number; cursor?: string; status?: string }) {
+  async getProducts(params?: { limit?: number; cursor?: string; status?: string; category?: string; product_type?: string; handle?: string }) {
     const searchParams = new URLSearchParams();
     if (params?.limit) searchParams.set('limit', String(params.limit));
     if (params?.cursor) searchParams.set('cursor', params.cursor);
     if (params?.status) searchParams.set('status', params.status);
+    if (params?.category) searchParams.set('category', params.category);
+    if (params?.product_type) searchParams.set('product_type', params.product_type);
+    if (params?.handle) searchParams.set('handle', params.handle);
     const query = searchParams.toString();
     return request<PaginatedResponse<Product>>(`/v1/products${query ? `?${query}` : ''}`);
   },
@@ -217,14 +225,31 @@ export const api = {
     return request<Product>(`/v1/products/${id}`);
   },
 
-  async createProduct(data: { title: string; description?: string }) {
+  async createProduct(data: {
+    title: string;
+    description?: string;
+    handle?: string;
+    image_url?: string;
+    category?: string;
+    product_type?: string;
+    metadata?: Record<string, unknown>;
+  }) {
     return request<Product>('/v1/products', {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
 
-  async updateProduct(id: string, data: { title?: string; description?: string; status?: string }) {
+  async updateProduct(id: string, data: {
+    title?: string;
+    description?: string | null;
+    handle?: string | null;
+    image_url?: string | null;
+    category?: string | null;
+    product_type?: string | null;
+    metadata?: Record<string, unknown> | null;
+    status?: string;
+  }) {
     return request<Product>(`/v1/products/${id}`, {
       method: 'PATCH',
       body: JSON.stringify(data),

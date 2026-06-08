@@ -6,11 +6,12 @@ import { SearchDropdown } from "./SearchDropdown";
 import { useRecentSearch } from "../hook/useRecentSearch";
 import { useSearchData } from "../hook/useSearchData";
 import { MOCK_TRENDING } from "../mockData";
-import { MOCK_PRODUCTS_DATABASE, searchPetProducts, MOCK_PET_PRODUCTS } from "@/lib/mockProduct";
+import { getProducts } from "@/lib/productApi";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [keyword, setKeyword] = useState("");
+  const [apiProducts, setApiProducts] = useState<any[]>([]);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
@@ -19,24 +20,36 @@ export function SearchBar() {
   // Gọi API BE thật
   const { trending: beTrending, picks: bePicks, isLoading } = useSearchData(isOpen);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    let cancelled = false;
+
+    getProducts({ limit: 100 })
+      .then((products) => {
+        if (!cancelled) setApiProducts(products);
+      })
+      .catch(() => {
+        if (!cancelled) setApiProducts([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen]);
+
   // ==========================================
   // SEARCH LOGIC (Fuse.js + Full-text search)
   // ==========================================
   const searchResults = useMemo(() => {
     if (!keyword.trim()) return [];
 
-    // Search pet products using Fuse.js
-    const petResults = searchPetProducts(keyword, 10);
-
-    // Also search regular products
-    const regularResults = MOCK_PRODUCTS_DATABASE.filter(p =>
+    const regularResults = apiProducts.filter(p =>
       p.title.toLowerCase().includes(keyword.toLowerCase()) ||
       p.category?.toLowerCase().includes(keyword.toLowerCase())
-    ).slice(0, 5);
+    ).slice(0, 15);
 
-    // Combine results
-    return [...petResults, ...regularResults].slice(0, 15);
-  }, [keyword]);
+    return regularResults;
+  }, [apiProducts, keyword]);
 
   // ==========================================
   // LOGIC FALLBACK (THÔNG MINH)
@@ -44,7 +57,7 @@ export function SearchBar() {
   // Nếu BE có trả về data và có phần tử (> 0) -> Dùng BE. 
   // Ngược lại (BE lỗi, sập, hoặc chưa có ai click) -> Dùng Mock.
   const displayTrending = (beTrending && Array.isArray(beTrending) && beTrending.length > 0) ? beTrending : MOCK_TRENDING;
-  const displayPicks = keyword.trim() ? searchResults : ((bePicks && Array.isArray(bePicks) && bePicks.length > 0) ? bePicks : MOCK_PRODUCTS_DATABASE.slice(0, 8));
+  const displayPicks = keyword.trim() ? searchResults : ((bePicks && Array.isArray(bePicks) && bePicks.length > 0) ? bePicks : apiProducts.slice(0, 8));
 
   // Xử lý click ra ngoài để đóng Dropdown
   useEffect(() => {

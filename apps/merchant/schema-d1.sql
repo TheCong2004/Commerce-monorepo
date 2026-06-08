@@ -16,9 +16,13 @@ CREATE TABLE IF NOT EXISTS api_keys (
 -- Products
 CREATE TABLE IF NOT EXISTS products (
   id TEXT PRIMARY KEY,
+  handle TEXT UNIQUE,
   title TEXT NOT NULL,
   description TEXT DEFAULT '',
   image_url TEXT,
+  category TEXT,
+  product_type TEXT,
+  metadata TEXT,
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -124,6 +128,47 @@ CREATE TABLE IF NOT EXISTS refunds (
   stripe_refund_id TEXT NOT NULL,
   amount_cents INTEGER NOT NULL,
   status TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- Digital Assets
+CREATE TABLE IF NOT EXISTS digital_assets (
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
+  variant_sku TEXT,
+  title TEXT NOT NULL,
+  file_key TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  content_type TEXT,
+  file_size INTEGER,
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- Download Tokens
+CREATE TABLE IF NOT EXISTS download_tokens (
+  id TEXT PRIMARY KEY,
+  token_hash TEXT NOT NULL UNIQUE,
+  order_id TEXT NOT NULL REFERENCES orders(id),
+  customer_email TEXT NOT NULL,
+  asset_id TEXT NOT NULL REFERENCES digital_assets(id),
+  expires_at TEXT NOT NULL,
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  download_count INTEGER NOT NULL DEFAULT 0,
+  revoked_at TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+-- Download Logs
+CREATE TABLE IF NOT EXISTS download_logs (
+  id TEXT PRIMARY KEY,
+  token_id TEXT NOT NULL REFERENCES download_tokens(id),
+  order_id TEXT NOT NULL REFERENCES orders(id),
+  asset_id TEXT NOT NULL REFERENCES digital_assets(id),
+  customer_email TEXT NOT NULL,
+  ip TEXT,
+  user_agent TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -280,6 +325,9 @@ CREATE TABLE IF NOT EXISTS config (
 -- Indexes
 CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);
 CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
+CREATE INDEX IF NOT EXISTS idx_products_handle ON products(handle);
+CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
+CREATE INDEX IF NOT EXISTS idx_products_type ON products(product_type);
 CREATE INDEX IF NOT EXISTS idx_variants_sku ON variants(sku);
 CREATE INDEX IF NOT EXISTS idx_variants_product ON variants(product_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_sku ON inventory(sku);
@@ -303,3 +351,9 @@ CREATE INDEX IF NOT EXISTS idx_oauth_authorizations_client ON oauth_authorizatio
 CREATE INDEX IF NOT EXISTS idx_oauth_tokens_access ON oauth_tokens(access_token_hash);
 CREATE INDEX IF NOT EXISTS idx_oauth_tokens_refresh ON oauth_tokens(refresh_token_hash);
 CREATE INDEX IF NOT EXISTS idx_oauth_tokens_customer ON oauth_tokens(customer_id);
+CREATE INDEX IF NOT EXISTS idx_digital_assets_product ON digital_assets(product_id);
+CREATE INDEX IF NOT EXISTS idx_digital_assets_variant_sku ON digital_assets(variant_sku);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_hash ON download_tokens(token_hash);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_order ON download_tokens(order_id);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_asset ON download_tokens(asset_id);
+CREATE INDEX IF NOT EXISTS idx_download_logs_order ON download_logs(order_id);

@@ -36,9 +36,13 @@ CREATE TABLE IF NOT EXISTS api_keys (
 
 CREATE TABLE IF NOT EXISTS products (
   id TEXT PRIMARY KEY,
+  handle TEXT UNIQUE,
   title TEXT NOT NULL,
   description TEXT DEFAULT '',
   image_url TEXT,
+  category TEXT,
+  product_type TEXT,
+  metadata TEXT,
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
@@ -136,6 +140,44 @@ CREATE TABLE IF NOT EXISTS refunds (
   stripe_refund_id TEXT NOT NULL,
   amount_cents INTEGER NOT NULL,
   status TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS digital_assets (
+  id TEXT PRIMARY KEY,
+  product_id TEXT NOT NULL REFERENCES products(id),
+  variant_sku TEXT,
+  title TEXT NOT NULL,
+  file_key TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  content_type TEXT,
+  file_size INTEGER,
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'draft')),
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS download_tokens (
+  id TEXT PRIMARY KEY,
+  token_hash TEXT NOT NULL UNIQUE,
+  order_id TEXT NOT NULL REFERENCES orders(id),
+  customer_email TEXT NOT NULL,
+  asset_id TEXT NOT NULL REFERENCES digital_assets(id),
+  expires_at TEXT NOT NULL,
+  max_downloads INTEGER NOT NULL DEFAULT 5,
+  download_count INTEGER NOT NULL DEFAULT 0,
+  revoked_at TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS download_logs (
+  id TEXT PRIMARY KEY,
+  token_id TEXT NOT NULL REFERENCES download_tokens(id),
+  order_id TEXT NOT NULL REFERENCES orders(id),
+  asset_id TEXT NOT NULL REFERENCES digital_assets(id),
+  customer_email TEXT NOT NULL,
+  ip TEXT,
+  user_agent TEXT,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -297,6 +339,9 @@ CREATE TABLE IF NOT EXISTS ucp_checkout_sessions (
 
 CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);
 CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
+CREATE INDEX IF NOT EXISTS idx_products_handle ON products(handle);
+CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
+CREATE INDEX IF NOT EXISTS idx_products_type ON products(product_type);
 CREATE INDEX IF NOT EXISTS idx_variants_sku ON variants(sku);
 CREATE INDEX IF NOT EXISTS idx_variants_product ON variants(product_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_sku ON inventory(sku);
@@ -327,6 +372,12 @@ CREATE INDEX IF NOT EXISTS idx_variants_status ON variants(status);
 CREATE INDEX IF NOT EXISTS idx_cart_items_cart_id ON cart_items(cart_id);
 CREATE INDEX IF NOT EXISTS idx_order_items_order_id ON order_items(order_id);
 CREATE INDEX IF NOT EXISTS idx_refunds_order_id ON refunds(order_id);
+CREATE INDEX IF NOT EXISTS idx_digital_assets_product ON digital_assets(product_id);
+CREATE INDEX IF NOT EXISTS idx_digital_assets_variant_sku ON digital_assets(variant_sku);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_hash ON download_tokens(token_hash);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_order ON download_tokens(order_id);
+CREATE INDEX IF NOT EXISTS idx_download_tokens_asset ON download_tokens(asset_id);
+CREATE INDEX IF NOT EXISTS idx_download_logs_order ON download_logs(order_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_logs_sku_created ON inventory_logs(sku, created_at);
 CREATE INDEX IF NOT EXISTS idx_customers_last_order ON customers(last_order_at);
 CREATE INDEX IF NOT EXISTS idx_customers_created_at ON customers(created_at);
@@ -355,6 +406,7 @@ export class MerchantDO extends DurableObject<MerchantEnv> {
     for (const stmt of statements) {
       this.sql.exec(stmt);
     }
+    this.runCompatibleMigrations();
     this.initialized = true;
 
     // Auto-seed if database is empty
@@ -371,6 +423,27 @@ export class MerchantDO extends DurableObject<MerchantEnv> {
       for (const p of seedData) {
         this.sql.exec("INSERT INTO products (id, title, description, status, created_at) VALUES (?, ?, ?, 'active', ?)", p.id, p.title, 'Sản phẩm chất lượng cao từ Printerval', timestamp);
         this.sql.exec("INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at) VALUES (?, ?, ?, ?, ?, 0, ?, ?)", crypto.randomUUID(), p.id, 'SKU-' + p.id, 'Standard', p.price, p.img, timestamp);
+      }
+    }
+  }
+
+  private runCompatibleMigrations(): void {
+    const statements = [
+      'ALTER TABLE products ADD COLUMN handle TEXT',
+      'ALTER TABLE products ADD COLUMN category TEXT',
+      'ALTER TABLE products ADD COLUMN product_type TEXT',
+      'ALTER TABLE products ADD COLUMN metadata TEXT',
+      'CREATE UNIQUE INDEX IF NOT EXISTS idx_products_handle_unique ON products(handle)',
+    ];
+
+    for (const statement of statements) {
+      try {
+        this.sql.exec(statement);
+      } catch (error: any) {
+        const message = String(error?.message || error);
+        if (!message.toLowerCase().includes('duplicate column')) {
+          console.warn(`Schema compatibility migration skipped: ${message}`);
+        }
       }
     }
   }

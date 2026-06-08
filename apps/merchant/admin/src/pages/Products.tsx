@@ -45,6 +45,10 @@ export function Products() {
   // Form state
   const [newTitle, setNewTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newHandle, setNewHandle] = useState('');
+  const [newCategory, setNewCategory] = useState('');
+  const [newProductType, setNewProductType] = useState('pod');
+  const [newImageUrl, setNewImageUrl] = useState('');
   const [variantSku, setVariantSku] = useState('');
   const [variantTitle, setVariantTitle] = useState('');
   const [variantPrice, setVariantPrice] = useState('');
@@ -61,12 +65,16 @@ export function Products() {
 
   // Create product mutation
   const createMutation = useMutation({
-    mutationFn: (data: { title: string; description?: string }) => api.createProduct(data),
+    mutationFn: (data: Parameters<typeof api.createProduct>[0]) => api.createProduct(data),
     onSuccess: (product) => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       setCreateModal(false);
       setNewTitle('');
       setNewDescription('');
+      setNewHandle('');
+      setNewCategory('');
+      setNewProductType('pod');
+      setNewImageUrl('');
       setSelectedProduct(product);
     },
   });
@@ -156,7 +164,14 @@ export function Products() {
 
   const handleCreateProduct = (e: React.FormEvent) => {
     e.preventDefault();
-    createMutation.mutate({ title: newTitle, description: newDescription || undefined });
+    createMutation.mutate({
+      title: newTitle,
+      description: newDescription || undefined,
+      handle: newHandle || undefined,
+      category: newCategory || undefined,
+      product_type: newProductType || undefined,
+      image_url: newImageUrl || undefined,
+    });
   };
 
   const handleVariantSubmit = (e: React.FormEvent) => {
@@ -197,6 +212,14 @@ export function Products() {
       }),
       columnHelper.accessor('description', {
         header: 'Description',
+        cell: (info) => <span className="font-mono text-sm">{info.getValue() || '-'}</span>,
+      }),
+      columnHelper.accessor('category', {
+        header: 'Category',
+        cell: (info) => <span className="font-mono text-sm">{info.getValue() || '-'}</span>,
+      }),
+      columnHelper.accessor('product_type', {
+        header: 'Type',
         cell: (info) => <span className="font-mono text-sm">{info.getValue() || '-'}</span>,
       }),
       columnHelper.accessor((row) => row.variants.length, {
@@ -380,9 +403,98 @@ export function Products() {
               }}
             />
           </div>
-          <div>
-            <label
-              className="block text-xs font-medium uppercase tracking-wide mb-2"
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                className="block text-xs font-medium uppercase tracking-wide mb-2"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Handle (optional)
+              </label>
+              <input
+                type="text"
+                value={newHandle}
+                onChange={(e) => setNewHandle(e.target.value)}
+                placeholder="custom-t-shirt"
+                className="w-full px-3 py-2 text-sm font-mono rounded-lg focus:outline-none focus:ring-2"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                }}
+              />
+            </div>
+            <div>
+              <label
+                className="block text-xs font-medium uppercase tracking-wide mb-2"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Category
+              </label>
+              <input
+                type="text"
+                value={newCategory}
+                onChange={(e) => setNewCategory(e.target.value)}
+                placeholder="t-shirt, report, pdf-book..."
+                className="w-full px-3 py-2 text-sm font-mono rounded-lg focus:outline-none focus:ring-2"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                }}
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                className="block text-xs font-medium uppercase tracking-wide mb-2"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Product Type
+              </label>
+              <select
+                value={newProductType}
+                onChange={(e) => setNewProductType(e.target.value)}
+                className="w-full px-3 py-2 text-sm font-mono rounded-lg focus:outline-none focus:ring-2"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                }}
+              >
+                <option value="pod">POD</option>
+                <option value="digital">Digital</option>
+                <option value="service">Service</option>
+                <option value="sim">Sim</option>
+                <option value="telecom">Telecom</option>
+                <option value="agriculture">Agriculture</option>
+              </select>
+            </div>
+            <div>
+              <label
+                className="block text-xs font-medium uppercase tracking-wide mb-2"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Image URL
+              </label>
+              <input
+                type="url"
+                value={newImageUrl}
+                onChange={(e) => setNewImageUrl(e.target.value)}
+                placeholder="https://..."
+                className="w-full px-3 py-2 text-sm font-mono rounded-lg focus:outline-none focus:ring-2"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text)',
+                }}
+              />
+              </div>
+            </div>
+            <div>
+              <label
+                className="block text-xs font-medium uppercase tracking-wide mb-2"
               style={{ color: 'var(--text-secondary)' }}
             >
               Description (optional)
@@ -493,6 +605,116 @@ export function Products() {
                     <option value="draft">draft</option>
                     <option value="active">active</option>
                   </select>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label
+                    className="block text-xs font-medium uppercase tracking-wide mb-2"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Handle
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={selectedProduct.handle || ''}
+                    onBlur={(e) => {
+                      if (e.target.value !== (selectedProduct.handle || '')) {
+                        updateProductMutation.mutate({
+                          id: selectedProduct.id,
+                          data: { handle: e.target.value || null },
+                        });
+                      }
+                    }}
+                    placeholder="custom-t-shirt"
+                    className="w-full px-3 py-2 font-mono text-sm rounded-lg focus:outline-none focus:ring-2"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                    }}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="block text-xs font-medium uppercase tracking-wide mb-2"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Category
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={selectedProduct.category || ''}
+                    onBlur={(e) => {
+                      if (e.target.value !== (selectedProduct.category || '')) {
+                        updateProductMutation.mutate({
+                          id: selectedProduct.id,
+                          data: { category: e.target.value || null },
+                        });
+                      }
+                    }}
+                    placeholder="t-shirt, report, pdf-book..."
+                    className="w-full px-3 py-2 font-mono text-sm rounded-lg focus:outline-none focus:ring-2"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                    }}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="block text-xs font-medium uppercase tracking-wide mb-2"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Product Type
+                  </label>
+                  <input
+                    type="text"
+                    defaultValue={selectedProduct.product_type || ''}
+                    onBlur={(e) => {
+                      if (e.target.value !== (selectedProduct.product_type || '')) {
+                        updateProductMutation.mutate({
+                          id: selectedProduct.id,
+                          data: { product_type: e.target.value || null },
+                        });
+                      }
+                    }}
+                    placeholder="pod, digital, sim..."
+                    className="w-full px-3 py-2 font-mono text-sm rounded-lg focus:outline-none focus:ring-2"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                    }}
+                  />
+                </div>
+                <div>
+                  <label
+                    className="block text-xs font-medium uppercase tracking-wide mb-2"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    Image URL
+                  </label>
+                  <input
+                    type="url"
+                    defaultValue={selectedProduct.image_url || ''}
+                    onBlur={(e) => {
+                      if (e.target.value !== (selectedProduct.image_url || '')) {
+                        updateProductMutation.mutate({
+                          id: selectedProduct.id,
+                          data: { image_url: e.target.value || null },
+                        });
+                      }
+                    }}
+                    placeholder="https://..."
+                    className="w-full px-3 py-2 font-mono text-sm rounded-lg focus:outline-none focus:ring-2"
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text)',
+                    }}
+                  />
                 </div>
               </div>
               <div>

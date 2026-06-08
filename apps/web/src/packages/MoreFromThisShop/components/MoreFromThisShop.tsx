@@ -6,7 +6,6 @@ import ProductGrid from "@/packages/YouMightLoveThese/components/ProductGrid";
 import { Button } from "@/shared/ui/button";
 import { Heart } from "lucide-react";
 import Image from "next/image";
-import { MOCK_SELLERS } from "@/lib/mockProduct";
 
 
 interface Props {
@@ -31,13 +30,13 @@ export default function MoreFromThisShop({
     const { products, sellerId } = useMoreFromThisShop(currentProduct.id, limit);
 
     // Lấy seller info từ MOCK_SELLERS
-    const sellerInfo = MOCK_SELLERS.find(s => s.id === sellerId) || {
+    const sellerInfo = {
         id: sellerId,
-        name: shopName,
-        avatar: `https://i.pravatar.cc/150?u=${shopName}`,
-        followerCount: 0,
-        favoriteCount: 0,
-        rating: 4.5,
+        name: seller?.name || shopName,
+        avatar: (seller as any)?.avatar || `https://i.pravatar.cc/150?u=${shopName}`,
+        followerCount: (seller as any)?.followerCount || 0,
+        favoriteCount: (seller as any)?.favoriteCount || 0,
+        rating: (seller as any)?.rating || 4.5,
     };
 
     const productsWithPrice = products.map(p => ({

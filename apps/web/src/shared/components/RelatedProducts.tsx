@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { mockProducts } from "@/lib/mockProduct"; 
+import { getProducts } from "@/lib/productApi";
 
 interface RelatedProductsProps {
   currentProductId: string;   
@@ -18,25 +18,13 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ currentProductId, col
     const fetchRelatedProducts = async () => {
       setIsLoading(true);
       try {
-        const query = collectionId ? `?collection_id[]=${collectionId}&limit=6` : `?limit=6`;
-        const res = await fetch(`/store/products${query}`, {
-          headers: {
-            "x-publishable-api-key": process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY || ""
-          }
-        });
-        
-        if (!res.ok) throw new Error("Fetch failed");
-        
-        const data = await res.json() as any;
-        
-        const filteredProducts = (data.products || []).filter(
+        const data = await getProducts({ category: collectionId, limit: 12 });
+        const filteredProducts = data.filter(
           (item: any) => item.id !== currentProductId && item.handle !== currentProductId
         );
-        
-        setProducts(filteredProducts);
+        setProducts(filteredProducts.slice(0, 6));
       } catch (error) {
-        const mockFallback = mockProducts.filter((p: any) => p.id !== currentProductId).slice(0, 5);
-        setProducts(mockFallback);
+        setProducts([]);
       } finally {
         setIsLoading(false);
       }

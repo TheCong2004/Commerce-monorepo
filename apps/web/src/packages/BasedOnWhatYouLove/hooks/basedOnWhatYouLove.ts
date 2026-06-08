@@ -1,4 +1,4 @@
-import { MOCK_PRODUCTS_DATABASE } from '@/lib/mockProduct';
+import { getProducts } from '@/lib/productApi';
 
 export type RecommendedProduct = {
   id: string;
@@ -24,7 +24,7 @@ export async function getBasedOnWhatYouLove({
   limit = 5,
 }: GetBasedOnWhatYouLoveParams): Promise<RecommendedProduct[]> {
   // Lấy Recommended Products từ mock data
-  const allProducts = MOCK_PRODUCTS_DATABASE;
+  const allProducts = await getProducts({ category, limit: 100 });
   
   let filtered = allProducts.filter(
     (p: any) => p.id !== currentProductId && p.variants?.length > 0

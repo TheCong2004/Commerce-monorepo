@@ -1,19 +1,17 @@
 "use client"
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { IconType } from 'react-icons';
 import { FiHeart, FiShoppingBag, FiAlignJustify, FiX } from 'react-icons/fi';
 import { SearchBar } from '@/packages/search/components/SearchBar';
 import { TopBar } from './TopBar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/dropdown-menu';
-import { User, UserCircle, Package, MapIcon, HeartHandshakeIcon, ChevronDown } from 'lucide-react';
-import { GiFountainPen, GiPaintBrush } from 'react-icons/gi';
+import { User, ChevronDown } from 'lucide-react';
+import { GiPaintBrush } from 'react-icons/gi';
 import { Badge } from '../../ui/badge';
 import Sidebar from './SideBar';
-import { navLinks, campaign, categories, blog, NavLink } from './data';
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from '@/shared/ui/navigation-menu';
+import { navLinks, campaign, categories } from './data';
 
 export const Header = () => {
   const router = useRouter();
@@ -89,25 +87,25 @@ export const Header = () => {
       <header className={`sticky top-0 z-40 w-full transition-transform duration-300 ${isHeaderVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <TopBar blogs={campaign} />
 
-        <div className="relative w-full border-b border-black/5 z-30 shadow-sm bg-[#fce4ec] min-h-[100px]">
+        <div className="relative z-30 w-full border-b border-black/5 bg-[#fce4ec] shadow-sm">
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between gap-4 h-[100px]">
+            <div className="flex min-h-[86px] items-center justify-between gap-3 lg:min-h-[96px]">
               
-              <div className="flex items-center gap-4">
-                <button onClick={() => setSidebar(true)} className="xl:hidden p-1 transition-opacity hover:opacity-60">
-                  <FiAlignJustify color="#111111" size={36} />
+              <div className="flex min-w-0 items-center gap-3 lg:gap-4">
+                <button onClick={() => setSidebar(true)} className="p-1 transition-opacity hover:opacity-60 lg:hidden" aria-label="Open menu">
+                  <FiAlignJustify color="#111111" size={32} />
                 </button>
-                <Link href="/" className="transition-opacity hover:opacity-80">
-                  <Image src="/FPT_Telecom_logo.svg" alt="Logo" width={100} height={30} priority className="h-20 w-auto" />
+                <Link href="/" className="flex-shrink-0 transition-opacity hover:opacity-80">
+                  <Image src="/FPT_Telecom_logo.svg" alt="FPT Telecom" width={210} height={64} priority className="h-14 w-auto sm:h-16 lg:h-20" />
                 </Link>
               </div>
 
               {/* Categories Dropdown - Desktop */}
-              <div className='hidden xl:block flex-shrink-0'>
+              <div className='hidden flex-shrink-0 md:block'>
                 <DropdownMenu open={open} onOpenChange={setOpen}>
-                  <DropdownMenuTrigger className="flex items-center gap-2 font-Inter font-semibold text-[#111111] hover:text-gray-600 text-base transition-colors focus:outline-none">
-                    {open ? <FiX size={30} /> : <FiAlignJustify size={17} />}
-                    <span className="hidden sm:inline">Categories</span>
+                  <DropdownMenuTrigger className="flex items-center gap-2 whitespace-nowrap font-Inter text-sm font-semibold text-[#111111] transition-colors hover:text-gray-600 focus:outline-none lg:text-base">
+                    {open ? <FiX size={26} /> : <FiAlignJustify size={17} />}
+                    <span>Categories</span>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="rounded-xl overflow-hidden p-0 shadow-lg bg-white w-40 max-h-[500px] border border-gray-100">
                     <div className="overflow-y-auto">
@@ -125,11 +123,11 @@ export const Header = () => {
 
               {mounted && (
                 <>
-                  <div className='flex-grow max-w-2xl hidden md:block z-[100]'>
+                  <div className='z-[100] hidden min-w-[220px] flex-1 md:block lg:max-w-xl xl:max-w-2xl'>
                     <SearchBar />
                   </div>
 
-                  <div className="flex items-center gap-5">
+                  <div className="flex flex-shrink-0 items-center gap-3 sm:gap-4 lg:gap-5">
                     <Link href="/wishlist" className='relative'>
                       <FiHeart size={22} className="hover:text-orange-400 transition-colors" />
                       {wishlist > 0 && <Badge className="absolute -top-1.5 -right-2 bg-[#F67273] rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px]">{wishlist}</Badge>}
@@ -148,8 +146,8 @@ export const Header = () => {
 
           {/* Desktop Navigation */}
           {mounted && (
-            <div className="hidden lg:block max-w-7xl mx-auto pb-2">
-              <ul className="flex items-center justify-center gap-6">
+            <div className="hidden max-w-7xl mx-auto pb-2 lg:block">
+              <ul className="flex items-center justify-center gap-4 xl:gap-6">
                 {navLinks.map((item, index) => {
                   const isProductMenu = item.name.toLowerCase() === 'products';
                   
@@ -165,7 +163,7 @@ export const Header = () => {
                           <DropdownMenuTrigger asChild>
                             <Link
                               href="/collection"
-                              className="flex items-center gap-1 font-Inter text-[16px] font-semibold transition-all text-[#111111] hover:text-orange-500 focus:outline-none cursor-pointer"
+                              className="flex items-center gap-1 whitespace-nowrap font-Inter text-[15px] font-semibold text-[#111111] transition-all hover:text-orange-500 focus:outline-none xl:text-[16px]"
                               onClick={(e) => {
                                 setIsProductDropdownOpen(false);
                                 router.push('/collection');
@@ -209,7 +207,7 @@ export const Header = () => {
 
                   return (
                     <li key={index} className="transition-transform hover:scale-105">
-                      <Link href={item.href} className={`font-Inter text-[16px] font-semibold transition-all ${getSolidStyle(item.name)}`}>
+                      <Link href={item.href} className={`whitespace-nowrap font-Inter text-[15px] font-semibold transition-all xl:text-[16px] ${getSolidStyle(item.name)}`}>
                         {item.name === 'Create Your Own' && <GiPaintBrush size={18} className="inline mr-1" />}
                         {item.name}
                       </Link>

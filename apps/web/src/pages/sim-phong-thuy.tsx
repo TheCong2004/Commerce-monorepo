@@ -4,7 +4,7 @@ import { PrimaryLayout } from "@/layouts/PrimaryLayout";
 import { Button } from "@/shared/ui/button";
 import { SIM_OFFERS } from "@/lib/simData";
 import i18nConfig from "../../next-i18next.config";
-
+ 
 export const getStaticProps: GetStaticProps = async ({ locale = "en" }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common"], i18nConfig)),

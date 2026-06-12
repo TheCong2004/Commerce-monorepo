@@ -339,9 +339,6 @@ CREATE TABLE IF NOT EXISTS ucp_checkout_sessions (
 
 CREATE INDEX IF NOT EXISTS idx_api_keys_hash ON api_keys(key_hash);
 CREATE INDEX IF NOT EXISTS idx_products_status ON products(status);
-CREATE INDEX IF NOT EXISTS idx_products_handle ON products(handle);
-CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
-CREATE INDEX IF NOT EXISTS idx_products_type ON products(product_type);
 CREATE INDEX IF NOT EXISTS idx_variants_sku ON variants(sku);
 CREATE INDEX IF NOT EXISTS idx_variants_product ON variants(product_id);
 CREATE INDEX IF NOT EXISTS idx_inventory_sku ON inventory(sku);

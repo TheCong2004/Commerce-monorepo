@@ -1,16 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
   experimental: {
     optimizePackageImports: [
       '@commerce/ui-kit', 
       'lucide-react',
       '@tma.js/sdk-react'
-    ],
-    turbo: {
-      enabled: false
-    }
+    ]
   },
   transpilePackages: ['@commerce/ui-kit', '@commerce/shared-hooks', '@commerce/api-client', '@commerce/shared-types', '@commerce/shared-utils'],
+  images: {
+    unoptimized: true,
+  },
   // Disable production source maps to reduce bundle size
   productionBrowserSourceMaps: false,
   webpack: (config, { isServer }) => {

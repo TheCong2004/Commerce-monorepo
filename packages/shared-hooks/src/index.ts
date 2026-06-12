@@ -2,27 +2,31 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 export * from "@tanstack/react-query";
 import { createCommerceClient } from "@commerce/api-client";
-import { MOCK_PRODUCTS } from "./mockData";
 
-// This should be initialized in the app and passed via context or similar
-// For now, we export the hooks that take the client as an argument or use a default one
-// @ts-ignore
-const baseUrl = import.meta.env?.VITE_API_URL || "http://localhost:8787";
+const runtimeEnv = (globalThis as any).process?.env || {};
+const viteEnv = (import.meta as any).env || {};
+const productionMerchantUrl = "https://merchant.thecong2610.workers.dev";
+const cleanUrl = (value: unknown) => {
+  if (!value) return undefined;
+  const url = String(value);
+  return url.includes('localhost') || url.includes('127.0.0.1') ? undefined : url;
+};
+const baseUrl =
+  cleanUrl(runtimeEnv.NEXT_PUBLIC_MERCHANT_URL) ||
+  cleanUrl(runtimeEnv.NEXT_PUBLIC_MERCHANT_API_URL) ||
+  cleanUrl(viteEnv.VITE_MERCHANT_URL) ||
+  cleanUrl(viteEnv.VITE_API_URL) ||
+  productionMerchantUrl;
 const defaultClient = createCommerceClient(baseUrl) as any;
 
 export function useProducts(limit = "10") {
   return useQuery({
     queryKey: ["products", limit],
     queryFn: async () => {
-      try {
-        const res = await (defaultClient as any).v1.products.$get({ query: { limit } });
-        if (!res.ok) throw new Error("API failed");
-        const data = await res.json();
-        return data.items ? data : { items: MOCK_PRODUCTS };
-      } catch (e) {
-        console.warn("API Error, using Mock Data instead:", e);
-        return { items: MOCK_PRODUCTS };
-      }
+      const res = await (defaultClient as any).v1.products.$get({ query: { limit } });
+      if (!res.ok) throw new Error("Failed to fetch products");
+      const data = await res.json();
+      return data.items ? data : { items: [] };
     },
   });
 }

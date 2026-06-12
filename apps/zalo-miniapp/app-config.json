@@ -15,18 +15,20 @@
     "leftButton": "back"
   },
   "listURLs": [
-    "http://localhost:8787",
-    "https://printerval.thecong2610.workers.dev"
+    "https://merchant.thecong2610.workers.dev",
+    "https://telegram-shop-6t7.pages.dev"
   ],
   "pages": [
     "pages/index"
   ],
   "env": {
     "DEVELOPMENT": {
-      "API_URL": "http://localhost:8787"
+      "API_URL": "https://merchant.thecong2610.workers.dev",
+      "VITE_MERCHANT_URL": "https://merchant.thecong2610.workers.dev"
     },
     "PRODUCTION": {
-      "API_URL": "https://printerval.thecong2610.workers.dev"
+      "API_URL": "https://merchant.thecong2610.workers.dev",
+      "VITE_MERCHANT_URL": "https://merchant.thecong2610.workers.dev"
     }
   }
 }

@@ -5,8 +5,12 @@
   "scripts": {
     "dev": "next dev -p 3002",
     "build": "next build --webpack",
-    "build:cf": "npx @opennextjs/cloudflare build",
-    "deploy": "npx wrangler pages deploy .open-next --project-name=telegram-shop --commit-dirty=true",
+    "build:cf": "pnpm run build",
+    "build:worker": "opennextjs-cloudflare build",
+    "deploy": "pnpm run deploy:prod",
+    "deploy:prod": "pnpm run build:cf && wrangler pages deploy out --project-name=telegram-shop --branch=main --commit-dirty=true",
+    "deploy:staging": "pnpm run build:cf && wrangler pages deploy out --project-name=telegram-shop-staging --branch=staging --commit-dirty=true",
+    "deploy:preview": "pnpm run build:cf && wrangler pages deploy out --project-name=telegram-shop-preview --commit-dirty=true",
     "start": "next start",
     "lint": "next lint"
   },

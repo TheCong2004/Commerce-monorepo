@@ -1,0 +1,11 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../packages/ui-kit/src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};

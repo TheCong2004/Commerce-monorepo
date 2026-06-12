@@ -7,11 +7,11 @@
   "listCSS": ["assets/style.css"],
   "app": {
     "id": "3300753060489528246",
-    "title": "Printerval",
-    "headerTitle": "Printerval",
-    "headerColor": "#2563eb",
+    "title": "AssetFlow",
+    "headerTitle": "AssetFlow",
+    "headerColor": "#0d9488",
     "textColor": "white",
-    "statusBarColor": "#2563eb",
+    "statusBarColor": "#0d9488",
     "leftButton": "back"
   },
   "listURLs": [

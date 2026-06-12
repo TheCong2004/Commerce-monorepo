@@ -613,8 +613,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Mèo Ba Tư màu xám 3 tháng tuổi",
     handle: "meo-ba-tu-xam-3-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/f_auto,q_auto/hinh-nen-meo-10_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/f_auto,q_auto/hinh-nen-meo-10_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Mèo con",
     variants: [
@@ -706,15 +706,207 @@ images: [
       { id: "pet8-v1", title: "Chó con", calculated_price: { calculated_amount: 2200, original_amount: 3200 }, options: [{ value: "Con cái" }] }
     ]
   },
-  // Vẹt
+  {
+    id: "p12",
+    sellerId: "seller_2",
+    seller: MOCK_SELLERS[1],
+    handle: "custom-couple-mug",
+    category: "mug",
+    title: "Annoying Couple Mug",
+    description: "Tùy chỉnh cốc đôi với các màu da, kiểu tóc, cộc kính mắt và phụ kiện khác.",
+    thumbnail: "https://res.cloudinary.com/dzkcqktcl/image/upload/v1774549837/1-2-ae193eb82430001ab38746f8223aed222_zzsppw.jpg",
+    images: [{ url: "https://res.cloudinary.com/dzkcqktcl/image/upload/v1774549837/1-2-ae193eb82430001ab38746f8223aed222_zzsppw.jpg" }],
+    variants: [
+      { id: "v12-1", title: "White / 11oz", calculated_price: { calculated_amount: 1500, original_amount: 3000 }, options: [{ value: "White" }, { value: "11oz" }] },
+      { id: "v12-2", title: "Black / 15oz", calculated_price: { calculated_amount: 1700, original_amount: 3400 }, options: [{ value: "Black" }, { value: "15oz" }] },
+    ],
+    options: [
+      { title: "Color", values: [{ id: "c12-1", value: "White" }, { id: "c12-2", value: "Black" }] },
+      { title: "Size", values: [{ id: "sz12-1", value: "11oz" }, { id: "sz12-2", value: "15oz" }] }
+    ],
+    weight: 350,
+    created_at: "2026-03-12T00:00:00Z",
+    print_locations: ["Front", "Back"],
+    print_additional_prices: {},
+    default_print_position: "Front",
+    metadata: { supports_customization: true, customization_type: "couple-portrait" },
+    product_builder: { complementary_products: [] }
+  },
+  {
+    id: "p13",
+    sellerId: "seller_3",
+    seller: MOCK_SELLERS[2],
+    category: "t-shirt",
+    handle: "vintage-vinyl-tshirt",
+    title: "Vintage Vinyl Record Tee",
+    description: "Áo thun kiểu Vintage với in hình đĩa vinyl cổ điển.",
+    thumbnail: "https://res.cloudinary.com/dzkcqktcl/image/upload/v1774549838/1-2-b2faedb8ef9e84b47d04b7a2d99775202_ftw0mz.jpg",
+    images: [{ url: "https://res.cloudinary.com/dzkcqktcl/image/upload/v1774549838/1-2-b2faedb8ef9e84b47d04b7a2d99775202_ftw0mz.jpg" }],
+    variants: [
+      { id: "v13-1", title: "Black / M", calculated_price: { calculated_amount: 1795, original_amount: 2990 }, options: [{ value: "Black" }, { value: "Classic Retro" }, { value: "M" }] },
+      { id: "v13-2", title: "Cream / L", calculated_price: { calculated_amount: 1795, original_amount: 2990 }, options: [{ value: "Cream" }, { value: "Classic Retro" }, { value: "L" }] },
+    ],
+    options: [
+      {
+        title: "Color",
+        values: [
+          { id: "c13-1", value: "Black" },
+          { id: "c13-2", value: "Cream" },
+          { id: "c13-3", value: "Brown" },
+        ]
+      },
+      {
+        title: "Style",
+        values: [
+          { id: "st13-1", value: "Classic Retro" },
+          { id: "st13-2", value: "Modern Fit" },
+        ]
+      },
+      {
+        title: "Size",
+        values: [
+          { id: "s13-1", value: "XS" },
+          { id: "s13-2", value: "S" },
+          { id: "s13-3", value: "M" },
+          { id: "s13-4", value: "L" },
+          { id: "s13-5", value: "XL" },
+          { id: "s13-6", value: "2XL" },
+        ]
+      }
+    ],
+    weight: 210,
+    created_at: "2026-03-13T00:00:00Z",
+    print_locations: ["Front", "Back"],
+    print_additional_prices: { Back: 1.50 },
+    default_print_position: "Front",
+    metadata: { supports_customization: false },
+    product_builder: { complementary_products: [] }
+  },
+
+  // ==================== PET PRODUCTS DATA ====================
+  // Mèo con
+  // Mèo con
+  {
+    id: "pet1",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Mèo British Shorthair con 2 tháng tuổi",
+    handle: "meo-british-shorthair-2-thang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/f_auto,q_auto/hinh-nen-meo-9_orwlet",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/f_auto,q_auto/hinh-nen-meo-9_orwlet" }],
+    category: "Thú cưng",
+    subCategory: "Mèo con",
+    variants: [
+      { id: "pet1-v1", title: "Mèo con", calculated_price: { calculated_amount: 2500, original_amount: 3000 }, options: [{ value: "Con đực" }] }
+    ]
+  },
+  {
+    id: "pet2",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Mèo Ba Tư màu xám 3 tháng tuổi",
+    handle: "meo-ba-tu-xam-3-thang",
+    thumbnail: "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?w=800&q=80" }],
+    category: "Thú cưng",
+    subCategory: "Mèo con",
+    variants: [
+      { id: "pet2-v1", title: "Mèo con", calculated_price: { calculated_amount: 1800, original_amount: 2200 }, options: [{ value: "Con cái" }] }
+    ]
+  },
+  {
+    id: "pet3",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Mèo Ragdoll con 4 tháng tuổi - màu Seal Point",
+    handle: "meo-ragdoll-seal-4-thang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250176/images_uecbdp.jpg",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250176/images_uecbdp.jpg" }],
+    category: "Thú cưng",
+    subCategory: "Mèo con",
+    variants: [
+      { id: "pet3-v1", title: "Mèo con", calculated_price: { calculated_amount: 3500, original_amount: 4500 }, options: [{ value: "Con đực" }] }
+    ]
+  },
+  {
+    id: "pet4",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Mèo Tabby con 2 tháng - hoang mang, tình cảm",
+    handle: "meo-tabby-friendly-2-thang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250176/images_1_ytuqbe.jpg",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250176/images_1_ytuqbe.jpg" }],
+    category: "Thú cưng",
+    subCategory: "Mèo con",
+    variants: [
+      { id: "pet4-v1", title: "Mèo con", calculated_price: { calculated_amount: 800, original_amount: 1200 }, options: [{ value: "Con cái" }] }
+    ]
+  },
+  // Chó con
+  {
+    id: "pet5",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Chó Phú Quốc con, 3 tháng tuổi, đen sạch",
+    handle: "cho-phu-quoc-3-thang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250168/%E1%BA%A3nh-ch%C3%B3-m%C3%A8o-%C4%91%E1%BA%B9p-cover_q3pbdd.jpg",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250168/%E1%BA%A3nh-ch%C3%B3-m%C3%A8o-%C4%91%E1%BA%B9p-cover_q3pbdd.jpg" }],
+    category: "Thú cưng",
+    subCategory: "Chó con",
+    variants: [
+      { id: "pet5-v1", title: "Chó con", calculated_price: { calculated_amount: 1200, original_amount: 1800 }, options: [{ value: "Con đực" }] }
+    ]
+  },
+  {
+    id: "pet6",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Chó Shiba Inu con đỏ vàng, 2 tháng tuổi",
+    handle: "cho-shiba-inu-do-vang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250168/%E1%BA%A3nh-ch%C3%B3-m%C3%A8o-%C4%91%E1%BA%B9p-cover_q3pbdd.jpg",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250168/%E1%BA%A3nh-ch%C3%B3-m%C3%A8o-%C4%91%E1%BA%B9p-cover_q3pbdd.jpg" }],
+    category: "Thú cưng",
+    subCategory: "Chó con",
+    variants: [
+      { id: "pet6-v1", title: "Chó con", calculated_price: { calculated_amount: 4500, original_amount: 6000 }, options: [{ value: "Con đực" }] }
+    ]
+  },
+  {
+    id: "pet7",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Chó Corgi con vàng trắng, 4 tháng, lành",
+    handle: "cho-corgi-vang-trang-4-thang",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250167/cho-hay-meo-thong-minh-hon-theo-goc-nhin-cua-bac-si-thu-y-202110210824476283_nkpe74.jpg",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250167/cho-hay-meo-thong-minh-hon-theo-goc-nhin-cua-bac-si-thu-y-202110210824476283_nkpe74.jpg" }],
+    category: "Thú cưng",
+    subCategory: "Chó con",
+    variants: [
+      { id: "pet7-v1", title: "Chó con", calculated_price: { calculated_amount: 3800, original_amount: 5200 }, options: [{ value: "Con cái" }] }
+    ]
+  },
+  {
+    id: "pet8",
+    sellerId: "seller_4",
+    seller: MOCK_SELLERS[3],
+    title: "Chó Chihuahua con nhỏ bé, 2.5 tháng",
+    handle: "cho-chihuahua-nho-be",
+    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250166/anh-cho-meo-2_k7lpwj.webp",
+    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250166/anh-cho-meo-2_k7lpwj.webp" }],
+    category: "Thú cưng",
+    subCategory: "Chó Mini",
+    variants: [
+      { id: "pet8-v1", title: "Chó con", calculated_price: { calculated_amount: 2200, original_amount: 3200 }, options: [{ value: "Con cái" }] }
+    ]
+  },
   {
     id: "pet9",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Vẹt Macaw Lưng Xanh 1 tuổi, nói tiếng Việt",
     handle: "vet-macaw-lung-xanh-1-tuoi",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_orwlet.jpg",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_orwlet.jpg" }],
+    thumbnail: "https://images.unsplash.com/photo-1552728089-57bdde30ebd3?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1552728089-57bdde30ebd3?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Vẹt",
     variants: [
@@ -727,8 +919,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Vẹt Nông Nông con 4 tháng, khoẻ mạnh",
     handle: "vet-nong-nong-4-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1522858547137-f1dcec554f55?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Vẹt",
     variants: [
@@ -741,23 +933,22 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Vẹt Vàng Quảng Nam, dạy nói được",
     handle: "vet-vang-quang-nam-dao-noi",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1544913716-60814d596bbe?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1544913716-60814d596bbe?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Vẹt",
     variants: [
       { id: "pet11-v1", title: "Vẹt con", calculated_price: { calculated_amount: 1500, original_amount: 2200 }, options: [{ value: "Dạy nói" }] }
     ]
   },
-  // Cá Cảnh
   {
     id: "pet12",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Cá Koi Nhật cid 30cm - màu đỏ trắng",
     handle: "ca-koi-nhat-30cm-do-trang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Cá Cảnh",
     variants: [
@@ -770,8 +961,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Cá Vàng Fantail cảnh đẹp, khoẻ",
     handle: "ca-vang-fantail-canh-dep",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Cá Cảnh",
     variants: [
@@ -784,23 +975,22 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Cá Chép Rồng size 25cm - quý hiếm",
     handle: "ca-chep-rong-25cm-quy-hiem",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Cá Cảnh",
     variants: [
       { id: "pet14-v1", title: "Cá Chép Rồng", calculated_price: { calculated_amount: 8500, original_amount: 11000 }, options: [{ value: "25cm" }] }
     ]
   },
-  // Thỏ Con
   {
     id: "pet15",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Thỏ con lông xám 2 tháng tuổi",
     handle: "tho-con-long-xam-2-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Thỏ Con",
     variants: [
@@ -813,8 +1003,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Thỏ Belgium trắng sạch 3 tháng",
     handle: "tho-belgium-trang-sach-3-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1535268647977-a403b69fc756?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1535268647977-a403b69fc756?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Thỏ Con",
     variants: [
@@ -827,23 +1017,22 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Thỏ Đức lông dài 2.5 tháng",
     handle: "tho-duc-long-dai-2-5-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Thỏ Con",
     variants: [
       { id: "pet17-v1", title: "Thỏ con", calculated_price: { calculated_amount: 600, original_amount: 900 }, options: [{ value: "Con đực" }] }
     ]
   },
-  // Nhím Cảnh
   {
     id: "pet18",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Nhím Cảnh con 2 tháng tuổi, tính tình hiền lành",
     handle: "nhim-canh-con-2-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Nhím Cảnh",
     variants: [
@@ -856,23 +1045,22 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Nhím Afican con màu ghi, khoẻ mạnh",
     handle: "nhim-afican-con-mau-ghi",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1519052537078-e6302a4968d4?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Nhím Cảnh",
     variants: [
       { id: "pet19-v1", title: "Nhím con", calculated_price: { calculated_amount: 1500, original_amount: 2100 }, options: [{ value: "Khỏe mạnh" }] }
     ]
   },
-  // Chuột Lang
   {
     id: "pet20",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Chuột Lang con 1 tháng tuổi, trắng mắt đen",
     handle: "chuot-lang-con-1-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Chuột Lang",
     variants: [
@@ -885,38 +1073,36 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Chuột Lang con lông dài 1.5 tháng",
     handle: "chuot-lang-con-long-dai-1-5-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1534361960057-19889db9621e?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Chuột Lang",
     variants: [
       { id: "pet21-v1", title: "Chuột con", calculated_price: { calculated_amount: 250, original_amount: 400 }, options: [{ value: "Con cái" }] }
     ]
   },
-  // Sóc Cảnh
   {
     id: "pet22",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Sóc Cảnh con Thái ban, 2 tháng",
     handle: "soc-canh-con-thai-ban-2-thang",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1507666480287-c377efdf4124?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1507666480287-c377efdf4124?w=800&q=80" }],
     category: "Thú cưng",
     subCategory: "Sóc Cảnh",
     variants: [
       { id: "pet22-v1", title: "Sóc con", calculated_price: { calculated_amount: 800, original_amount: 1200 }, options: [{ value: "Con đực" }] }
     ]
   },
-  // Phụ kiện, Thức ăn
   {
     id: "pet23",
     sellerId: "seller_4",
     seller: MOCK_SELLERS[3],
     title: "Lồng chim inox cao cấp 80x60x160cm",
     handle: "long-chim-inox-cao-cap",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Phụ kiện",
     variants: [
@@ -929,8 +1115,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Cầu mèo 3 tầng bề ngoài bọc nỉ",
     handle: "cau-meo-3-tang-boc-ni",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1545249390-6bdfa286032f?w=800&q=80" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Phụ kiện",
     variants: [
@@ -943,8 +1129,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Thức ăn mèo Royal Canin 2kg",
     handle: "thuc-an-meo-royal-canin-2kg",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1589722819827-62b77c4b7f38?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1589722819827-62b77c4b7f38?w=800&q=80" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Thức ăn",
     variants: [
@@ -957,8 +1143,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Thức ăn chó Pedigree 3kg",
     handle: "thuc-an-cho-pedigree-3kg",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1589722819827-62b77c4b7f38?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1589722819827-62b77c4b7f38?w=800&q=80" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Thức ăn",
     variants: [
@@ -971,8 +1157,8 @@ images: [
     seller: MOCK_SELLERS[3],
     title: "Dịch vụ tắm spa chó mèo tại nhà",
     handle: "dich-vu-tam-spa-cho-meo",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
+    thumbnail: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80",
+    images: [{ url: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?w=800&q=80" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Dịch vụ",
     variants: [
@@ -981,12 +1167,6 @@ images: [
   },
   {
     id: "pet28",
-    sellerId: "seller_4",
-    seller: MOCK_SELLERS[3],
-    title: "Dịch vụ cắt tỉa lông chó cao cấp",
-    handle: "dich-vu-cat-tia-long-cho",
-    thumbnail: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje",
-    images: [{ url: "https://res.cloudinary.com/disr91rnz/image/upload/v1776250052/hinh-nen-meo-9_gxqjje" }],
     category: "Phụ kiện, Thức ăn, Dịch vụ",
     subCategory: "Dịch vụ",
     variants: [

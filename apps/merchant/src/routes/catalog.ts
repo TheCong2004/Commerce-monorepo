@@ -4,6 +4,7 @@ import { z } from '@hono/zod-openapi';
 import { getDb } from '../db';
 import { authMiddleware, adminOnly } from '../middleware/auth';
 import { ApiError, uuid, now, type HonoEnv } from '../types';
+import { webMockProducts } from '../data/web-mock-products';
 import {
   IdParam,
   ProductResponse,
@@ -158,6 +159,127 @@ app.openapi(listProducts, async (c) => {
   const nextCursor = hasMore && items.length > 0 ? items[items.length - 1].created_at : null;
 
   return c.json({ items, pagination: { has_more: hasMore, next_cursor: nextCursor } }, 200);
+});
+
+const seedWebMockProducts = createRoute({
+  method: 'get',
+  path: '/_seed/web-mock',
+  tags: ['Products'],
+  summary: 'Seed products from apps/web mockProduct.ts',
+  request: {
+    query: z.object({
+      key: z.string().optional().openapi({ param: { name: 'key', in: 'query' } }),
+    }),
+  },
+  responses: {
+    200: { content: { 'application/json': { schema: OkResponse } }, description: 'Seeded' },
+    401: { content: { 'application/json': { schema: ErrorResponse } }, description: 'Unauthorized' },
+  },
+});
+
+app.openapi(seedWebMockProducts, async (c) => {
+  if (c.req.valid('query').key !== 'web-mock-2026') {
+    throw ApiError.unauthorized('Invalid seed key');
+  }
+
+  const db = getDb(c.var.db);
+  const timestamp = now();
+  let variantCount = 0;
+  let assetCount = 0;
+
+  for (const handle of ['premium-t-shirt', 'custom-mug', 'pod-hoodie']) {
+    const oldProducts = await db.query<any>(`SELECT id FROM products WHERE handle = ?`, [handle]);
+    for (const oldProduct of oldProducts) {
+      await db.run(`DELETE FROM variants WHERE product_id = ?`, [oldProduct.id]);
+      await db.run(`DELETE FROM products WHERE id = ?`, [oldProduct.id]);
+    }
+  }
+
+  for (const product of webMockProducts) {
+    await db.run(`DELETE FROM variants WHERE product_id = ?`, [product.id]);
+    await db.run(
+      `INSERT INTO products (id, handle, title, description, image_url, category, product_type, metadata, status, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active', ?)
+       ON CONFLICT(id) DO UPDATE SET
+         handle = excluded.handle,
+         title = excluded.title,
+         description = excluded.description,
+         image_url = excluded.image_url,
+         category = excluded.category,
+         product_type = excluded.product_type,
+         metadata = excluded.metadata,
+         status = excluded.status`,
+      [
+        product.id,
+        product.handle,
+        product.title,
+        product.description,
+        product.image_url,
+        product.category,
+        product.product_type,
+        JSON.stringify(product.metadata),
+        product.created_at || timestamp,
+      ]
+    );
+
+    for (const variant of product.variants) {
+      await db.run(
+        `INSERT INTO variants (id, product_id, sku, title, price_cents, weight_g, image_url, created_at)
+         VALUES (?, ?, ?, ?, ?, 0, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           sku = excluded.sku,
+           title = excluded.title,
+           price_cents = excluded.price_cents,
+           image_url = excluded.image_url`,
+        [
+          variant.id,
+          product.id,
+          variant.sku,
+          variant.title,
+          variant.price_cents,
+          variant.image_url,
+          product.created_at || timestamp,
+        ]
+      );
+      variantCount++;
+    }
+
+    const productType = String(product.product_type || '');
+    const mockProduct = (product.metadata as any)?.mock_product;
+    const isProtectedDigital =
+      productType === 'pdf-book' ||
+      productType === 'digital-marketing' ||
+      productType === 'Báo cáo & Hợp đồng' ||
+      mockProduct?.productType === 'report' ||
+      mockProduct?.productType === 'digital';
+
+    if (isProtectedDigital) {
+      await db.run(
+        `INSERT INTO digital_assets
+         (id, product_id, variant_sku, title, file_key, file_name, content_type, file_size, status, max_downloads, created_at)
+         VALUES (?, ?, NULL, ?, ?, ?, 'application/pdf', NULL, 'active', 5, ?)
+         ON CONFLICT(id) DO UPDATE SET
+           product_id = excluded.product_id,
+           title = excluded.title,
+           file_key = excluded.file_key,
+           file_name = excluded.file_name,
+           content_type = excluded.content_type,
+           status = excluded.status,
+           max_downloads = excluded.max_downloads`,
+        [
+          `web-mock-asset-${product.id}`,
+          product.id,
+          product.title,
+          `digital-assets/${product.handle}.pdf`,
+          `${product.handle}.pdf`,
+          product.created_at || timestamp,
+        ]
+      );
+      assetCount++;
+    }
+  }
+
+  return c.json({ ok: true as const, products: webMockProducts.length, variants: variantCount, assets: assetCount }, 200);
 });
 
 const getProduct = createRoute({

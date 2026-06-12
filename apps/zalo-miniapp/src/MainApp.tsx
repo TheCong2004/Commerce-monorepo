@@ -7,11 +7,26 @@ function MainApp() {
   const { data, isLoading, error } = useProducts("60");
   const { cart, addToCart, removeFromCart } = useCart();
   const { createPayment } = useCheckout();
+  const [zaloUser, setZaloUser] = React.useState<{ name: string; email: string } | null>(null);
 
   React.useEffect(() => {
     api.setNavigationBarColor({
-      color: "#2563eb",
+      color: "#0d9488",
       textColor: "white",
+    });
+
+    api.getUserInfo({
+      success: (res) => {
+        const { userInfo } = res;
+        setZaloUser({
+          name: userInfo?.name || "Khách hàng Zalo",
+          email: `${userInfo?.id || "zalo-user"}@zalo.me`,
+        });
+      },
+      fail: (err) => {
+        console.warn("Failed to get user info from ZMP SDK:", err);
+        setZaloUser({ name: "Khách hàng Zalo", email: "zalo-user@zalo.me" });
+      }
     });
   }, []);
 
@@ -41,6 +56,7 @@ function MainApp() {
       onAddToCart={addToCart}
       onRemoveFromCart={removeFromCart}
       onCheckout={handleCheckout}
+      initialUser={zaloUser}
     />
   );
 }

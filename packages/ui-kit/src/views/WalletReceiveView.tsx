@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, QrCode } from "lucide-react";
+import { ArrowLeft, QrCode } from "../icons";
 import { pageTransition } from "../helpers";
 
 interface WalletReceiveViewProps {

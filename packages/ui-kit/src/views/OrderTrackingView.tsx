@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, X, ChevronRight, Truck } from "lucide-react";
+import { ArrowLeft, X, ChevronRight, Truck } from "../icons";
 import { pageTransition } from "../helpers";
 
 interface OrderTrackingViewProps {

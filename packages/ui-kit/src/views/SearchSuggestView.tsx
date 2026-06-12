@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Search, X, ChevronRight } from "lucide-react";
+import { ArrowLeft, Search, X, ChevronRight } from "../icons";
 import { pageTransition } from "../helpers";
 
 interface SearchSuggestViewProps {

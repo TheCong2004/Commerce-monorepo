@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Calendar } from "lucide-react";
+import { ArrowLeft, Calendar } from "../icons";
 import { formatVnd, pageTransition } from "../helpers";
 import { Card } from "../components/Card";
 

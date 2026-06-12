@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X } from "./icons";
 
 import {
   Platform,

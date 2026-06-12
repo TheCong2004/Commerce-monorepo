@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Plus } from "lucide-react";
+import { Heart, Plus } from "../icons";
 import { MiniShopProduct } from "../types";
 import { cn, formatVnd, fadeUpItem } from "../helpers";
 import { ProductImage } from "./ProductImage";

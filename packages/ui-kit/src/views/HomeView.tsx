@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { TrendingUp } from "lucide-react";
+import { TrendingUp } from "../icons";
 import { MiniShopProduct, MiniShopCartItem } from "../types";
 import { pageTransition } from "../helpers";
 import { Header } from "../components/Header";

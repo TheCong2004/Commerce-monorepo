@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check } from "../icons";
 import { formatVnd, pageTransition } from "../helpers";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";

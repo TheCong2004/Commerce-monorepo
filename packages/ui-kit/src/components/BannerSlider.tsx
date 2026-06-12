@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Sparkles } from "../icons";
 import { cn, PROMO_SLIDES } from "../helpers";
 
 export function BannerSlider() {

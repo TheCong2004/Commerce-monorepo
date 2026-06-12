@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { LogOut, Wallet, ChevronRight, History, MapPin, Heart, FileText } from "lucide-react";
+import { LogOut, Wallet, ChevronRight, History, MapPin, Heart, FileText } from "../icons";
 import { cn, pageTransition } from "../helpers";
 import { Button } from "../components/Button";
 

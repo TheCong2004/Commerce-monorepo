@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "../icons";
 import { Button } from "../components/Button";
 import { cn, ONBOARDING_SLIDES, pageTransition } from "../helpers";
 

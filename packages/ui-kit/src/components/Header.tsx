@@ -1,5 +1,5 @@
 import React from "react";
-import { Bell, ShoppingBag } from "lucide-react";
+import { Bell, ShoppingBag } from "../icons";
 
 interface HeaderProps {
   appName: string;

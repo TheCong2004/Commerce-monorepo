@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft, Heart } from "../icons";
 import { MiniShopProduct } from "../types";
 import { cn, formatVnd, pageTransition } from "../helpers";
 import { Button } from "../components/Button";

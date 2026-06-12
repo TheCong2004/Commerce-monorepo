@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Minus, Plus, ShoppingBag as CartIcon } from "lucide-react";
+import { ArrowLeft, Minus, Plus, ShoppingBag as CartIcon } from "../icons";
 import { MiniShopProduct, MiniShopCartItem } from "../types";
 import { formatVnd, pageTransition } from "../helpers";
 import { Button } from "../components/Button";

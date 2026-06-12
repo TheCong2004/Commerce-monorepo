@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, X, SlidersHorizontal } from "lucide-react";
+import { Search, X, SlidersHorizontal } from "../icons";
 
 interface SearchBarProps {
   value: string;

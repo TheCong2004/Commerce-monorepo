@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "../icons";
 import { MiniShopProduct } from "../types";
 import { pageTransition } from "../helpers";
 import { SearchBar } from "../components/SearchBar";

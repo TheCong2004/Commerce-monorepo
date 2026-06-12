@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, MapPin, CreditCard, Smartphone } from "lucide-react";
+import { ArrowLeft, MapPin, CreditCard, Smartphone } from "../icons";
 import { MiniShopCartItem } from "../types";
 import { cn, formatVnd, pageTransition } from "../helpers";
 import { Button } from "../components/Button";

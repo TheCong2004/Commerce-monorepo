@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Home, LayoutGrid, ShoppingBag, UserRound } from "lucide-react";
+import { Home, LayoutGrid, ShoppingBag, UserRound } from "../icons";
 import { cn } from "../helpers";
 
 interface BottomNavProps {

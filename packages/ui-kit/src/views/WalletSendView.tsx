@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "../icons";
 import { Button } from "../components/Button";
 import { cn, pageTransition } from "../helpers";
 

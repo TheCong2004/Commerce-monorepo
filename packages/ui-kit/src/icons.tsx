@@ -4,7 +4,7 @@ type IconProps = React.SVGProps<SVGSVGElement> & {
   size?: number | string;
 };
 
-function Icon({ children, size, className, ...props }: IconProps & { children: React.ReactNode }) {
+function Icon({ children, size = 24, className, ...props }: IconProps & { children: React.ReactNode }) {
   return (
     <svg
       width={size}
